@@ -20,7 +20,7 @@
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <script src="https://apis.google.com/js/platform.js"></script>
 </head>
-<body class="antialiased text-gray-800 dark:text-gray-200 ">
+<body class="antialiased text-gray-800 dark:text-gray-50 ">
     <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T8343DZ"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

@@ -1,11 +1,11 @@
 <!-- ====== Hero Section Start -->
-<div class="relative pt-[60px] lg:pt-[80px] pb-[110px] hero-bg">
+<div class="relative pt-[60px] lg:pt-[80px] pb-[110px] hero-bg dark:dark-hero-bg">
   <div class="overlay"></div> 
     <div class="container relative z-10">
         <div class="flex flex-wrap -mx-4">
             <div class="w-full px-4 lg:w-5/12">
                 <div class="hero-content">
-                    <h1 class="text-dark dark:text-gray-200 font-bold text-4xl sm:text-[42px] lg:text-[40px] xl:text-[42px] leading-snug mb-6">
+                    <h1 class="text-stone-50 dark:text-stone-200 font-bold text-4xl sm:text-[42px] lg:text-[40px] xl:text-[42px] leading-snug mb-6">
                         <a class="rounded-md text-amber-600" href="https://www.instagram.com/octopus_le_philosophe/" target="_blank">OcToPuS</a>
                         <br />
                         Philosophe à tentacules.
@@ -18,7 +18,7 @@
                         <li>
                             <x-button-link  
                                 href="javascript:void( window.open( 'https://form.jotform.com/221463184068355', 'blank', 'scrollbars=yes, toolbar=no, width=700, height=500' ) ) "
-                                variant="primary" class="rounded-lg">
+                                variant="red" class="rounded-lg">
                                 Programmez un coaching
                             </x-button-link>
                         </li>

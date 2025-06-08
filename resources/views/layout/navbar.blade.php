@@ -1,23 +1,23 @@
 <!-- === Navbar Section Start -->
 <header
 x-data="{navbarOpen: false}"
-class="fixed top-0 left-0 z-50 flex items-center w-full h-24 bg-white shadow-md dark:bg-slate-900"
+class="fixed top-0 left-0 z-50 flex items-center w-full h-24 bg-stone-200 shadow-md dark:bg-stone-800"
 >
 <div class="container">
     <div class="relative flex items-center justify-between -mx4">
         <div class="max-w-full pr-4 w-60">
          <a href="/" class="flex items-center w-full py-2">
              <img
-             src="{{ url('/img/fenrir-l.png') }}"
+             src="{{ url('/img/octo/logo-8phyL.png') }}"
              alt="logo"
-             class="w-[70px] lg:w-[98px] inline-block dark:hidden"
+             class="w-[70px] lg:w-[70px] inline-block dark:hidden"
              />
              <img
-             src="{{ url('/img/fenrir-b3.png') }}"
+             src="{{ url('/img/octo/logo-8phy.png') }}"
              alt="logo"
-             class="w-[70px] lg:w-[98px] hidden dark:inline-block"
+             class="w-[70px] lg:w-[70px] hidden dark:inline-block"
              />
-             <span class="text-xl xl:text-2xl font-bold text-[#0c7187] dark:text-white"></span> <!-- il y avait un tire dans ce span -->
+             <span class="ml-2 text-xl xl:text-2xl font-bold text-amber-600 dark:text-zinc-100"></span> <!-- il y avait un tire dans ce span -->
         </a>
         </div>
         <div class="flex items-center justify-end w-full px-4">
