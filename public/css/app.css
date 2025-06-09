@@ -1,3 +1,4 @@
+@import "globals.css";
 @import"https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap";
 /*
 ! tailwindcss v3.2.7 | MIT License | https://tailwindcss.com
@@ -8,31 +9,32 @@
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
 :root {
-  --stone-50: oklch(98.5% 0.001 106.423);
-  --stone-100: oklch(97% 0.001 106.424);
-  --stone-200: oklch(92.3% 0.003 48.717);
-  --stone-300: oklch(86.9% 0.005 56.366);
-  --stone-400: oklch(70.9% 0.01 56.259);
-  --stone-500: oklch(55.3% 0.013 58.071);
-  --stone-600: oklch(44.4% 0.011 73.639);
-  --stone-700: oklch(37.4% 0.01 67.558);
-  --stone-800: oklch(26.8% 0.007 34.298);
-  --stone-900: oklch(21.6% 0.006 56.043);
-  --stone-950: oklch(14.7% 0.004 49.25);
+  --stone-50: 98.5% 0.001 106.423;
+  --stone-100: 97% 0.001 106.424;
+  --stone-200: 92.3% 0.003 48.717;
+  --stone-300: 86.9% 0.005 56.366;
+  --stone-400: 70.9% 0.01 56.259;
+  --stone-500: 55.3% 0.013 58.071;
+  --stone-600: 44.4% 0.011 73.639;
+  --stone-700: 37.4% 0.01 67.558;
+  --stone-800: 26.8% 0.007 34.298;
+  --stone-900: 21.6% 0.006 56.043;
+  --stone-950: 14.7% 0.004 49.25;
+  --tw-stone-opacity: 1; /* Opacité par défaut pour les couleurs stone */
 }
 
 body.dark {
-  --stone-50: oklch(98.5% 0.001 106.423); /* Valeurs sombres */
-  --stone-100: oklch(97% 0.001 106.424);
-  --stone-200: oklch(92.3% 0.003 48.717);
-  --stone-300: oklch(86.9% 0.005 56.366);
-  --stone-400: oklch(70.9% 0.01 56.259);
-  --stone-500: oklch(55.3% 0.013 58.071);
-  --stone-600: oklch(44.4% 0.011 73.639);
-  --stone-700: oklch(37.4% 0.01 67.558);
-  --stone-800: oklch(26.8% 0.007 34.298);
-  --stone-900: oklch(21.6% 0.006 56.043);
-  --stone-950: oklch(14.7% 0.004 49.25);
+  --stone-50: 98.5% 0.001 106.423;
+  --stone-100: 97% 0.001 106.424;
+  --stone-200: 92.3% 0.003 48.717;
+  --stone-300: 86.9% 0.005 56.366;
+  --stone-400: 70.9% 0.01 56.259;
+  --stone-500: 55.3% 0.013 58.071;
+  --stone-600: 44.4% 0.011 73.639;
+  --stone-700: 37.4% 0.01 67.558;
+  --stone-800: 26.8% 0.007 34.298;
+  --stone-900: 21.6% 0.006 56.043;
+  --stone-950: 14.7% 0.004 49.25;
 }
 *,
 ::before,
@@ -108,19 +110,6 @@ body {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5); /* Superposition noire avec transparence */
     z-index: 1; /* Assurez-vous qu'il est au-dessus de l'image de fond */
-}
-.navbarTogglerActive > span:nth-child(1){
-  transform: rotate(45deg);
-  top: 7px;
-}
-
-.navbarTogglerActive > span:nth-child(2){
-  opacity: 0;
-}
-
-.navbarTogglerActive > span:nth-child(3){
-  top: -8px;
-  transform: rotate(135deg);
 }
 
 /*
@@ -1005,6 +994,16 @@ video {
   border-color: f0f0f0;
 }
 
+.dark .dark\:text-secondary {
+  --tw-text-opacity: 1;
+  color: oklch(var(--stone-100) / var(--tw-text-opacity)); /* Amber 50 */
+}
+
+.dark .dark\:text-primary {
+  --tw-text-opacity: 1;
+  color: oklch(var(--stone-800) / var(--tw-text-opacity)); /* Amber 500 */
+}
+
 /* Amber */
 .dark .dark\:text-amber-50 {
   --tw-text-opacity: 1;
@@ -1419,8 +1418,7 @@ video {
 }
 
 .border-primary{
-  --tw-border-opacity: 1;
-  border-color: rgb(78 106 170 / var(--tw-border-opacity));
+  border-color:  oklch(var(--stone-300) / var(--tw-stone-opacity));
 }
 .border-red-500{
   --tw-border-opacity: 1;
@@ -1460,10 +1458,17 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(22 163 74 / var(--tw-bg-opacity));
 }
+
 .bg-primary{
-  --tw-bg-opacity: 1;
-  background-color: rgb(78 106 170 / var(--tw-bg-opacity));
+   --tw-bg-opacity: 1;
+  background-color: oklch(var(--stone-300) / var(--tw-bg-opacity));
 }
+
+.bg-secondary {
+  --tw-bg-opacity: 1;
+  background-color: oklch(var(--stone-700) / var(--tw-bg-opacity)); 
+}
+
 .bg-red-700{
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
@@ -1475,102 +1480,99 @@ video {
 /* Stone Background Colors */
 .bg-stone-50 {
   --tw-bg-opacity: 1;
-  background-color: var(--stonve-50);
-}
+background-color: oklch(var(--stone-50) / var(--tw-bg-opacity));}
 
 .bg-stone-100 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-100);
-}
+ background-color: oklch(var(--stone-100) / var(--tw-bg-opacity));}
 
 .bg-stone-200 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-200);
-}
+  background-color: oklch(var(--stone-200) / var(--tw-bg-opacity));}
 
 .bg-stone-300 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-300);
+  background-color: oklch(var(--stone-300) / var(--tw-bg-opacity));
 }
 
 .bg-stone-400 {
   --tw-bg-opacity: 1;
-  background-color:var(--stone-100);
+  background-color: oklch(var(--stone-400) / var(--tw-bg-opacity));
 }
 
 .bg-stone-500 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-500);
+  background-color: oklch(var(--stone-500) / var(--tw-bg-opacity));
 }
 
 .bg-stone-600 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-600);
+  background-color: oklch(var(--stone-600) / var(--tw-bg-opacity));
 }
 
 .bg-stone-700 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-700);
+ background-color: oklch(var(--stone-700) / var(--tw-bg-opacity));
 }
 
 .bg-stone-800 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-800);
+  background-color: oklch(var(--stone-800) / var(--tw-bg-opacity));
 }
 
 .bg-stone-900 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-900);
+  background-color: oklch(var(--stone-900) / var(--tw-bg-opacity));
 }
-/* Stone Background Colors */
-.dark .dark\:bg-stone-50 {
+
+.dark .dark\:bg-secondary {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-50);
+  background-color: oklch(var(--stone-700) / var(--tw-bg-opacity)); 
 }
 
 .dark .dark\:bg-stone-100 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-100);
+  background-color: oklch(var(--stone-100) / var(--tw-bg-opacity)); 
 }
 
 .dark .dark\:bg-stone-200 {
   --tw-bg-opacity: 1;
-  background-color: var();
+  background-color: oklch(var(--stone-200) / var(--tw-bg-opacity)); 
 }
 
 .dark .dark\:bg-stone-300 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-300);
+  background-color: oklch(var(--stone-300) / var(--tw-bg-opacity)); 
 }
 
 .dark .dark\:bg-stone-400 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-400);
+  background-color: oklch(var(--stone-400) / var(--tw-bg-opacity)); 
 }
 
 .dark .dark\:bg-stone-500 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-500);
+  background-color: oklch(var(--stone-500) / var(--tw-bg-opacity)); 
 }
 
 .dark .dark\:bg-stone-600 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-600);
+  background-color: oklch(var(--stone-600) / var(--tw-bg-opacity)); 
 }
 
 .dark .dark\:bg-stone-700 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-700);
+  background-color: oklch(var(--stone-700) / var(--tw-bg-opacity)); 
 }
 
 .dark .dark\:bg-stone-800 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-800);
+  background-color: oklch(var(--stone-800) / var(--tw-bg-opacity)); 
 }
 
 .dark .dark\:bg-stone-900 {
   --tw-bg-opacity: 1;
-  background-color: var(--stone-900);
+  background-color: oklch(var(--stone-900) / var(--tw-bg-opacity)); 
 }
 
 .bg-opacity-0{
@@ -2091,8 +2093,14 @@ video {
 
 .text-primary{
   --tw-text-opacity: 1;
-  color: rgb(78 106 170 / var(--tw-text-opacity));
+  color: oklch(var(--stone-800) / var(--tw-text-opacity));
 }
+
+.text-secondary{
+  --tw-text-opacity: 1;
+  color: oklch(var(--stone-100) / var(--tw-text-opacity));
+}
+
 .text-red-500{
   --tw-text-opacity: 1;
   color: rgb(239 68 68 / var(--tw-text-opacity));
@@ -2108,7 +2116,7 @@ video {
   text-decoration-line: none;
 }
 .decoration-primary{
-  text-decoration-color: #4E6AAA;
+  text-decoration-color: #94741b;
 }
 .decoration-2{
   text-decoration-thickness: 2px;
@@ -2145,7 +2153,7 @@ video {
   outline-offset: 2px;
 }
 .outline-primary{
-  outline-color: #4E6AAA;
+  outline-color: #aa9c4e;
 }
 .ring-gray-300{
   --tw-ring-opacity: 1;
@@ -2194,10 +2202,6 @@ video {
   scroll-snap-align: center;
 }
 
-body {
-  font-family: "Inter", sans-serif;
-}
-
 .navbarTogglerActive > span:nth-child(1){
   top: 7px;
   transform: rotate(45deg);
@@ -2207,7 +2211,7 @@ body {
 }
 .navbarTogglerActive > span:nth-child(3){
   top: -8px;
-  --tw-rotate: 135deg;
+    --tw-rotate: 135deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -2330,7 +2334,7 @@ input#checkboxLabelFive:checked ~ .box{
 
 .hover\:border-primary:hover{
   --tw-border-opacity: 1;
-  border-color: rgb(78 106 170 / var(--tw-border-opacity));
+  border-color: oklch(var(--stone-500) / var(--tw-border-opacity));
 }
 
 .hover\:border-red-700:hover{
@@ -2350,7 +2354,7 @@ input#checkboxLabelFive:checked ~ .box{
 
 .hover\:bg-primary:hover{
   --tw-bg-opacity: 1;
-  background-color: rgb(78 106 170 / var(--tw-bg-opacity));
+  background-color: oklch(var(--stone-400) / var(--tw-bg-opacity));
 }
 
 .hover\:bg-red-700:hover{
@@ -2379,7 +2383,7 @@ input#checkboxLabelFive:checked ~ .box{
 
 .hover\:text-primary:hover{
   --tw-text-opacity: 1;
-  color: rgb(78 106 170 / var(--tw-text-opacity));
+  color: oklch(var(--stone-50) / var(--tw-text-opacity));
 }
 
 .hover\:text-white:hover{
@@ -2408,6 +2412,11 @@ input#checkboxLabelFive:checked ~ .box{
 .focus\:border-red-500:focus{
   --tw-border-opacity: 1;
   border-color: rgb(239 68 68 / var(--tw-border-opacity));
+}
+
+.focus\:border-amber-600:focus{
+  --tw-border-opacity: 1;
+  border-color: rgb(217 119 6 / var(--tw-border-opacity));
 }
 
 .focus\:outline-none:focus{
@@ -2461,6 +2470,11 @@ input#checkboxLabelFive:checked ~ .box{
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
+.dark .dark\:border-secondary{
+  --tw-border-opacity: 1;
+  border-color: oklch(var(--stone-700) / var(--tw-border-opacity));
+}
+
 .dark .dark\:bg-gray-900{
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
@@ -2468,7 +2482,7 @@ input#checkboxLabelFive:checked ~ .box{
 
 .dark .dark\:bg-primary{
   --tw-bg-opacity: 1;
-  background-color: rgb(78 106 170 / var(--tw-bg-opacity));
+  background-color: oklch(var(--stone-200) / var(--tw-bg-opacity));
 }
 
 .dark .dark\:bg-slate-800{
@@ -2486,6 +2500,11 @@ input#checkboxLabelFive:checked ~ .box{
   border-color: rgb(30 30 34 / var(--tw-border-opacity));
 }
 
+.dark .dark\:hover\:bg-secondary:hover {
+  --tw-bg-opacity: 1;
+  background-color: oklch(var(--stone-800) / var(--tw-bg-opacity));
+}
+
 .dark .dark\:text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -2494,6 +2513,21 @@ input#checkboxLabelFive:checked ~ .box{
 .dark .hover\:dark\:border-primary:hover{
   --tw-border-opacity: 1;
   border-color: rgb(78 106 170 / var(--tw-border-opacity));
+}
+
+.dark .hover\:dark\:text-primary:hover{
+  --tw-border-opacity: 1;
+  color: oklch(var(--stone-700) / var(--tw-text-opacity));
+}
+
+.dark .hover\:dark\:text-secondary:hover{
+  --tw-border-opacity: 1;
+  color: oklch(var(--stone-800) / var(--tw-text-opacity));
+}
+
+.dark .hover\:dark\:border-secondary:hover{
+  --tw-border-opacity: 1;
+  border-color: oklch(var(--stone-700) / var(--tw-border-opacity));
 }
 
 @media (min-width: 400px){

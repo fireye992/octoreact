@@ -1,5 +1,5 @@
 <!-- ====== Cards Section Start -->
-<section id="tutos" class="pt-24 pb-16 dark:bg-slate-800">
+<section id="tutos" class="pt-24 pb-16 dark:bg-stone-800">
     <div class="container">
       <div class="flex flex-wrap -mx-4">
         <div class="w-full px-4">

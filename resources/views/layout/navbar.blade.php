@@ -1,7 +1,7 @@
 <!-- === Navbar Section Start -->
 <header
 x-data="{navbarOpen: false}"
-class="fixed top-0 left-0 z-50 flex items-center w-full h-24 bg-stone-200 shadow-md dark:bg-stone-800"
+class="fixed top-0 left-0 z-50 flex items-center w-full h-24 bg-primary shadow-md dark:bg-secondary"
 >
 <div class="container">
     <div class="relative flex items-center justify-between -mx4">
@@ -17,7 +17,7 @@ class="fixed top-0 left-0 z-50 flex items-center w-full h-24 bg-stone-200 shadow
              alt="logo"
              class="w-[70px] lg:w-[70px] hidden dark:inline-block"
              />
-             <span class="ml-2 text-xl xl:text-2xl font-bold text-amber-600 dark:text-zinc-100"></span> <!-- il y avait un tire dans ce span -->
+             <span class="ml-2 text-xl xl:text-2xl font-bold text-amber-600 dark:secondary"></span> <!-- il y avait un tire dans ce span -->
         </a>
         </div>
         <div class="flex items-center justify-end w-full px-4">
@@ -29,7 +29,7 @@ class="fixed top-0 left-0 z-50 flex items-center w-full h-24 bg-stone-200 shadow
              <nav
              :class="!navbarOpen && 'hidden'"
              id="navbarCollapse"
-             class="absolute right-0 z-50 w-full px-6 py-5 bg-white rounded-lg shadow top-full dark:bg-slate-900 dark:text-gray-300 lg:px-0 lg:max-w-full lg:right-4 lg:block lg:static lg:shadow-none"
+             class="absolute right-0 z-50 w-full px-6 py-5 bg-primary rounded-lg shadow top-full dark:bg-secondary dark:text-secondary lg:px-0 lg:max-w-full lg:right-4 lg:block lg:static lg:shadow-none"
              >
              <ul class="block lg:flex lg:items-center">
                @foreach($navigationItems as $item)

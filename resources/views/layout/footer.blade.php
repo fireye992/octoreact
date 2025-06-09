@@ -1,9 +1,9 @@
 <!-- ==== Footer Section Start --->
-<footer class="relative z-10 py-8 bg-gray-200 dark:bg-slate-800">
+<footer class="relative z-10 py-8 bg-primary dark:bg-secondary">
     <div class="container">
         <div class="flex justify-between flex-warp">
             <span class="inline-flex items-center text-xl">
-                Suivez-moi sur les reseaux sociaux
+                Suivez le poulpe sur les réseaux sociaux
             </span>
             <x-social-icons class="mb-0"></x-social-icons>
         </div>
@@ -29,7 +29,7 @@
                   y2="1.22829e-05"
                   gradientUnits="userSpaceOnUse"
                   >
-                  <stop stop-color="#3056D3" stop-opacity="0.18" />
+                  <stop stop-color="#FF7F50" stop-opacity="0.33" />
                   <stop offset="1" stop-color="#C4C4C4" stop-opacity="0" />
                </linearGradient>
             </defs>
@@ -56,14 +56,18 @@
                   y2="37.5"
                   gradientUnits="userSpaceOnUse"
                   >
-                  <stop stop-color="#319296" stop-opacity="0.31" />
+                  <stop stop-color="#AAA333" stop-opacity="0.31" />
                   <stop offset="1" stop-color="#C4C4C4" stop-opacity="0" />
                </linearGradient>
             </defs>
          </svg>
       </span>
-      <a href="https://www.linkedin.com/in/eric-colotte-3ab159112/"
-      target="_blank"class="text-base text-body-color">©2022 Fenrir992</a>
+      <small class="text-sm text-slate-400">
+        
+ ©2025 Made with <span style="color: red;">♥</span> by
+                <a href="https://www.linkedin.com/in/eric-colotte-3ab159112/" class="text-decoration-none text-amber-500 fw-bold" target="_blank" rel="noopener noreferrer">
+                    Fenrir992
+                </a>
     </div>
 
 </footer>

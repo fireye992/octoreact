@@ -18,7 +18,8 @@
                         <li>
                             <x-button-link  
                                 href="javascript:void( window.open( 'https://form.jotform.com/221463184068355', 'blank', 'scrollbars=yes, toolbar=no, width=700, height=500' ) ) "
-                                variant="red" class="rounded-lg">
+                                variant="primary" 
+                                class="rounded-lg">
                                 Programmez un coaching
                             </x-button-link>
                         </li>

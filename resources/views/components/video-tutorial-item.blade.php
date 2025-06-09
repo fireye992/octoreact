@@ -10,7 +10,7 @@
         <div class="relative z-20 w-full aspect-video">
           <div class="absolute top-0 left-0 w-full h-full p-3">
             <!-- Thumbnail -->
-            <img
+          <img
               src="https://i.ytimg.com/vi/{{ $videoId }}/original.jpg"
               alt="image"
               class="object-cover object-center w-full h-full rounded-lg"

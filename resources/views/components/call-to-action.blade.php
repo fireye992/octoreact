@@ -1,6 +1,6 @@
 <!-- ====== Call To Action Section Start -->
 <section>
-    <div class=" bg-primary relative rounded overflow-hidden py-12 px-8 md:p-[70px] z-10 "
+    <div class=" bg-primary dark:bg-secondary relative rounded overflow-hidden py-12 px-8 md:p-[70px] z-10 "
     >
       <div class="container mx-auto">
         <div class="flex flex-wrap items-center -mx-4">
@@ -40,8 +40,8 @@
                    y2="-106.425"
                    gradientUnits="userSpaceOnUse"
                  >
-                    <stop stop-color="white" stop-opacity="0.07"/>
-                    <stop offset="1" stop-color="white" stop-opacity="0"/>
+                    <stop stop-color="gray" stop-opacity="0.4"/>
+                    <stop offset="1" stop-color="stone" stop-opacity="0.3"/>
                  </linearGradient>
               </defs>
            </svg>

@@ -1,5 +1,5 @@
 <!-- ====== About Section Start -->
-<section id="about" class="dark:bg-slate-800 pt-20 lg:pt-[120px] pb-12 lg:pb-[90px] overflow-hidden">
+<section id="about" class="dark:bg-secondary pt-20 lg:pt-[120px] pb-12 lg:pb-[90px] overflow-hidden">
     <div class="container">
       <div class="flex flex-wrap items-center justify-between -mx-4">
         <div class="w-full px-4 lg:w-6/12">
@@ -39,14 +39,14 @@
                    "Like a monkey ready to be shot into space"
                </blockquote>
             </span>
-            <h2 class="mb-8 text-3xl font-bold sm:text-4xl dark:text-gray-200">
+            <h2 class="mb-8 text-3xl font-bold sm:text-4xl dark:text-gray-400">
               Qui suis-je
             </h2>
             <p class="mb-8 text-base dark:text-gray-400">
               Coach professionnel. Plus de 20 ans d’expériences, en Muay Thai, Kick Boxing.<br/>
              <br />
               Basé sur une méthode de téléologie cognitive.<br/>
-              <span class="font-bold text-amber-500">(Perception-> Connaissance-> Savoir => Nouvelles perceptions-> etc...)<br /></span>
+              <span class="font-bold text-amber-600">(Perception-> Connaissance-> Savoir => Nouvelles perceptions-> etc...)<br /></span>
 
               Pour faire marcher un enfant il ne sert à rien de lui expliquer le fonctionnement psychomoteur de ses jambes, on met sa tétine sur une commode on met un tapis moelleux au cas ou et on le guide, on l'observe avant de corriger ce qui doit l'être, puis on transcende son potentiel.
               Moins de décomposition de mouvements caractéristiques aux anciens arts martiaux, mais une inévitable assimilation par la répétition.
