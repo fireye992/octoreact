@@ -2612,6 +2612,14 @@ input#checkboxLabelFive:checked ~ .box{
     line-height: 2.5rem;
   }
 
+  .sm\:text-\[25px\]{
+    font-size: 25px;
+  } 
+  
+  .sm\:text-\[30px\]{
+    font-size: 30px;
+  } 
+  
   .sm\:text-\[38px\]{
     font-size: 38px;
   }
@@ -2792,8 +2800,24 @@ input#checkboxLabelFive:checked ~ .box{
     text-align: right;
   }
 
+  .lg\:text-\[25px\]{
+    font-size: 25px;
+  }
+
+  .lg\:text-\[30px\]{
+    font-size: 30px;
+  }
+
+ .lg\:text-\[32px\]{
+    font-size: 32px;
+  }
+
   .lg\:text-\[36px\]{
     font-size: 36px;
+  }
+
+ .lg\:text-\[38px\]{
+    font-size: 38px;
   }
 
   .lg\:text-\[40px\]{
@@ -2855,6 +2879,22 @@ input#checkboxLabelFive:checked ~ .box{
     line-height: 2rem;
   }
 
+  .xl\:text-\[25px\]{
+    font-size: 25px;
+  }
+
+  .xl\:text-\[30px\]{
+    font-size: 30px;
+  } 
+
+    .xl\:text-\[32x\]{
+    font-size: 32px;
+  }
+
+  .xl\:text-\[38px\]{
+    font-size: 38px;
+  } 
+  
   .xl\:text-\[40px\]{
     font-size: 40px;
   }
@@ -2871,3 +2911,14 @@ input#checkboxLabelFive:checked ~ .box{
   }
 }
 
+.dark-mode-image {
+  /* Par défaut, utilisez l'image pour le mode clair , a modifier avec par ex les LL */ 
+  content: url('/img/octo/ly2.gif');
+}
+
+@media (prefers-color-scheme: dark) {
+  .dark-mode-image {
+    /* Utilisez l'image pour le mode sombre */
+    content: url('/img/octo/ly2.gif');
+  }
+}

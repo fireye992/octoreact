@@ -1,69 +1,90 @@
 <!-- ====== About Section Start -->
-<section id="about" class="dark:bg-secondary pt-20 lg:pt-[120px] pb-12 lg:pb-[90px] overflow-hidden">
+<section id="about" class="dark:bg-secondary pt-4 lg:pt-[120px] pb-12 lg:pb-[90px] overflow-hidden">
     <div class="container">
-      <div class="flex flex-wrap items-center justify-between -mx-4">
-        <div class="w-full px-4 lg:w-6/12">
-          <div class="flex items-center -mx-3 sm:-mx-4">
-            <div class="w-full px-3 xl:w-1/2 sm:px-4">
-              <div class="py-3 sm:py-4">
-                <img
-                  src="{{ url('/img/new-tof/P1260046.webp') }}"
-                  alt=""
-                  class="w-full rounded-2xl"
-                />
-              </div>
-              <div class="py-3 sm:py-4">
-                <img
-                  src="{{ url('/img/new-tof/P1260398.webp') }}"
-                  alt=""
-                  class="w-full rounded-2xl"
-                />
-              </div>
+        <div class="flex flex-wrap items-center justify-between -mx-4">
+            <div class="w-full px-4 lg:w-6/12">
+                <div class="flex items-center -mx-3 sm:-mx-4">
+                    <div class="w-full px-3 xl:w-1/2 sm:px-4">
+                        <div class="py-3 sm:py-4">
+                            <img src="{{ url('/img/octo/dissi.jpg') }}" alt="" class="w-full rounded-2xl" />
+                        </div>
+                        <div class="py-3 sm:py-4">
+                            <img src="{{ url('/img/octo/kant.jpg') }}" alt="" class="w-full rounded-2xl" />
+                        </div>
+                    </div>
+                    <div class="w-full px-3 xl:w-1/2 sm:px-4">
+                        <div class="relative z-10 my-4">
+                            <img src="{{ url('/img/octo/thales.jpg') }}" alt="" class="w-full rounded-2xl" />
+                            <x-about-dots></x-about-dots>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="w-full px-3 xl:w-1/2 sm:px-4">
-              <div class="relative z-10 my-4">
-                <img
-                  src="{{ url('/img/new-tof/P1260409.webp') }}"
-                  alt=""
-                  class="w-full rounded-2xl"
-                />
-                <x-about-dots></x-about-dots>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="w-full px-4 lg:w-1/2 xl:w-5/12">
-          <div class="mt-10 lg:mt-0">
-            <span class="block mb-2 text-lg font-semibold text-primary">
-               <blockquote class="px-3 py-2 text-sm italic text-gray-500 border-l-4 border-amber-500">
-                   "Like a monkey ready to be shot into space"
-               </blockquote>
-            </span>
-            <h2 class="mb-8 text-3xl font-bold sm:text-4xl dark:text-gray-400">
-              Qui suis-je
-            </h2>
-            <p class="mb-8 text-base dark:text-gray-400">
-              Coach professionnel. Plus de 20 ans d’expériences, en Muay Thai, Kick Boxing.<br/>
-             <br />
-              Basé sur une méthode de téléologie cognitive.<br/>
-              <span class="font-bold text-amber-600">(Perception-> Connaissance-> Savoir => Nouvelles perceptions-> etc...)<br /></span>
+            <div class="w-full px-4 lg:w-1/2 xl:w-5/12">
+                <div class="mt-10 lg:mt-0">
+                    <span class="block mb-2 text-lg font-semibold text-primary">
+                        <blockquote class="px-3 py-2 text-sm italic text-amber-700 border-l-4 border-amber-500">
+                            LE PHILOSOPHE À TENTACULES 🦑.
+                        </blockquote>
+                    </span>
+                  
+                    <h2 class="mb-8 text-xl font-bold sm:text-2xl dark:text-gray-400">
+                        Qui suis-je
+                    </h2>
+                    <h1 class="mb-8 text-base dark:text-gray-400">
+                            
+                        Le concept:<br/>
+                        dialoguer, même avec tes représentations cachées<br/>
+                        explorer la réalité<br/>
+                        manipuler nos concepts<br/>
+                        sans règles du jeu
+<br/> <br/>
+                        “C’est à l’intérieur même de la vie que nous conduit l’intuition.”<br/>
+                       <small> Henry Bergson </small>
+<br/> <br/>
+                        Pourquoi:<br/>
+                        La philosophie : un questionnement éternel pour une vie plus belle<br/>
+                        un cadre qui nous apprend à en sortir
+<br/> <br/>
+                        re)travailler la souplesse de ta pensée<br/>
+                        (ré)inventer le possible<br/>
+                        réer pour te (trans)former<br/>
+                        (re)trouver ton élan vital
+<br/> <br/>
+                        Pour un résultat tentaculaire
+<br/>
+                        « le génie réside dans l’instinct. » Nietzsche + CALL TO ACTION
+<br/> <br/>
+                        Les séances en solo:<br/>
+                        T’ES SOLO COMME ROUSSEAU<br/>
+                        Octopus , un espace dans lequel<br/>
+                        philosopher et boire un café,<br/>
+                        philosopher et créer des objets<br/>
+                        ou philosopher et boxer/te défouler
+<br/> <br/>
+                        Que tu veuilles enlacer un sujet en particulier<br/>
+                        Ou te laisser porter pour arrêter de tout contrôler
+<br/> <br/>
+                        En gardant une trace (parce que l’oubli, ça asservi)
+                        Ou pour que ça passe :
+<br/> <br/>
+                        CACHETTE 21-23<br />
+                        RUE STE MADELEINE, STRASBOURG <br />
+                        OU SANS BOUGER DE LA TIENNE (visio-philo) <br />
+<br/>
+                        45MIN - 20€
 
-              Pour faire marcher un enfant il ne sert à rien de lui expliquer le fonctionnement psychomoteur de ses jambes, on met sa tétine sur une commode on met un tapis moelleux au cas ou et on le guide, on l'observe avant de corriger ce qui doit l'être, puis on transcende son potentiel.
-              Moins de décomposition de mouvements caractéristiques aux anciens arts martiaux, mais une inévitable assimilation par la répétition.
-            </p>
-            <p class="mb-8 text-base dark:text-gray-400">
-              Sacs de frappe, boucliers de frappe, patte d'ours, Paos etc.<br />
-              Vestiaires, sanitaires et douces sur place!
-              {{-- <span class="font-bold text-amber-500">PHP</span> and <span class="font-bold text-amber-500">JavaScript</span>. <br /> --}}
-              C'est de vous que tout vient!
-              Quand l’élève est prêt, le maître l'est. <br />
-            </p>
-            <x-button-link href="https://www.youtube.com/channel/UCf_G5MhFombgS5jiu68QYsg" variant="red" target="_blank">
-              View my channel
-            </x-button-link>
-          </div>
+                    </h1>
+                    <p class="mb-8 text-base dark:text-gray-400">
+   
+                    </p>
+                    <x-button-link href="https://www.youtube.com/channel/UCCF2FQG9YT4vBkgsFZdnMZw" variant="red"
+                        target="_blank">
+                        View my channel
+                    </x-button-link>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </section>
-  <!-- ====== About Section End -->
+</section>
+<!-- ====== About Section End -->

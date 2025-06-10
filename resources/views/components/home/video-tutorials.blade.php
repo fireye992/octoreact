@@ -1,14 +1,14 @@
 <!-- ====== Cards Section Start -->
-<section id="tutos" class="pt-24 pb-16 dark:bg-stone-800">
+<section id="tutos" class="pt-16 pb-16 dark:bg-stone-800">
     <div class="container">
       <div class="flex flex-wrap -mx-4">
         <div class="w-full px-4">
           <div class="text-center mx-auto mb-[60px] max-w-[510px]">
             <h2 class="mb-4 text-3xl font-bold text-dark dark:text-gray-300">
-              Tutos & combats
+              Les medias à tentacules
             </h2>
             <p class="text-base text-body-color">
-              N'oubliez pas sans pratique régulière, sinon les tutos ne servent à rien.
+              Il faut savoir s'arrêter
             </p>
           </div>
         </div>
@@ -20,7 +20,7 @@
         @endforeach
       </div>
       <div class="flex justify-center">
-        <x-button-link href="https://www.youtube.com/channel/UCf_G5MhFombgS5jiu68QYsg" target="_blank" class="rounded-lg">
+        <x-button-link href="https://www.youtube.com/channel/UCCF2FQG9YT4vBkgsFZdnMZw" target="_blank" class="rounded-lg">
           Voir toutes les videos
         </x-button-link>
       </div>

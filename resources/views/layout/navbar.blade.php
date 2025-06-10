@@ -4,8 +4,8 @@ x-data="{navbarOpen: false}"
 class="fixed top-0 left-0 z-50 flex items-center w-full h-24 bg-primary shadow-md dark:bg-secondary"
 >
 <div class="container">
-    <div class="relative flex items-center justify-between -mx4">
-        <div class="max-w-full pr-4 w-60">
+    <div class="relative flex items-center justify-between mx-4">
+        <div class="max-w-full pl-4 w-100">
          <a href="/" class="flex items-center w-full py-2">
              <img
              src="{{ url('/img/octo/logo-8phyL.png') }}"
@@ -35,9 +35,8 @@ class="fixed top-0 left-0 z-50 flex items-center w-full h-24 bg-primary shadow-m
                @foreach($navigationItems as $item)
                 <x-layout.navbar-item :href="$item['href']">{{ $item['label'] }}</x-layout.navbar-item>
                @endforeach
-
                <div class="relative ml-0 lg:ml-10 xl:ml-16 top-1"> <!-- etudier ce code qui decalle le youtube -->
-               <div class="g-ytsubscribe" data-channelid="UCf_G5MhFombgS5jiu68QYsg" data-layout="defaut" data-count="defaut"></div>
+               <div class="g-ytsubscribe" data-channelid="UCCF2FQG9YT4vBkgsFZdnMZw" data-layout="defaut" data-count="defaut"></div>
                </div>
              </ul>
             </nav>

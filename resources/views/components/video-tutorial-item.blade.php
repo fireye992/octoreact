@@ -1,5 +1,5 @@
 <div class="w-full px-4 md:w-1/2 xl:w-1/3">
-  <div class="mb-10 bg-white rounded-lg">
+  <div class="mb-10 bg-stone-400 rounded-lg">
     <!-- ====== Video Section Start -->
     <section x-data="{
           videoOpen: false,

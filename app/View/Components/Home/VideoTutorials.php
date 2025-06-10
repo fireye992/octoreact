@@ -17,35 +17,36 @@ class VideoTutorials extends Component
     {
         $this->videoTutorials = [
             [
-                'videoId' => 'Jg6eKC3ia_k',
-                'title' => 'Technique speciale de coude',
-                'description' => 'Cours muay Thai avancé: Coude un peu special qui ne pardonne pas!'
+                'videoId' => 'IyCAROmExM4',
+                'title' => 'L\'intelligence tenataculaire',
+                'description' => 'Ulysse: l’homme qui brillait par sa souplesse 
+                                  Celui qui arrive à saisir l’instant tout en créant du changement 🦑'
             ],
-            [
-                'videoId' => 'Vfw--fBs5h0',
-                'title' => 'Rentrer en corps à corps avec un coup de pied',
-                'description' => 'Cours muay Thai intermediaire: Rentrer en corps à corps pour placer des genoux et éviter les coudes grace à un coup de pied.'
-            ],
-            [
-                'videoId' => '2g_4gaUbViI',
-                'title' => 'Low kick push & sweep',
-                'description' => 'Exercice Muay Thai de la semaine, avec Quentin et Reda.'
-            ],
-            [
-                'videoId' => 'bFoWhGJPP8A',
-                'title' => 'Session paos ordinnaire',
-                'description' => 'Reda et Bjorn n\'ont jamais refusé un combat!'
-            ],
-            [
-                'videoId' => 'FMB-Z46i6MM',
-                'title' => 'Differences Muay Thai & Kick Boxing',
-                'description' => 'Au dela des coups de coudes et des saisies de jambes, il y a beaucoup de choses qui different entre ces deux sports de combat.'
-            ],
-            [
-                'videoId' => 'AX9z21e3C3U',
-                'title' => 'Premier combat de Kevin en Thailande',
-                'description' => 'Le premier combat de Kevin au Bangla boxing stadium pour le paper street et Chang gym'
-            ],
+            // [
+            //     'videoId' => 'Vfw--fBs5h0',
+            //     'title' => 'Rentrer en corps à corps avec un coup de pied',
+            //     'description' => 'Cours muay Thai intermediaire: Rentrer en corps à corps pour placer des genoux et éviter les coudes grace à un coup de pied.'
+            // ],
+            // [
+            //     'videoId' => '2g_4gaUbViI',
+            //     'title' => 'Low kick push & sweep',
+            //     'description' => 'Exercice Muay Thai de la semaine, avec Quentin et Reda.'
+            // ],
+            // [
+            //     'videoId' => 'bFoWhGJPP8A',
+            //     'title' => 'Session paos ordinnaire',
+            //     'description' => 'Reda et Bjorn n\'ont jamais refusé un combat!'
+            // ],
+            // [
+            //     'videoId' => 'FMB-Z46i6MM',
+            //     'title' => 'Differences Muay Thai & Kick Boxing',
+            //     'description' => 'Au dela des coups de coudes et des saisies de jambes, il y a beaucoup de choses qui different entre ces deux sports de combat.'
+            // ],
+            // [
+            //     'videoId' => 'AX9z21e3C3U',
+            //     'title' => 'Premier combat de Kevin en Thailande',
+            //     'description' => 'Le premier combat de Kevin au Bangla boxing stadium pour le paper street et Chang gym'
+            // ],
 
 
         ];

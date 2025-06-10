@@ -4,11 +4,11 @@
       <div class="flex flex-wrap -mx-4 lg:justify-between">
         <div class="w-full px-4 lg:w-1/2 xl:w-6/12">
           <div class="max-w-[570px] mb-12 lg:mb-0">
-            <h2 class="text-dark dark:text-secondary mb-6 uppercase font-bold text-[32px] sm:text-[40px] lg:text-[36px] xl:text-[40px]">
-              Rejoignez nous
+            <h2 class="text-dark dark:text-secondary mb-6 uppercase font-bold text-xl sm:text-[30px] lg:text-[40px] xl:text-[42px]">
+              Contactez-moi
             </h2>
-            <p class="text-base leading-relaxed text-body-color dark:secondary mb-9">
-              Contactez-moi pour plus d'informations, coaching privé ou cours collectifs.
+            <p class="text-base leading-relaxed text-body-color dark:text-amber-500 mb-9">
+              Prennez un rendez-vous au boudoir ou en visio.
             </p>
             <div class="flex mb-8 max-w-[370px] w-full">
               <div
@@ -43,9 +43,9 @@
                  </a>
               </div>
               <div class="w-full">
-                 <h4 class="mb-1 text-xl font-bold text-dark dark:text-secondary">Paper Street Soap Co.</h4>
+                 <h4 class="mb-1 text-xl font-bold text-dark dark:text-secondary">OcToPuS</h4>
                  <p class="text-base text-body-color dark:text-gray-300">
-                    2 rue Perle 67300 Schiltigheim
+                    21-23 rue Ste Madelaine - Strasbourg
                  </p>
               </div>
            </div>
@@ -87,7 +87,7 @@
               </div>
               <div class="w-full">
                  <h4 class="mb-1 text-xl font-bold text-dark dark:text-secondary">Téléphone</h4>
-                 <p class="text-base text-body-color dark:text-gray-300">06-30-42-99-08</p>
+                 <p class="text-base text-body-color dark:text-gray-300">06-33-06-23-41</p>
               </div>
            </div>
             <div class="flex mb-8 max-w-[370px] w-full">
@@ -124,7 +124,7 @@
                 <h4 class="mb-1 text-xl font-bold text-dark dark:text-secondary">
                   Email
                 </h4>
-                <p class="text-base text-body-color dark:text-gray-300">eric@muaythai67.fr</p>
+                <p class="text-base text-body-color dark:text-gray-300">ly@octopus-philosophie.fr</p>
               </div>
             </div>
           </div>
