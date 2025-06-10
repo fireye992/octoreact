@@ -18,9 +18,14 @@ class VideoTutorials extends Component
         $this->videoTutorials = [
             [
                 'videoId' => 'IyCAROmExM4',
-                'title' => 'L\'intelligence tenataculaire',
-                'description' => 'Ulysse: l’homme qui brillait par sa souplesse 
+                'title' => 'L\'intelligence tentaculaire',
+                'description' => 'Ulysse: l’homme qui brillait par sa souplesse.
                                   Celui qui arrive à saisir l’instant tout en créant du changement 🦑'
+            ],
+            [
+                'videoId' => 'gHsUHUcCRCw',
+                'title' => 'Ulysse, maître du jeu en toutes circonstances',
+                'description' => 'Ulysse: l’homme des instants et des changements'
             ],
             // [
             //     'videoId' => 'Vfw--fBs5h0',

@@ -39,7 +39,7 @@
                         manipuler nos concepts<br/>
                         sans règles du jeu
 <br/> <br/>
-                        “C’est à l’intérieur même de la vie que nous conduit l’intuition.”<br/>
+                    «C’est à l’intérieur même de la vie que nous conduit l’intuition.»<br/>
                        <small> Henry Bergson </small>
 <br/> <br/>
                         Pourquoi:<br/>
@@ -53,7 +53,8 @@
 <br/> <br/>
                         Pour un résultat tentaculaire
 <br/>
-                        « le génie réside dans l’instinct. » Nietzsche + CALL TO ACTION
+                        « le génie réside dans l’instinct. » <br />
+                        <small>Nietzsche.</small>
 <br/> <br/>
                         Les séances en solo:<br/>
                         T’ES SOLO COMME ROUSSEAU<br/>
@@ -71,8 +72,7 @@
                         CACHETTE 21-23<br />
                         RUE STE MADELEINE, STRASBOURG <br />
                         OU SANS BOUGER DE LA TIENNE (visio-philo) <br />
-<br/>
-                        45MIN - 20€
+
 
                     </h1>
                     <p class="mb-8 text-base dark:text-gray-400">
@@ -80,7 +80,7 @@
                     </p>
                     <x-button-link href="https://www.youtube.com/channel/UCCF2FQG9YT4vBkgsFZdnMZw" variant="red"
                         target="_blank">
-                        View my channel
+                        Ma chaine you-tube
                     </x-button-link>
                 </div>
             </div>

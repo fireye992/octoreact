@@ -1,18 +1,24 @@
 <div class="w-full px-4 md:w-1/2 xl:w-1/3">
   <div class="mb-10 bg-stone-400 rounded-lg">
     <!-- ====== Video Section Start -->
-    <section x-data="{
-          videoOpen: false,
-          videoUrl: 'https://www.youtube.com/embed/{{ $videoId }}?autoplay=1',
-          url: '',
-        }">
-      <div class="flex flex-wrap justify-center">
+     <section
+      x-data="{
+        videoOpen: false,
+        videoId: $el.dataset.videoid,
+        get videoUrl() {
+          return 'https://www.youtube.com/embed/' + this.videoId + '?autoplay=1';
+        },
+        url: '',
+      }"
+      data-videoid="{{ $videoId }}"
+    >
+     <div class="flex flex-wrap justify-center">
         <div class="relative z-20 w-full aspect-video">
           <div class="absolute top-0 left-0 w-full h-full p-3">
             <!-- Thumbnail -->
-          <img
-              src="https://i.ytimg.com/vi/{{ $videoId }}/original.jpg"
-              alt="image"
+            <img
+              :src="'https://i.ytimg.com/vi/' + videoId + '/hqdefault.jpg'"
+              alt="Miniature"
               class="object-cover object-center w-full h-full rounded-lg"
             />
             <!-- /Thumbnail -->
@@ -24,11 +30,10 @@
               @click="videoOpen = true; url = videoUrl"
               class="flex items-center justify-center w-20 md:w-[70px] h-20 md:h-[70px] rounded-full bg-white text-primary absolute z-20"
             >
-                <span
-                  class="absolute w-full h-full rounded-full top-0 right-0 bg-white bg-opacity-20 z-[-1] animate-ping delay-300 duration-1000"
-                ></span>
+              <span
+                class="absolute w-full h-full rounded-full top-0 right-0 bg-white bg-opacity-20 z-[-1] animate-ping delay-300 duration-1000"
+              ></span>
 
-              <!-- Play Icon -->
               <svg
                 width="23"
                 height="27"
@@ -39,9 +44,7 @@
                   d="M22.5 12.634C23.1667 13.0189 23.1667 13.9811 22.5 14.366L2.25 26.0574C1.58333 26.4423 0.750001 25.9611 0.750001 25.1913L0.750002 1.80866C0.750002 1.03886 1.58334 0.557731 2.25 0.942631L22.5 12.634Z"
                 />
               </svg>
-              <!-- /Play Icon -->
             </a>
-            <!-- /Play Video -->
           </div>
         </div>
       </div>

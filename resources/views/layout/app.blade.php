@@ -22,9 +22,9 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Eric coach Muay Thai, kick boxing, kings of the street</title>
-
+    <title>OcToPus Philosophe à tentacules</title>
+    <meta name="description" content="Le Philosophe à Tentacules - Dialoguez et explorez la réalité pour une vie plus belle. Séances de philosophie en solo ou en groupe à Strasbourg ou en visio.">
+    <meta name="keywords" content="philosophie, séance de philosophie, Strasbourg, développement personnel, réflexion, intuition">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('/img/octo/logo-8phy.png') }}" type="image/x-icon">
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
