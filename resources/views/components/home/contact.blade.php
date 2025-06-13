@@ -8,7 +8,7 @@
               Contactez-moi
             </h2>
             <p class="text-base leading-relaxed text-body-color dark:text-amber-500 mb-9">
-              Prennez un rendez-vous au boudoir ou en visio.
+              Demande de rendes-vous.
             </p>
             <div class="flex mb-8 max-w-[370px] w-full">
               <div
@@ -43,7 +43,7 @@
                  </a>
               </div>
               <div class="w-full">
-                 <h4 class="mb-1 text-xl font-bold text-dark dark:text-secondary">OcToPuS</h4>
+                 <h4 class="mb-1 text-xl font-bold text-dark dark:text-secondary">Octopus</h4>
                  <p class="text-base text-body-color dark:text-gray-300">
                     21-23 rue Ste Madeleine - Strasbourg
                  </p>
@@ -165,7 +165,7 @@
                       email: '',
                       message: '',
                     };
-                    this.successMessage = 'Thanks for your contact request. I will get back to you shortly.';
+                    this.successMessage = 'Merci pour votre message, je vous contacterai au plus vite.';
                   })
                   .catch(async (response) => {
                     const res = await response.json();

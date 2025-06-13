@@ -45,18 +45,7 @@ class Portfolio extends Component
                 'image' => url('/img/new-tof/sac-ret.webp'),
                 'github' => 'https://www.superprof.fr/coach-sportif-preparateur-physique-diplome-remets-forme-methodes-boxe-pied-poing-adaptees-vraie.html'
             ],
-            // [
-            //     'category' => ['Yii2', 'Bootstrap'],
-            //     'title' => 'YouTube clone with Yii2',
-            //     'image' => url('/img/yii2-youtube-clone.png'),
-            //     'github' => 'https://github.com/thecodeholic/Yii2-Youtube-Clone'
-            // ],
-            // [
-            //     'category' => ['Yii2', 'VueJs'],
-            //     'title' => 'Yii2 + VueJs Notes application',
-            //     'image' => url('/img/yii2-vue-notes.png'),
-            //     'github' =>  'https://github.com/thecodeholic/vue.js-yii2-notes'
-            // ],
+
         ];
 
         $this->tabs = array_unique(Arr::flatten(Arr::pluck($this->items, 'category')));
