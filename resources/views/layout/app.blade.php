@@ -21,10 +21,6 @@
     {{-- CSRF Token (pour les formulaires Laravel) --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {{-- Stylesheets (Vite ou Mix) --}}
-    {{-- Assure-toi d'utiliser la bonne directive pour tes assets compilés --}}
-    {{-- Si tu utilises Vite, ce serait : @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-    {{-- Si tu utilises Mix : <link href="{{ mix('css/app.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
     {{-- Google Tag Manager / Analytics (place-les haut dans le head, comme tu l'as déjà fait) --}}
@@ -57,16 +53,8 @@
     <meta property="og:image:width" content="@yield('og:image:width', '1200')" />
     <meta property="og:image:height" content="@yield('og:image:height', '630')" />
 
-
-
-    {{-- Autres balises si besoin (ex: PWA, Web App Manifest) --}}
-    {{-- <link rel="manifest" href="/site.webmanifest"> --}}
-    {{-- <meta name="theme-color" content="#ffffff"> --}}
-
-    {{-- Pour d'autres scripts ou balises spécifiques à ajouter par les vues enfants --}}
     @stack('head_scripts')
     @stack('head_meta')
-
 </head>
 <body class="antialiased text-primary dark:text-secondary ">
 
@@ -77,17 +65,8 @@
         {{ $slot }}
         <x-layout.footer></x-layout.footer>
     </div>
-    {{-- Ton script Alpine.js via CDN (tu peux aussi le faire via npm et Vite/Mix) --}}
     <script defer src="https://unpkg.com/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    {{-- Inclure app.js compilé par Vite/Mix. Assure-toi de la bonne directive --}}
-    {{-- Si tu utilises Vite (par défaut dans Laravel 9+), ce serait : --}}
-    @vite('resources/js/app.js')
-    {{-- Si tu utilises Laravel Mix (anciennes versions ou migration), ce serait : --}}
-    {{-- <script src="{{ mix('js/app.js') }}" defer></script> --}}
-
-    {{-- Scripts en bas de page --}}
     @stack('body_scripts')
 </body>
 </html>

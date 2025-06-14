@@ -2,15 +2,15 @@
   <div class="mb-10 bg-stone-400 rounded-lg">
     <!-- ====== Video Section Start -->
      <section
-      x-data="{
+     x-data="{
         videoOpen: false,
-        videoId: $el.dataset.videoid,
-        get videoUrl() {
-          return 'https://www.youtube.com/embed/' + this.videoId + '?autoplay=1';
+        videoId: '{{ $videoId }}', {{-- Accède directement à $videoId de Blade ici --}}
+        get videoEmbedUrl() {
+          {{-- URL correcte pour l'intégration YouTube --}}
+          return 'https://www.youtube.com/embed/' + this.videoId + '?autoplay=1&modestbranding=1&rel=0';
         },
-        url: '',
+        url: '', // Ceci stockera l'URL de l'iframe lorsque la vidéo est ouverte
       }"
-      data-videoid="{{ $videoId }}"
     >
      <div class="flex flex-wrap justify-center">
         <div class="relative z-20 w-full aspect-video">
@@ -18,7 +18,7 @@
             <!-- Thumbnail -->
             <img
               :src="'https://i.ytimg.com/vi/' + videoId + '/hqdefault.jpg'"
-              alt="Miniature"
+               alt="{{ $title }} - Miniature vidéo YouTube"
               class="object-cover object-center w-full h-full rounded-lg"
             />
             <!-- /Thumbnail -->
@@ -27,7 +27,7 @@
             <!-- Play Video -->
             <a
               href="javascript:void(0)"
-              @click="videoOpen = true; url = videoUrl"
+              @click="videoOpen = true; url = videoEmbedUrl"
               class="flex items-center justify-center w-20 md:w-[70px] h-20 md:h-[70px] rounded-full bg-white text-primary absolute z-20"
             >
               <span
@@ -53,17 +53,20 @@
       <div
         x-show="videoOpen"
         x-transition
-        class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-screen bg-black bg-opacity-70"
+        x-cloak {{-- Ajout de x-cloak ici --}}
+        class="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-screen bg-secondary bg-opacity-70"
       >
-        <div @click.outside="videoOpen = false; url = ''" class="w-11/12 mx-auto bg-white md:w-10/12 xl:w-8/12">
+        <div @click.outside="videoOpen = false; url = ''" class="w-11/12 mx-auto bg-secondary md:w-10/12 xl:w-8/12">
           <iframe
             class="w-full aspect-video"
             x-bind:src="url"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
           >
           </iframe>
         </div>
         <button
-          @click="videoOpen = false"
+          @click="videoOpen = false; url = ''" {{-- Réinitialise l'url aussi à la fermeture --}}
           class="absolute top-0 right-0 flex items-center justify-center w-20 h-20 cursor-pointer text-body-color hover:bg-black"
         >
           <svg viewBox="0 0 16 15" class="w-8 h-8 fill-current">
@@ -81,8 +84,9 @@
     <div class="p-6 xl:p-7 2xl:p-9 h-[240px] overflow-hidden text-center">
       <h3>
         <a
-          href="https://youtu.be/{{ $videoId }}"
-          target="_blank "
+          href="https://www.youtube.com/watch?v={{ $videoId }}" {{-- URL correcte pour la page YouTube --}}
+          target="_blank"
+          rel="noopener noreferrer" {{-- Ajout de rel pour la sécurité et le SEO --}}
           class="block mb-4 text-lg font-bold text-dark hover:text-primary"
         >
           {{ $title }}

@@ -2922,3 +2922,5 @@ input#checkboxLabelFive:checked ~ .box{
     content: url('/img/octo/ly2.gif');
   }
 }
+
+[x-cloak] { display: none !important; }
