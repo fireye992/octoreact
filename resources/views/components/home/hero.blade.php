@@ -1,5 +1,5 @@
 <!-- ====== Hero Section Start -->
-<div class="relative pt-[60px] lg:pt-[80px] pb-[110px] hero-bg dark:dark-hero-bg">
+<section class="relative pt-[60px] lg:pt-[80px] pb-[110px] hero-bg dark:dark-hero-bg">
     <div class="overlay"></div>
     <div class="container relative z-10">
         <div class="flex flex-wrap -mx-4">
@@ -52,5 +52,5 @@
 
         </div>
     </div>
-</div>
+</section>
 <!-- ====== Hero Section End -->

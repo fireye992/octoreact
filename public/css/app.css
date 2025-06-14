@@ -999,7 +999,7 @@ video {
   color: oklch(var(--stone-100) / var(--tw-text-opacity)); /* Amber 50 */
 }
 
-.dark .dark\:text-primary {
+.dark .dark\: ary {
   --tw-text-opacity: 1;
   color: oklch(var(--stone-800) / var(--tw-text-opacity)); /* Amber 500 */
 }

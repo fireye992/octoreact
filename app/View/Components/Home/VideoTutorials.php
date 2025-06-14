@@ -27,16 +27,16 @@ class VideoTutorials extends Component
                 'title' => 'Ulysse, maître du jeu en toutes circonstances',
                 'description' => 'Ulysse: l’homme des instants et des changements'
             ],
-            // [
-            //     'videoId' => 'Vfw--fBs5h0',
-            //     'title' => 'Rentrer en corps à corps avec un coup de pied',
-            //     'description' => 'Cours muay Thai intermediaire: Rentrer en corps à corps pour placer des genoux et éviter les coudes grace à un coup de pied.'
-            // ],
-            // [
-            //     'videoId' => '2g_4gaUbViI',
-            //     'title' => 'Low kick push & sweep',
-            //     'description' => 'Exercice Muay Thai de la semaine, avec Quentin et Reda.'
-            // ],
+            [
+                'videoId' => '7I7mX9jxYCw',
+                'title' => 'Ulysse : la sagesse héroïque 🏹',
+                'description' => 'La sagesse d’Ulysse ou l’art de saisir chaque occasion comme la possibilité de faire triompher la liberté.'
+            ],
+            [
+                'videoId' => '2QphWO2xes8',
+                'title' => 'Les sensations : voie d’accès à la vérité ou illusions trompeuses ? ✨',
+                'description' => 'Comment admettre que les informations transmises par nos sens ne sont que des illusions qui se contredisent entre elles, et donc douter de tout jusqu’à l’existence de notre propre corps, sans tomber dans la folie ? Descartes, un vrai farceur ou un simple moqueur ?'
+            ],
             // [
             //     'videoId' => 'bFoWhGJPP8A',
             //     'title' => 'Session paos ordinnaire',

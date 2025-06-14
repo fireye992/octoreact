@@ -8,7 +8,7 @@
               Contactez-moi
             </h2>
             <p class="text-base leading-relaxed text-body-color dark:text-amber-500 mb-9">
-              Demande de rendes-vous.
+              Demande de rendez-vous.
             </p>
             <div class="flex mb-8 max-w-[370px] w-full">
               <div
