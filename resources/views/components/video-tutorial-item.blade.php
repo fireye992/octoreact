@@ -4,10 +4,10 @@
      <section
      x-data="{
         videoOpen: false,
-        videoId: '{{ $videoId }}', {{-- Accède directement à $videoId de Blade ici --}}
+        video_id: '{{ $video_id }}', {{-- Accède directement à $video_id de Blade ici --}}
         get videoEmbedUrl() {
           {{-- URL correcte pour l'intégration YouTube --}}
-          return 'https://www.youtube.com/embed/' + this.videoId + '?autoplay=1&modestbranding=1&rel=0';
+          return 'https://www.youtube.com/embed/' + this.video_id + '?autoplay=1&modestbranding=1&rel=0';
         },
         url: '', // Ceci stockera l'URL de l'iframe lorsque la vidéo est ouverte
       }"
@@ -17,7 +17,7 @@
           <div class="absolute top-0 left-0 w-full h-full p-3">
             <!-- Thumbnail -->
             <img
-              :src="'https://i.ytimg.com/vi/' + videoId + '/hqdefault.jpg'"
+              :src="'https://i.ytimg.com/vi/' + video_id + '/hqdefault.jpg'"
                alt="{{ $title }} - Miniature vidéo YouTube"
               class="object-cover object-center w-full h-full rounded-lg"
             />
@@ -84,7 +84,7 @@
     <div class="p-6 xl:p-7 2xl:p-9 h-[240px] overflow-hidden text-center">
       <h3>
         <a
-          href="https://www.youtube.com/watch?v={{ $videoId }}" {{-- URL correcte pour la page YouTube --}}
+          href="https://www.youtube.com/watch?v={{ $video_id }}" {{-- URL correcte pour la page YouTube --}}
           target="_blank"
           rel="noopener noreferrer" {{-- Ajout de rel pour la sécurité et le SEO --}}
           class="block mb-4 text-lg font-bold text-dark hover:text-primary"
