@@ -41,7 +41,8 @@
 
     @stack('head_scripts')
     @stack('head_meta')
-    @vite(['resources/css/app.css', 'resources/js/app.js']) {{-- Important pour les assets classiques --}}
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js'])  --}}
+    {{-- Important pour les assets classiques --}}
 </head>
 <body class="antialiased text-primary dark:text-secondary ">
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K8X7JRD7" height="0" width="0"
