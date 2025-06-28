@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\VideoController; // N'oublie pas d'importer ton contrôleur
+use App\Http\Controllers\VideoController;
+use App\Models\User; // Importez le modèle User
 
 /*
 |--------------------------------------------------------------------------
@@ -22,13 +23,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Routes publiques pour récupérer les vidéos (si tu veux les afficher sans authentification)
 // Cette route est bien pour ton `fetchVideos` dans le frontend
-Route::get('/videos', [VideoController::class, 'index'])->name('videos.index'); // <-- Garde cette ligne telle quelle
-Route::get('/videos/{video}', [VideoController::class, 'show']); // <-- Garde cette ligne telle quelle
+Route::get('/videos', [VideoController::class, 'index'])->name('videos.index');
+Route::get('/videos/{video}', [VideoController::class, 'show']);
 
 // Routes d'administration pour les vidéos (protégées par middleware 'auth:sanctum' et 'admin')
 // Ces routes sont appelées par Inertia pour les opérations CRUD (post, put, delete)
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('/videos', [VideoController::class, 'store']); // <-- Garde cette ligne telle quelle
-    Route::put('/videos/{video}', [VideoController::class, 'update']); // <-- Garde cette ligne telle quelle
-    Route::delete('/videos/{video}', [VideoController::class, 'destroy']); // <-- Garde cette ligne telle quelle
+    Route::post('/videos', [VideoController::class, 'store']);
+    Route::put('/videos/{video}', [VideoController::class, 'update']);
+    Route::delete('/videos/{video}', [VideoController::class, 'destroy']);
+});
+
+// Ajout de la route pour récupérer la liste des utilisateurs
+Route::get('/users', function () {
+    // La méthode 'all()' du modèle User récupère tous les utilisateurs de la base de données
+    return User::all();
 });

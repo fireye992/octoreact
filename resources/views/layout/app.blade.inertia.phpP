@@ -42,7 +42,7 @@
 
     @stack('head_scripts')
     @stack('head_meta')
-    @vite(['resources/css/app.css', 'resources/js/app.js']) {{-- Assure-toi que app.js existe et charge tes JS non-React --}}
+    <!-- @vite(['resources/css/app.css', 'resources/js/app.jsx']) {{-- Assure-toi que app.js existe et charge tes JS non-React --}} -->
 </head>
 <body class="antialiased text-primary dark:text-secondary ">
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K8X7JRD7" height="0" width="0"<!DOCTYPE html>
@@ -58,7 +58,7 @@
 
         @routes
         @viteReactRefresh
-        @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
+        <!-- @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"]) -->
         @inertiaHead
     </head>
     <body class="font-sans antialiased">

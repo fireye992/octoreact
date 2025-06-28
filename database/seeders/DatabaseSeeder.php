@@ -18,14 +18,14 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'password' => Hash::make('password'), // Mot de passe par défaut
+            'password' => Hash::make('passworduser'), // Mot de passe par défaut
         ]);
 
         // Créer un utilisateur ADMINISTRATEUR
         User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password'), // Mot de passe pour l'admin
+            'name' => 'Emilie',
+            'email' => 'ly@octopus.fr',
+            'password' => Hash::make('octOpute'), // Mot de passe pour l'admin
         ]);
     }
 }

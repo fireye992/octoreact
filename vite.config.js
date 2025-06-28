@@ -1,3 +1,4 @@
+// vite.config.js
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
@@ -5,25 +6,33 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
     plugins: [
         laravel({
-            input: [
-                'resources/css/app.css',
-                'resources/js/app.jsx', // C'est ton point d'entrée React/Inertia principal
-                // Si tu avais 'resources/js/app.js' et que tu n'en as plus besoin, assure-toi qu'il n'est plus ici.
-            ],
-            refresh: true,
+            input: 'resources/js/app.jsx',
+            // Assurez-vous que refresh est à true
+            refresh: true, 
         }),
-        react(), // Indispensable pour le support de React
+        react(),
     ],
-    // C'EST CETTE SECTION QUI EST LA CLÉ POUR LES PROBLÈMES CORS AVEC SAIL/DOCKER
     server: {
-        host: '0.0.0.0', // Permet à Vite d'écouter sur toutes les interfaces réseau du conteneur
+        // C'est pour que le serveur de dev écoute sur toutes les interfaces réseau
+        host: '0.0.0.0', 
+        // Ceci active les en-têtes CORS nécessaires pour que le navigateur accepte la connexion
+        cors: true, 
+        // Configuration plus explicite pour le Hot Module Replacement (HMR)
         hmr: {
-            host: 'localhost', // URL que ton navigateur utilisera pour se connecter à Vite via le Hot Module Replacement
-                               // C'est crucial pour résoudre le problème CORS pour les connexions HMR.
-            protocol: 'ws',    // Utilise le protocole WebSocket
+            // Force le protocole à WebSocket
+            protocol: 'ws', 
+            // Utilise le nom de domaine de votre application (très important)
+            host: 'laravel.test', 
+            // Indique le port client pour le HMR, qui est celui exposé
+            clientPort: 5173, 
         },
-        watch: {
-            usePolling: true // Sur certains systèmes de fichiers (comme WSL), c'est nécessaire pour que le rafraîchissement fonctionne bien.
-        }
-    }
+        // Ceci est la configuration du proxy pour les appels API, elle ne change pas
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8000',
+                changeOrigin: true,
+                secure: false,
+            },
+        },
+    },
 });

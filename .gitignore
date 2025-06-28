@@ -17,3 +17,10 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+.envP
+envdeoctoProd
+envdex.octopusProd
+/.pnpm-store
+/img
+database/seeders/DatabaseSeeder.php
+.gitignore

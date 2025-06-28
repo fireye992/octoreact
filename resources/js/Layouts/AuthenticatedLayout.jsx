@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Link } from '@inertiajs/react';
 
 // Importe tes images de logo
-import logoLight from '/img/octo/logo-8phyL.png';
-import logoDark from '/img/octo/logo-8phy.png';
+import logoLight from '/img/octo/logo-8phyL.gif';
+import logoDark from '/img/octo/logo-8phy.gif';
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -25,13 +25,12 @@ export default function Authenticated({ user, header, children }) {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <header className="fixed top-0 left-0 z-50 flex items-center w-full h-24 bg-white shadow-md dark:bg-gray-800">
+        <div className="min-h-screen bg-gray-100 dark:bg-stone-400">
+            <header className="fixed top-0 left-0 z-50 flex items-center w-full h-24 bg-white shadow-md dark:bg-stone-800">
                 <div className="container mx-auto">
                     <div className="relative flex items-center justify-between mx-4">
                         <div className="max-w-full pl-4 w-auto">
-                            {/* C'est ICI que nous allons changer le href ! */}
-                             <a href="/" className="flex items-center w-full py-2">
+                            <a href="/" className="flex items-center w-full py-2">
                                 <img
                                     src={logoLight}
                                     alt="logo"
@@ -47,37 +46,31 @@ export default function Authenticated({ user, header, children }) {
                         </div>
 
                         <div className="flex items-center justify-end w-full px-4">
-                            <div className="flex lg:hidden">
+                            {/* NOUVEAU BOUTON HAMBURGER */}
+                            <div className="flex lg:hidden pt-8">
                                 <button
                                     onClick={() => setShowingNavigationDropdown(!showingNavigationDropdown)}
-                                    className="block text-gray-500 hover:text-gray-700 focus:text-gray-700 focus:outline-none"
+                                    id="navbarToggler"
+                                    className="relative right-0 top-1/2 -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 focus:outline-none"
                                 >
-                                    <svg
-                                        className="h-6 w-6 fill-current"
-                                        viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            className={!showingNavigationDropdown ? 'inline-flex' : 'hidden'}
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M4 6h16M4 12h16M4 18h16"
-                                        />
-                                        <path
-                                            className={showingNavigationDropdown ? 'inline-flex' : 'hidden'}
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M6 18L18 6M6 6l12 12"
-                                        />
-                                    </svg>
+                                    <span
+                                        className={`relative my-[6px] block h-[2px] w-[30px] bg-secondary dark:bg-stone-300 transition-all duration-300 ease-out ${showingNavigationDropdown ? 'top-[8px] rotate-45' : ''}`}
+                                    ></span>
+                                    <span
+                                        className={`relative my-[6px] block h-[1px] w-[30px] bg-secondary dark:bg-stone-100 transition-all duration-300 ease-out ${showingNavigationDropdown ? 'opacity-0' : ''}`}
+                                    ></span>
+                                    <span
+                                        className={`relative my-[6px] block h-[2px] w-[30px] bg-secondary dark:bg-stone-300 transition-all duration-300 ease-out ${showingNavigationDropdown ? 'top-[-8px] -rotate-45' : ''}`}
+                                    ></span>
                                 </button>
                             </div>
+                            {/* FIN DU NOUVEAU BOUTON HAMBURGER */}
 
+                            {/* NAVIGATION CORRIGÉE */}
                             <nav
                                 id="navbarCollapse"
-                                className={`absolute right-0 z-50 w-full px-6 py-5 bg-white rounded-lg shadow top-full dark:bg-gray-800 dark:text-gray-200 lg:px-0 lg:max-w-full lg:right-4 lg:block lg:static lg:shadow-none ${!showingNavigationDropdown ? 'hidden' : ''} lg:block`}
+                                className={`absolute right-0 top-full z-50 w-full rounded-lg bg-white px-6 py-5 shadow dark:bg-stone-700 dark:text-gray-200 lg:static lg:block lg:max-w-full lg:px-0 lg:right-4 lg:shadow-none
+                                    ${showingNavigationDropdown ? 'block' : 'hidden'}`}
                             >
                                 <ul className="block lg:flex lg:items-center">
                                     {navigationItems.map((item, index) => (
@@ -127,7 +120,7 @@ export default function Authenticated({ user, header, children }) {
                                         <li className="relative lg:pl-10">
                                             <button
                                                 onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150 dark:bg-gray-800 dark:text-gray-300 dark:hover:text-gray-100"
+                                                className="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-stone-900 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none dark:bg--100 dark:text-stone-700 dark:hover:text-gray-300"
                                             >
                                                 {user.name}
                                                 <svg
@@ -145,11 +138,11 @@ export default function Authenticated({ user, header, children }) {
                                             </button>
 
                                             {profileDropdownOpen && (
-                                                <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 dark:bg-gray-700">
+                                                <div className="absolute right-0 mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-stone-700">
                                                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                                         <Link
                                                             href={route('profile.edit')}
-                                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600"
+                                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-stone-400"
                                                             onClick={() => setProfileDropdownOpen(false)}
                                                         >
                                                             Profile
@@ -158,7 +151,7 @@ export default function Authenticated({ user, header, children }) {
                                                             href={route('logout')}
                                                             method="post"
                                                             as="button"
-                                                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600"
+                                                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-stone-400"
                                                             onClick={() => setProfileDropdownOpen(false)}
                                                         >
                                                             Déconnexion
@@ -170,15 +163,16 @@ export default function Authenticated({ user, header, children }) {
                                     )}
                                 </ul>
                             </nav>
+                            {/* FIN DE LA NAVIGATION CORRIGÉE */}
                         </div>
                     </div>
                 </div>
             </header>
 
             {header && (
-                <header className="bg-white shadow pt-24 dark:bg-gray-800">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        <h2 className="font-semibold text-xl text-gray-800 leading-tight dark:text-gray-200">{header}</h2>
+                <header className="bg-white pt-24 shadow dark:bg-stone-700">
+                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                        <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-stone-200">{header}</h2>
                     </div>
                 </header>
             )}
