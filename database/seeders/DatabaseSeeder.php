@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Emilie',
             'email' => 'ly@octopus.fr',
             'password' => Hash::make('octOpute'), // Mot de passe pour l'admin
+            'is_admin' => 1, // Assurez-vous que le champ is_admin est défini dans votre modèle User
         ]);
     }
 }
