@@ -7,8 +7,6 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Button } from '@/Components/ui/button';
 
-// --- NOUVELLE MÉTHODE : Importez les images directement avec Vite ---
-// Assurez-vous que le chemin est correct depuis le dossier 'resources/js'
 import logoLight from '/img/octo/logo-8phyL.gif';
 import logoDark from '/img/octo/logo-8phy.gif';
 
@@ -19,10 +17,6 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
         setIsNavbarOpen(prevState => !prevState);
     };
 
-    // Vous pouvez supprimer ces lignes car elles sont remplacées par les imports
-    // const logoSrcLight = '/img/octo/logo-8phyL.gif';
-    // const logoSrcDark = '/img/octo/logo-8phy.gif';
-
     return (
         <nav className={`fixed top-0 left-0 z-50 w-full backdrop-blur-md transition-all duration-300 ${isDarkMode ? 'bg-secondary/70' : 'bg-white/70'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,12 +25,11 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                     <div className="flex items-center">
                         <Link href="/" className="flex items-center">
                             <img
-                                // Utilisez les variables importées comme source
                                 src={isDarkMode ? logoDark : logoLight}
                                 alt="logo"
                                 className="h-9 w-auto"
                             />
-                            <span className="ml-3 text-2xl font-bold text-gray-900 dark:text-gray-100">THE-L-BOX</span>
+                            <span className="ml-3 text-2xl font-bold text-gray-900 dark:text-gray-100">OCTOPUS</span>
                         </Link>
                     </div>
 
@@ -49,18 +42,24 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                                     {item.label}
                                 </NavLink>
                             ))}
+                            {/* Liens pour l'utilisateur connecté */}
                             {user && (
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Dashboard
-                                </NavLink>
+                                <>
+                                    <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                        Dashboard
+                                    </NavLink>
+                                    {/* Affichez le lien "Admin" seulement si l'utilisateur a le privilège */}
+                                    {user.is_admin && (
+                                        <NavLink href={route('admin.videos')} active={route().current('admin.videos')}>
+                                            Admin Videos
+                                        </NavLink>
+                                    )}
+                                </>
                             )}
                         </div>
-
+                        
                         {/* Theme Toggle & Auth Links/Dropdown */}
                         <div className="flex items-center space-x-4 ml-6">
-                            {/* YouTube Subscribe Button */}
-                            <div className="g-ytsubscribe" data-channelid="UCCF2FQG9YT4vBkgsFZdnMZw" data-layout="defaut" data-count="defaut"></div>
-                            
                             {/* Dark/Light Mode Toggle */}
                             <Button
                                 variant="outline"
@@ -90,6 +89,10 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                                         </Dropdown.Trigger>
                                         <Dropdown.Content>
                                             <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+                                            {/* Ajoutez d'autres liens de dropdown pour l'utilisateur si nécessaire */}
+                                            {user.is_admin && (
+                                                <Dropdown.Link href={route('admin.videos')}>Admin-videos</Dropdown.Link>
+                                            )}
                                             <Dropdown.Link href={route('logout')} method="post" as="button">
                                                 Log Out
                                             </Dropdown.Link>
@@ -120,20 +123,8 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                             className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
                         >
                             <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                <path
-                                    className={!isNavbarOpen ? 'inline-flex' : 'hidden'}
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M4 6h16M4 12h16M4 18h16"
-                                />
-                                <path
-                                    className={isNavbarOpen ? 'inline-flex' : 'hidden'}
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
+                                <path className={!isNavbarOpen ? 'inline-flex' : 'hidden'} strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                                <path className={isNavbarOpen ? 'inline-flex' : 'hidden'} strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
                     </div>
@@ -148,21 +139,33 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                             {item.label}
                         </ResponsiveNavLink>
                     ))}
+                    {/* Liens pour l'utilisateur connecté sur mobile */}
                     {user && (
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Dashboard
-                        </ResponsiveNavLink>
+                        <>
+                            <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                Dashboard
+                            </ResponsiveNavLink>
+                            {user.is_admin && (
+                                <ResponsiveNavLink href={route('admin.videos')} active={route().current('admin.videos')}>
+                                    Admin Videos
+                                </ResponsiveNavLink>
+                            )}
+                        </>
                     )}
                 </div>
 
+                {/* Menu de profil mobile */}
                 {user ? (
                     <div className="pt-4 pb-1 border-t border-gray-200">
                         <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">{user.name}</div>
-                            <div className="font-medium text-sm text-gray-500">{user.email}</div>
+                            <div className="font-medium text-base text-gray-800 dark:text-gray-200">{user.name}</div>
+                            <div className="font-medium text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
                         </div>
                         <div className="mt-3 space-y-1">
                             <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
+                            {user.is_admin && (
+                                <ResponsiveNavLink href={route('admin.videos')}>Admin</ResponsiveNavLink>
+                            )}
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 Log Out
                             </ResponsiveNavLink>

@@ -1,11 +1,11 @@
 // resources/js/Components/ContactForm.jsx
 
 import React, { useState } from 'react';
-import { useForm } from '@inertiajs/react'; // Importez useForm
-import { Button } from '@/Components/ui/button'; // Assurez-vous que Button est disponible
-import { Input } from '@/Components/ui/input'; // Assurez-vous que Input est disponible
-import { Textarea } from '@/Components/ui/textarea'; // Assurez-vous que Textarea est disponible
-import { Label } from '@/Components/ui/label'; // Assurez-vous que Label est disponible
+import { useForm } from '@inertiajs/react';
+import { Button } from '@/Components/ui/button';
+import { Input } from '@/Components/ui/input';
+import { Textarea } from '@/Components/ui/textarea';
+import { Label } from '@/Components/ui/label';
 
 export default function ContactForm({ isDarkMode }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -18,17 +18,14 @@ export default function ContactForm({ isDarkMode }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setSuccessMessage(''); // Réinitialise le message de succès à chaque soumission
+        setSuccessMessage('');
 
-        // La route pour soumettre le formulaire de contact
-        // Assurez-vous que cette route est définie dans routes/web.php
         post(route('contact.submit'), {
             onSuccess: () => {
                 setSuccessMessage('Merci pour votre message, je vous contacterai au plus vite.');
-                reset(); // Réinitialise le formulaire après succès
+                reset();
             },
             onError: (formErrors) => {
-                // Les erreurs sont automatiquement gérées par useForm et disponibles via la variable 'errors'
                 console.error('Erreurs de validation:', formErrors);
             },
         });
@@ -86,25 +83,6 @@ export default function ContactForm({ isDarkMode }) {
                                     </svg>
                                 </div>
                                 <div className="w-full">
-                                    <h4 className={`mb-1 text-xl font-bold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>Téléphone</h4>
-                                    <p className={`text-base ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>06-33-06-23-41</p>
-                                </div>
-                            </div>
-
-                            {/* Information de contact - Email */}
-                            <div className="flex mb-8 max-w-[370px] w-full">
-                                <div
-                                    className="
-                                        max-w-[60px] sm:max-w-[70px] w-full h-[60px] sm:h-[70px]
-                                        flex items-center justify-center mr-6 overflow-hidden
-                                        bg-blue-600 bg-opacity-5 text-blue-600 dark:text-amber-500 rounded
-                                    "
-                                >
-                                    <svg width="28" height="19" viewBox="0 0 28 19" className="fill-current">
-                                        <path d="M25.3636 0H2.63636C1.18182 0 0 1.16785 0 2.6052V16.3948C0 17.8322 1.18182 19 2.63636 19H25.3636C26.8182 19 28 17.8322 28 16.3948V2.6052C28 1.16785 26.8182 0 25.3636 0ZM25.3636 1.5721C25.5909 1.5721 25.7727 1.61702 25.9545 1.75177L14.6364 8.53428C14.2273 8.75886 13.7727 8.75886 13.3636 8.53428L2.04545 1.75177C2.22727 1.66194 2.40909 1.5721 2.63636 1.5721H25.3636ZM25.3636 17.383H2.63636C2.09091 17.383 1.59091 16.9338 1.59091 16.3499V3.32388L12.5 9.8818C12.9545 10.1513 13.4545 10.2861 13.9545 10.2861C14.4545 10.2861 14.9545 10.1513 15.4091 9.8818L26.3182 3.32388V16.3499C26.4091 16.9338 25.9091 17.383 25.3636 17.383Z"/>
-                                    </svg>
-                                </div>
-                                <div className="w-full">
                                     <h4 className={`mb-1 text-xl font-bold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
                                         Email
                                     </h4>
@@ -145,7 +123,7 @@ export default function ContactForm({ isDarkMode }) {
                                         placeholder="Votre Email"
                                         value={data.email}
                                         onChange={(e) => setData('email', e.target.value)}
-                                        className={`mt-1 block w-full ${errors.email ? 'border-red-500 focus:border-red-500' : ''}`}
+                                        className={`mt-1 block w-full ${errors.email ? 'border-red-500 focus:border-500' : ''}`}
                                     />
                                     {errors.email && <div className="text-red-500 text-sm mt-1">{errors.email}</div>}
                                 </div>
@@ -159,7 +137,7 @@ export default function ContactForm({ isDarkMode }) {
                                         rows="6"
                                         value={data.message}
                                         onChange={(e) => setData('message', e.target.value)}
-                                        className={`mt-1 block w-full ${errors.message ? 'border-red-500 focus:border-red-500' : ''}`}
+                                        className={`mt-1 block w-full ${errors.message ? 'border-red-500 focus:border-500' : ''}`}
                                     />
                                     {errors.message && <div className="text-red-500 text-sm mt-1">{errors.message}</div>}
                                 </div>

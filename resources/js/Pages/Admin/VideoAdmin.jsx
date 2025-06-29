@@ -1,16 +1,10 @@
-// resources/js/Pages/Admin/VideoAdmin.jsx
-
 import React, { useState, useEffect } from 'react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import MainLayout from '@/Layouts/MainLayout';
 import { Head, useForm } from '@inertiajs/react';
 import Swal from 'sweetalert2';
+import { Button } from '@/Components/ui/button';
 
-// La fonction `route` est globalement disponible si Ziggy est correctement configuré.
-// Pas besoin de l'importer ici si c'est le cas.
-
-// CORRECTION MAJEURE: Le composant reçoit `videos` et `auth` directement comme props d'Inertia.
-const VideoAdmin = ({ auth, videos: initialVideos }) => { // Renomme `videos` en `initialVideos` pour éviter un conflit avec le state local
-    // Initialise l'état local `videos` avec les `initialVideos` reçues d'Inertia.
+const VideoAdmin = ({ auth, videos: initialVideos, canLogin, canRegister }) => {
     const [videos, setVideos] = useState(initialVideos);
     const [editingVideo, setEditingVideo] = useState(null);
 
@@ -20,54 +14,28 @@ const VideoAdmin = ({ auth, videos: initialVideos }) => { // Renomme `videos` en
         video_id: '',
     });
 
-    // Effet pour mettre à jour l'état `videos` si la prop `initialVideos` change (utile si tu navigues vers la page).
     useEffect(() => {
         setVideos(initialVideos);
     }, [initialVideos]);
 
-    // Cette fonction sert maintenant à re-fetch les vidéos après une action CRUD,
-    // car les données ne sont pas automatiquement rafraîchies par Inertia après un `post`/`put`/`delete`.
-    const fetchVideos = async () => {
-        try {
-            // Utilise la route nommée pour l'index
-            const response = await fetch(route('videos.index'));
-            const data = await response.json();
-            setVideos(data); // Met à jour l'état local avec les nouvelles données
-        } catch (error) {
-            console.error("Erreur lors de la récupération des vidéos :", error);
-            // Optionnel: Afficher une alerte ou un message à l'utilisateur
-            Swal.fire('Erreur !', 'Impossible de charger les vidéos.', 'error');
-        }
-    };
-
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (editingVideo) {
-            // Mode édition
-            put(route('videos.update', editingVideo.id), {
+            put(route('videos.update', editingVideo.id), { // <-- CORRIGÉ : 'videos.update'
                 onSuccess: () => {
                     Swal.fire('Succès !', 'Vidéo mise à jour avec succès.', 'success');
                     setEditingVideo(null);
                     reset();
-                    fetchVideos(); // Rafraîchit la liste après succès
                 },
-                onError: (err) => {
-                    Swal.fire('Erreur !', 'Veuillez corriger les erreurs de validation.', 'error');
-                    console.error("Erreurs de validation:", err);
-                }
+                onError: () => Swal.fire('Erreur !', 'Veuillez corriger les erreurs de validation.', 'error')
             });
         } else {
-            // Mode création
-            post(route('videos.store'), {
+            post(route('videos.store'), { // <-- CORRIGÉ : 'videos.store'
                 onSuccess: () => {
                     Swal.fire('Succès !', 'Vidéo ajoutée avec succès.', 'success');
                     reset();
-                    fetchVideos(); // Rafraîchit la liste après succès
                 },
-                onError: (err) => {
-                    Swal.fire('Erreur !', 'Veuillez corriger les erreurs de validation.', 'error');
-                    console.error("Erreurs de validation:", err);
-                }
+                onError: () => Swal.fire('Erreur !', 'Veuillez corriger les erreurs de validation.', 'error')
             });
         }
     };
@@ -81,7 +49,7 @@ const VideoAdmin = ({ auth, videos: initialVideos }) => { // Renomme `videos` en
         });
     };
 
-    const handleDelete = async (videoId) => {
+    const handleDelete = (videoId) => {
         Swal.fire({
             title: 'Êtes-vous sûr ?',
             text: "Vous ne pourrez pas revenir en arrière !",
@@ -93,124 +61,133 @@ const VideoAdmin = ({ auth, videos: initialVideos }) => { // Renomme `videos` en
             cancelButtonText: 'Annuler'
         }).then((result) => {
             if (result.isConfirmed) {
-                destroy(route('videos.destroy', videoId), {
-                    onSuccess: () => {
-                        Swal.fire('Supprimé !', 'La vidéo a été supprimée.', 'success');
-                        fetchVideos(); // Rafraîchit la liste après succès
-                    },
-                    onError: (err) => {
-                        Swal.fire('Erreur !', 'Impossible de supprimer la vidéo.', 'error');
-                        console.error("Erreur lors de la suppression:", err);
-                    }
+                destroy(route('videos.destroy', videoId), { // <-- CORRIGÉ : 'videos.destroy'
+                    onSuccess: () => Swal.fire('Supprimé !', 'La vidéo a été supprimée.', 'success'),
+                    onError: () => Swal.fire('Erreur !', 'Impossible de supprimer la vidéo.', 'error')
                 });
             }
         });
     };
 
+    // Définissez les éléments de navigation ici
+    const navigationItems = [
+        { label: 'Accueil', href: route('home'), route_name: 'home' },
+        { label: 'Dashboard', href: route('dashboard'), route_name: 'dashboard' },
+        { label: 'Admin Videos', href: route('admin.videos'), route_name: 'admin.videos' }, // <-- CORRIGÉ : 'videos.admin'
+    ];
+
     return (
-        <AuthenticatedLayout
+        <MainLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-stone-400 leading-tight">Administration des vidéos</h2>}
+            navigationItems={navigationItems}
+            canLogin={canLogin}
+            canRegister={canRegister}
+            title="Admin Vidéos"
         >
             <Head title="Admin Vidéos" />
-
+            
+            {/* Header de la page d'administration */}
+            <header className="shadow bg-white dark:bg-stone-800">
+                <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        Administration des vidéos
+                    </h2>
+                </div>
+            </header>
+            
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                        <h3 className="text-lg font-medium text-gray-900 mb-4">{editingVideo ? 'Modifier une vidéo' : 'Ajouter une nouvelle vidéo'}</h3>
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
+                    {/* Formulaire d'ajout/édition */}
+                    <div className="bg-white dark:bg-stone-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+                        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
+                            {editingVideo ? 'Modifier une vidéo' : 'Ajouter une nouvelle vidéo'}
+                        </h3>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
-                                <label htmlFor="title" className="block text-sm font-medium text-gray-700">Titre</label>
+                                <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Titre</label>
                                 <input
                                     type="text"
                                     id="title"
                                     name="title"
                                     value={data.title}
                                     onChange={(e) => setData('title', e.target.value)}
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                                    className="mt-1 block w-full border border-gray-300 dark:bg-stone-700 dark:border-stone-600 dark:text-gray-100 rounded-md shadow-sm p-2"
                                     required
                                 />
                                 {errors.title && <div className="text-red-500 text-sm mt-1">{errors.title}</div>}
                             </div>
                             <div>
-                                <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+                                <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
                                 <textarea
                                     id="description"
                                     name="description"
                                     value={data.description}
                                     onChange={(e) => setData('description', e.target.value)}
                                     rows="3"
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                                    className="mt-1 block w-full border border-gray-300 dark:bg-stone-700 dark:border-stone-600 dark:text-gray-100 rounded-md shadow-sm p-2"
                                 ></textarea>
                                 {errors.description && <div className="text-red-500 text-sm mt-1">{errors.description}</div>}
                             </div>
                             <div>
-                                <label htmlFor="video_id" className="block text-sm font-medium text-gray-700">ID Vidéo YouTube</label>
+                                <label htmlFor="video_id" className="block text-sm font-medium text-gray-700 dark:text-gray-300">ID Vidéo YouTube</label>
                                 <input
                                     type="text"
                                     id="video_id"
                                     name="video_id"
                                     value={data.video_id}
                                     onChange={(e) => setData('video_id', e.target.value)}
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+                                    className="mt-1 block w-full border border-gray-300 dark:bg-stone-700 dark:border-stone-600 dark:text-gray-100 rounded-md shadow-sm p-2"
                                     required
                                 />
                                 {errors.video_id && <div className="text-red-500 text-sm mt-1">{errors.video_id}</div>}
                             </div>
                             <div className="flex items-center space-x-4">
-                                <button
-                                    type="submit"
-                                    className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                                >
+                                <Button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
                                     {editingVideo ? 'Mettre à jour' : 'Ajouter'} la vidéo
-                                </button>
+                                </Button>
                                 {editingVideo && (
-                                    <button
+                                    <Button
                                         type="button"
                                         onClick={() => { setEditingVideo(null); reset(); }}
-                                        className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400"
+                                        variant="secondary"
                                     >
                                         Annuler l'édition
-                                    </button>
+                                    </Button>
                                 )}
                             </div>
                         </form>
+                    </div>
 
-                        <hr className="my-8" />
+                    <hr className="my-8 border-gray-300 dark:border-stone-700" />
 
-                        <h3 className="text-lg font-medium text-gray-900 mb-4">Vidéos existantes</h3>
+                    {/* Tableau des vidéos existantes */}
+                    <div className="bg-white dark:bg-stone-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+                        <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">Vidéos existantes</h3>
                         <div className="overflow-x-auto">
-                            <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
+                            <table className="min-w-full divide-y divide-gray-200 dark:divide-stone-700">
+                                <thead className="bg-gray-50 dark:bg-stone-700">
                                     <tr>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Titre</th>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID YouTube</th>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Titre</th>
+                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">ID YouTube</th>
+                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {/* CORRECTION: Vérifie que `videos` est un tableau avant de mapper. */}
+                                <tbody className="bg-white dark:bg-stone-800 divide-y divide-gray-200 dark:divide-stone-700">
                                     {Array.isArray(videos) && videos.length > 0 ? (
                                         videos.map((video) => (
-                                            <tr key={video.id}>
+                                            <tr key={video.id} className="hover:bg-gray-50 dark:hover:bg-stone-700">
                                                 <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="text-sm font-medium text-gray-900">{video.title}</div>
-                                                    <div className="text-sm text-gray-500">{video.description}</div>
+                                                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">{video.title}</div>
+                                                    <div className="text-sm text-gray-500 dark:text-gray-400">{video.description}</div>
                                                 </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                                     {video.video_id}
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                                    <button
-                                                        onClick={() => handleEdit(video)}
-                                                        className="text-indigo-600 hover:text-indigo-900 mr-4"
-                                                    >
+                                                    <button onClick={() => handleEdit(video)} className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 mr-4">
                                                         Éditer
                                                     </button>
-                                                    <button
-                                                        onClick={() => handleDelete(video.id)}
-                                                        className="text-red-600 hover:text-red-900"
-                                                    >
+                                                    <button onClick={() => handleDelete(video.id)} className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">
                                                         Supprimer
                                                     </button>
                                                 </td>
@@ -218,7 +195,7 @@ const VideoAdmin = ({ auth, videos: initialVideos }) => { // Renomme `videos` en
                                         ))
                                     ) : (
                                         <tr>
-                                            <td colSpan="3" className="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
+                                            <td colSpan="3" className="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500 dark:text-gray-400">
                                                 Aucune vidéo disponible.
                                             </td>
                                         </tr>
@@ -229,7 +206,7 @@ const VideoAdmin = ({ auth, videos: initialVideos }) => { // Renomme `videos` en
                     </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+        </MainLayout>
     );
 };
 
