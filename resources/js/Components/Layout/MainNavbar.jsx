@@ -3,100 +3,182 @@
 import React, { useState } from 'react';
 import { Link } from '@inertiajs/react';
 import Dropdown from '@/Components/Dropdown';
+import NavLink from '@/Components/NavLink';
+import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Button } from '@/Components/ui/button';
+
+// --- NOUVELLE MÉTHODE : Importez les images directement avec Vite ---
+// Assurez-vous que le chemin est correct depuis le dossier 'resources/js'
+import logoLight from '/img/octo/logo-8phyL.gif';
+import logoDark from '/img/octo/logo-8phy.gif';
 
 export default function MainNavbar({ user, navigationItems, canLogin, canRegister, isDarkMode, toggleDarkMode }) {
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);
-    
-    // Use the isDarkMode prop from the parent layout, no need for local state
-    // const [theme, setTheme] = useState(isDarkMode ? 'dark' : 'light');
 
     const toggleNavbar = () => {
         setIsNavbarOpen(prevState => !prevState);
     };
-    
-    const logoSrcLight = '/img/octo/logo-8phyL.gif';
-    const logoSrcDark = '/img/octo/logo-8phy.gif';
+
+    // Vous pouvez supprimer ces lignes car elles sont remplacées par les imports
+    // const logoSrcLight = '/img/octo/logo-8phyL.gif';
+    // const logoSrcDark = '/img/octo/logo-8phy.gif';
 
     return (
-        <header
-            className={`fixed top-0 left-0 z-50 flex items-center w-full h-24 backdrop-blur-md transition-all duration-300`}
-        >
-            <div className="container mx-auto">
-                <div className="relative flex items-center justify-between mx-4">
-                    <div className="max-w-full pl-4 w-100">
-                        <Link href="/" className="flex items-center w-full py-2">
-                            {/* Logos pour les modes clair et sombre */}
+        <nav className={`fixed top-0 left-0 z-50 w-full backdrop-blur-md transition-all duration-300 ${isDarkMode ? 'bg-secondary/70' : 'bg-white/70'}`}>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex justify-between h-16 items-center">
+                    {/* Logo & Site Title */}
+                    <div className="flex items-center">
+                        <Link href="/" className="flex items-center">
                             <img
-                                src={isDarkMode ? logoSrcDark : logoSrcLight}
+                                // Utilisez les variables importées comme source
+                                src={isDarkMode ? logoDark : logoLight}
                                 alt="logo"
-                                className="w-[70px] lg:w-[70px] inline-block"
+                                className="h-9 w-auto"
                             />
-                            {/* Titre du logo, si nécessaire */}
-                            <span className="ml-2 text-xl xl:text-2xl font-bold text-amber-600 dark:text-secondary">THE-L-BOX</span>
+                            <span className="ml-3 text-2xl font-bold text-gray-900 dark:text-gray-100">THE-L-BOX</span>
                         </Link>
                     </div>
-                    
-                    <div className="flex items-center justify-end w-full px-4">
-                        <div>
-                            <nav
-                                id="navbarCollapse"
-                                className={`${!isNavbarOpen && 'hidden'} absolute right-0 z-50 w-full px-6 py-5 bg-secondary rounded-lg shadow top-full dark:bg-secondary dark:text-secondary lg:px-0 lg:max-w-full lg:right-4 lg:block lg:static lg:shadow-none`}
+
+                    {/* Desktop Navigation */}
+                    <div className="hidden sm:flex sm:items-center sm:space-x-8">
+                        {/* Main Navigation Links */}
+                        <div className="flex space-x-8">
+                            {navigationItems && navigationItems.map((item) => (
+                                <NavLink key={item.label} href={item.href} active={route().current(item.route_name)}>
+                                    {item.label}
+                                </NavLink>
+                            ))}
+                            {user && (
+                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
+                                    Dashboard
+                                </NavLink>
+                            )}
+                        </div>
+
+                        {/* Theme Toggle & Auth Links/Dropdown */}
+                        <div className="flex items-center space-x-4 ml-6">
+                            {/* YouTube Subscribe Button */}
+                            <div className="g-ytsubscribe" data-channelid="UCCF2FQG9YT4vBkgsFZdnMZw" data-layout="defaut" data-count="defaut"></div>
+                            
+                            {/* Dark/Light Mode Toggle */}
+                            <Button
+                                variant="outline"
+                                size="icon"
+                                onClick={toggleDarkMode}
+                                className="rounded-full"
                             >
-                                <ul className="block lg:flex lg:items-center">
-                                    {/* Liens de navigation */}
-                                    {navigationItems.map((item, index) => (
-                                        <li key={index}>
-                                            <Link
-                                                href={item.href}
-                                                className={`
-                                                    flex py-2 text-base font-medium
-                                                    ${route().current(item.route_name)
-                                                        ? 'text-primary dark:text-stone-300' // Active
-                                                        : 'text-stone-700 hover:text-primary dark:text-stone-300 dark:hover:text-amber-500' // Inactive
-                                                    }
-                                                    lg:ml-10 lg:inline-flex
-                                                `}
-                                            >
-                                                {item.label}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                    {/* Bouton de souscription YouTube */}
-                                    <div className="relative ml-0 lg:ml-10 xl:ml-16 top-1">
-                                        <div className="g-ytsubscribe" data-channelid="UCCF2FQG9YT4vBkgsFZdnMZw" data-layout="defaut" data-count="defaut"></div>
-                                    </div>
-                                    
-                                    {/* Bouton pour le mode clair/sombre */}
-                                    <button
-                                        onClick={toggleDarkMode}
-                                        className="ml-4 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring"
-                                    >
-                                        {isDarkMode ? '☀️' : '🌙'}
-                                    </button>
-                                </ul>
-                            </nav>
+                                {isDarkMode ? '☀️' : '🌙'}
+                            </Button>
+
+                            {/* User Dropdown or Login/Register links */}
+                            {user ? (
+                                <div className="relative">
+                                    <Dropdown>
+                                        <Dropdown.Trigger>
+                                            <span className="inline-flex rounded-md">
+                                                <button
+                                                    type="button"
+                                                    className={`inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md ${isDarkMode ? 'text-gray-300 bg-secondary hover:text-gray-100' : 'text-gray-500 bg-white hover:text-gray-700'} focus:outline-none transition ease-in-out duration-150`}
+                                                >
+                                                    {user.name}
+                                                    <svg className="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                                                    </svg>
+                                                </button>
+                                            </span>
+                                        </Dropdown.Trigger>
+                                        <Dropdown.Content>
+                                            <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+                                            <Dropdown.Link href={route('logout')} method="post" as="button">
+                                                Log Out
+                                            </Dropdown.Link>
+                                        </Dropdown.Content>
+                                    </Dropdown>
+                                </div>
+                            ) : (
+                                <div className="space-x-4">
+                                    {canLogin && (
+                                        <Link href={route('login')} className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                                            Log in
+                                        </Link>
+                                    )}
+                                    {canRegister && (
+                                        <Link href={route('register')} className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                                            Register
+                                        </Link>
+                                    )}
+                                </div>
+                            )}
                         </div>
                     </div>
-                    
-                    {/* Bouton Hamburger pour mobile */}
-                    <div className="lg:hidden">
+
+                    {/* Mobile Hamburger Button */}
+                    <div className="-me-2 flex items-center sm:hidden">
                         <button
                             onClick={toggleNavbar}
-                            id="navbarToggler"
-                            className={`
-                                block absolute right-0 px-3 py-[6px] rounded-lg top-1/2 -translate-y-1/2
-                                ring-primary focus:ring-2
-                            `}
+                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
                         >
-                            <span className={`relative w-[30px] h-[2px] my-[6px] block bg-secondary dark:bg-stone-300 ${isNavbarOpen ? 'absolute top-[13px] rotate-45' : ''}`}></span>
-                            <span className={`relative w-[30px] h-[1px] my-[6px] block bg-secondary dark:bg-stone-100 ${isNavbarOpen ? 'hidden' : ''}`}></span>
-                            <span className={`relative w-[30px] h-[2px] my-[6px] block bg-secondary dark:bg-stone-300 ${isNavbarOpen ? 'absolute bottom-[13px] -rotate-45' : ''}`}></span>
+                            <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                <path
+                                    className={!isNavbarOpen ? 'inline-flex' : 'hidden'}
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M4 6h16M4 12h16M4 18h16"
+                                />
+                                <path
+                                    className={isNavbarOpen ? 'inline-flex' : 'hidden'}
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M6 18L18 6M6 6l12 12"
+                                />
+                            </svg>
                         </button>
                     </div>
-
                 </div>
             </div>
-        </header>
+
+            {/* Responsive Mobile Navigation */}
+            <div className={(isNavbarOpen ? 'block' : 'hidden') + ' sm:hidden'}>
+                <div className="pt-2 pb-3 space-y-1">
+                    {navigationItems && navigationItems.map((item) => (
+                        <ResponsiveNavLink key={item.label} href={item.href} active={route().current(item.route_name)}>
+                            {item.label}
+                        </ResponsiveNavLink>
+                    ))}
+                    {user && (
+                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                            Dashboard
+                        </ResponsiveNavLink>
+                    )}
+                </div>
+
+                {user ? (
+                    <div className="pt-4 pb-1 border-t border-gray-200">
+                        <div className="px-4">
+                            <div className="font-medium text-base text-gray-800">{user.name}</div>
+                            <div className="font-medium text-sm text-gray-500">{user.email}</div>
+                        </div>
+                        <div className="mt-3 space-y-1">
+                            <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
+                            <ResponsiveNavLink method="post" href={route('logout')} as="button">
+                                Log Out
+                            </ResponsiveNavLink>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="pt-4 pb-1 border-t border-gray-200">
+                        {canLogin && (
+                            <ResponsiveNavLink href={route('login')}>Log in</ResponsiveNavLink>
+                        )}
+                        {canRegister && (
+                            <ResponsiveNavLink href={route('register')}>Register</ResponsiveNavLink>
+                        )}
+                    </div>
+                )}
+            </div>
+        </nav>
     );
 }

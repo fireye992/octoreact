@@ -1,8 +1,18 @@
-import { Link, Head } from '@inertiajs/react';
+// resources/js/Pages/Welcome.jsx
 
-export default function Welcome({ auth, laravelVersion, phpVersion }) {
+import MainLayout from '@/Layouts/MainLayout';
+import { Head } from '@inertiajs/react';
+
+export default function Welcome({ auth, navigationItems, canLogin, canRegister }) {
     return (
-        <>
+        <MainLayout
+            // Ces props sont passées par le contrôleur de Laravel
+            user={auth.user}
+            navigationItems={navigationItems}
+            canLogin={canLogin}
+            canRegister={canRegister}
+            header={null} // Pas d'en-tête pour la page d'accueil
+        >
             <Head title="Welcome" />
             <div className="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
                 <div className="sm:fixed sm:top-0 sm:right-0 p-6 text-end">
