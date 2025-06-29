@@ -33,9 +33,9 @@ function getAuthProps()
 // Nous nommons la route 'home'.
 Route::get('/', function () {
     $navigationItems = [
-        ['label' => 'A propos', 'href' => '#about'],
-        ['label' => 'Médias', 'href' => '#tutos'],
-        ['label' => 'Contact', 'href' => '#contact'],
+        ['label' => 'A propos', 'href' => '#about', 'is_anchor' => true],
+        ['label' => 'Médias', 'href' => '#tutos', 'is_anchor' => true],
+        ['label' => 'Contact', 'href' => '#contact', 'is_anchor' => true],
     ];
 
     $callToActionProps = [

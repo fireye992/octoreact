@@ -73,7 +73,7 @@ const VideoAdmin = ({ auth, videos: initialVideos, canLogin, canRegister }) => {
     const navigationItems = [
         { label: 'Accueil', href: route('home'), route_name: 'home' },
         { label: 'Dashboard', href: route('dashboard'), route_name: 'dashboard' },
-        { label: 'Admin Videos', href: route('admin.videos'), route_name: 'admin.videos' }, // <-- CORRIGÉ : 'videos.admin'
+        // { label: 'Admin Videos', href: route('admin.videos'), route_name: 'admin.videos' }, // <-- CORRIGÉ : 'videos.admin'
     ];
 
     return (

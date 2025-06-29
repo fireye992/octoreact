@@ -17,9 +17,35 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
         setIsNavbarOpen(prevState => !prevState);
     };
 
+    // Fonction pour gérer les clics sur les ancres HTML
+    const handleAnchorClick = (e, href) => {
+        if (href.startsWith('#')) {
+            e.preventDefault();
+            const id = href.substring(1);
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                window.history.pushState(null, '', href);
+                setIsNavbarOpen(false); // Ferme le menu mobile après le clic
+            }
+        }
+    };
+    
+    // Un composant de lien pour les ancres avec un style de NavLink responsive
+    const ResponsiveAnchorLink = ({ href, children, ...props }) => (
+        <a
+            href={href}
+            onClick={(e) => handleAnchorClick(e, href)}
+            className="block w-full ps-3 pe-4 py-2 border-l-4 border-transparent text-start text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
+            {...props}
+        >
+            {children}
+        </a>
+    );
+
     return (
         <nav className={`fixed top-0 left-0 z-50 w-full backdrop-blur-md transition-all duration-300 ${isDarkMode ? 'bg-secondary/70' : 'bg-white/70'}`}>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
                     {/* Logo & Site Title */}
                     <div className="flex items-center">
@@ -34,10 +60,11 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                     </div>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden sm:flex sm:items-center sm:space-x-8">
+                    <div className="hidden md:flex md:items-center md:space-x-8">
                         {/* Main Navigation Links */}
                         <div className="flex space-x-8">
                             {navigationItems && navigationItems.map((item) => (
+                                // Utilise la logique de route pour les liens desktop
                                 <NavLink key={item.label} href={item.href} active={route().current(item.route_name)}>
                                     {item.label}
                                 </NavLink>
@@ -45,10 +72,6 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                             {/* Liens pour l'utilisateur connecté */}
                             {user && (
                                 <>
-                                    <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                        Dashboard
-                                    </NavLink>
-                                    {/* Affichez le lien "Admin" seulement si l'utilisateur a le privilège */}
                                     {user.is_admin && (
                                         <NavLink href={route('admin.videos')} active={route().current('admin.videos')}>
                                             Admin Videos
@@ -60,7 +83,7 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                         
                         {/* Theme Toggle & Auth Links/Dropdown */}
                         <div className="flex items-center space-x-4 ml-6">
-                            {/* Dark/Light Mode Toggle */}
+                            {/* Dark/Light Mode Toggle (Desktop) */}
                             <Button
                                 variant="outline"
                                 size="icon"
@@ -89,7 +112,6 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                                         </Dropdown.Trigger>
                                         <Dropdown.Content>
                                             <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                            {/* Ajoutez d'autres liens de dropdown pour l'utilisateur si nécessaire */}
                                             {user.is_admin && (
                                                 <Dropdown.Link href={route('admin.videos')}>Admin-videos</Dropdown.Link>
                                             )}
@@ -117,7 +139,16 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                     </div>
 
                     {/* Mobile Hamburger Button */}
-                    <div className="-me-2 flex items-center sm:hidden">
+                    <div className="flex items-center md:hidden">
+                        {/* Dark/Light Mode Toggle (Mobile) - TOUJOURS VISIBLE */}
+                        <Button
+                            variant="ghost" // Use 'ghost' for a transparent background
+                            size="icon"
+                            onClick={toggleDarkMode}
+                            className="rounded-full me-2 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100"
+                        >
+                            {isDarkMode ? '☀️' : '🌙'}
+                        </Button>
                         <button
                             onClick={toggleNavbar}
                             className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
@@ -132,19 +163,24 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
             </div>
 
             {/* Responsive Mobile Navigation */}
-            <div className={(isNavbarOpen ? 'block' : 'hidden') + ' sm:hidden'}>
+            <div className={(isNavbarOpen ? 'block' : 'hidden') + ' md:hidden'}>
                 <div className="pt-2 pb-3 space-y-1">
+                    {/* Liens de navigation */}
                     {navigationItems && navigationItems.map((item) => (
-                        <ResponsiveNavLink key={item.label} href={item.href} active={route().current(item.route_name)}>
-                            {item.label}
-                        </ResponsiveNavLink>
+                        item.is_anchor ? (
+                            <ResponsiveAnchorLink key={item.label} href={item.href}>
+                                {item.label}
+                            </ResponsiveAnchorLink>
+                        ) : (
+                            <ResponsiveNavLink key={item.label} href={item.href} active={route().current(item.route_name)}>
+                                {item.label}
+                            </ResponsiveNavLink>
+                        )
                     ))}
+                    
                     {/* Liens pour l'utilisateur connecté sur mobile */}
                     {user && (
                         <>
-                            <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                Dashboard
-                            </ResponsiveNavLink>
                             {user.is_admin && (
                                 <ResponsiveNavLink href={route('admin.videos')} active={route().current('admin.videos')}>
                                     Admin Videos
@@ -163,9 +199,9 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                         </div>
                         <div className="mt-3 space-y-1">
                             <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
-                            {user.is_admin && (
-                                <ResponsiveNavLink href={route('admin.videos')}>Admin</ResponsiveNavLink>
-                            )}
+                            {/* {user.is_admin && (
+                            <ResponsiveNavLink href={route('admin.videos')}>Admin</ResponsiveNavLink>
+                            )} */}
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 Log Out
                             </ResponsiveNavLink>
