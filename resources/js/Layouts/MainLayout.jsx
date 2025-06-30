@@ -3,7 +3,7 @@ import { Head } from '@inertiajs/react';
 import MainNavbar from '@/Components/Layout/MainNavbar';
 import Footer from '@/Components/Layout/Footer';
 
-export default function MainLayout({ user, header, children, navigationItems, canLogin, canRegister, title }) {
+export default function MainLayout({ user, header, children, navigationItems, canLogin, canRegister, title,  }) {
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     // Synchronise l'état avec la classe 'dark' du <html>

@@ -9,7 +9,7 @@ export default function Hero() {
     // We can use props later if needed, for now we keep the text hardcoded
     return (
      <section
-            className="relative pt-[140px] lg:pt-[160px] pb-[110px] hero-bg dark:dark-hero-bg"
+            className="relative pt-[140px] lg:pt-[160px] pb-[110px] hero-bg  "
             style={{
                 backgroundImage: `url(${heroBg})`,
                 backgroundSize: 'cover',
@@ -18,7 +18,7 @@ export default function Hero() {
                 minHeight: '25vh',                // La hauteur minimale de la section
             }}
             >
-                 <div className="absolute inset-0 z-[1] transition-colors duration-500 dark:bg-black/50"></div>
+                 <div className="absolute inset-0 z-[1] transition-colors duration-500 bg-white/10 dark:bg-black/40 "></div>
             <div className="overlay"></div>
             <div className="container relative z-10 mx-auto">
                 <div className="flex flex-wrap -mx-4">

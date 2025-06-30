@@ -55,7 +55,7 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                                 alt="logo"
                                 className="h-9 w-auto"
                             />
-                            <span className="ml-3 text-2xl font-bold text-gray-900 dark:text-gray-100">OCTOPUS</span>
+                            <span className="ml-3 text-2xl font-bold text-stone-500 dark:text-stone-400">OCTOPUS</span>
                         </Link>
                     </div>
 
@@ -70,7 +70,7 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                                 </NavLink>
                             ))}
                             {/* Liens pour l'utilisateur connecté */}
-                            {user && (
+                            {/* {user && (
                                 <>
                                     {user.is_admin && (
                                         <NavLink href={route('admin.videos')} active={route().current('admin.videos')}>
@@ -78,14 +78,15 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                                         </NavLink>
                                     )}
                                 </>
-                            )}
+                            )} */}
                         </div>
                         
                         {/* Theme Toggle & Auth Links/Dropdown */}
                         <div className="flex items-center space-x-4 ml-6">
                             {/* Dark/Light Mode Toggle (Desktop) */}
                             <Button
-                                variant="outline"
+                                 // Use 'unstyled' for a transparent background
+                                variant="ghost"  // 'secondary' variant for a subtle background, et ghost ppour plus discret
                                 size="icon"
                                 onClick={toggleDarkMode}
                                 className="rounded-full"
@@ -179,7 +180,7 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                     ))}
                     
                     {/* Liens pour l'utilisateur connecté sur mobile */}
-                    {user && (
+                    {/* {user && (
                         <>
                             {user.is_admin && (
                                 <ResponsiveNavLink href={route('admin.videos')} active={route().current('admin.videos')}>
@@ -187,7 +188,7 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                                 </ResponsiveNavLink>
                             )}
                         </>
-                    )}
+                    )} */}
                 </div>
 
                 {/* Menu de profil mobile */}
@@ -199,9 +200,9 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                         </div>
                         <div className="mt-3 space-y-1">
                             <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
-                            {/* {user.is_admin && (
+                            {user.is_admin && (
                             <ResponsiveNavLink href={route('admin.videos')}>Admin</ResponsiveNavLink>
-                            )} */}
+                            )}
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 Log Out
                             </ResponsiveNavLink>
