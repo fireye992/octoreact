@@ -7,7 +7,8 @@ import { Input } from '@/Components/ui/input';
 import { Textarea } from '@/Components/ui/textarea';
 import { Label } from '@/Components/ui/label';
 
-export default function ContactForm({ isDarkMode }) {
+// On n'a plus besoin de la prop 'isDarkMode' ici !
+export default function ContactForm() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
@@ -32,27 +33,24 @@ export default function ContactForm({ isDarkMode }) {
     };
 
     return (
-        <section id="contact" className={`py-20 lg:py-[120px] overflow-hidden relative z-10 ${isDarkMode ? 'bg-stone-900 text-gray-200' : 'bg-gray-100 text-gray-900'}`}>
+        // Utilisez simplement les classes dark: pour le fond et le texte
+        <section id="contact" className="py-20 lg:py-[120px] overflow-hidden relative z-10 bg-gray-100 text-gray-900 dark:bg-stone-700 dark:text-gray-200">
             <div className="container mx-auto px-4">
                 <div className="flex flex-wrap -mx-4 lg:justify-between">
                     <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
                         <div className="max-w-[570px] mb-12 lg:mb-0">
-                            <h2 className={`mb-6 uppercase font-bold text-xl sm:text-[30px] lg:text-[40px] xl:text-[42px] ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+                            {/* Titre */}
+                            <h2 className="mb-6 uppercase font-bold text-xl sm:text-[30px] lg:text-[40px] xl:text-[42px] text-gray-900 dark:text-gray-100">
                                 Contactez-moi
                             </h2>
-                            <p className={`text-base leading-relaxed mb-9 ${isDarkMode ? 'text-amber-500' : 'text-gray-600'}`}>
+                            {/* Paragraphe */}
+                            <p className="text-base leading-relaxed mb-9 text-gray-600 dark:text-amber-500">
                                 Demande de rendez-vous.
                             </p>
                             
                             {/* Information de contact - Adresse */}
                             <div className="flex mb-8 max-w-[370px] w-full">
-                                <div
-                                    className="
-                                        max-w-[60px] sm:max-w-[70px] w-full h-[60px] sm:h-[70px]
-                                        flex items-center justify-center mr-6 overflow-hidden
-                                        bg-blue-600 bg-opacity-5 text-blue-600 dark:text-amber-500 rounded
-                                    "
-                                >
+                                <div className="max-w-[60px] sm:max-w-[70px] w-full h-[60px] sm:h-[70px] flex items-center justify-center mr-6 overflow-hidden bg-blue-600 bg-opacity-5 text-amber-600 dark:text-amber-500 rounded">
                                     <a href="https://www.google.com/maps/@48.6014125,7.7453507,3a,82.2y,342.96h,79.07t/data=!3m6!1e1!3m4!1s-jtllAfUBQk3a9J9SjiMFw!2e0!7i16384!8i8192" target="_blank" rel="noopener noreferrer">
                                         <svg width="24" height="24" viewBox="0 0 24 24" className="fill-current">
                                             <path d="M21.8182 24H16.5584C15.3896 24 14.4156 23.0256 14.4156 21.8563V17.5688C14.4156 17.1401 14.0649 16.7893 13.6364 16.7893H10.4026C9.97403 16.7893 9.62338 17.1401 9.62338 17.5688V21.8173C9.62338 22.9866 8.64935 23.961 7.48052 23.961H2.14286C0.974026 23.961 0 22.9866 0 21.8173V8.21437C0 7.62972 0.311688 7.08404 0.818182 6.77223L11.1039 0.263094C11.6494 -0.0876979 12.3896 -0.0876979 12.9351 0.263094L23.2208 6.77223C23.7273 7.08404 24 7.62972 24 8.21437V21.7783C24 23.0256 23.026 24 21.8182 24ZM10.3636 15.4251H13.5974C14.7662 15.4251 15.7403 16.3995 15.7403 17.5688V21.8173C15.7403 22.246 16.0909 22.5968 16.5195 22.5968H21.8182C22.2468 22.5968 22.5974 22.246 22.5974 21.8173V8.25335C22.5974 8.13642 22.5195 8.01949 22.4416 7.94153L12.1948 1.4324C12.0779 1.35445 11.9221 1.35445 11.8442 1.4324L1.55844 7.94153C1.44156 8.01949 1.4026 8.13642 1.4026 8.25335V21.8563C1.4026 22.285 1.75325 22.6358 2.18182 22.6358H7.48052C7.90909 22.6358 8.25974 22.285 8.25974 21.8563V17.5688C8.22078 16.3995 9.19481 15.4251 10.3636 15.4251Z"/>
@@ -60,8 +58,8 @@ export default function ContactForm({ isDarkMode }) {
                                     </a>
                                 </div>
                                 <div className="w-full">
-                                    <h4 className={`mb-1 text-xl font-bold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>Octopus</h4>
-                                    <p className={`text-base ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                                    <h4 className="mb-1 text-xl font-bold text-gray-900 dark:text-gray-100">Octopus</h4>
+                                    <p className="text-base text-gray-600 dark:text-gray-300">
                                         21-23 rue Ste Madeleine - Strasbourg
                                     </p>
                                 </div>
@@ -69,13 +67,7 @@ export default function ContactForm({ isDarkMode }) {
 
                             {/* Information de contact - Téléphone */}
                             <div className="flex mb-8 max-w-[370px] w-full">
-                                <div
-                                    className="
-                                        max-w-[60px] sm:max-w-[70px] w-full h-[60px] sm:h-[70px]
-                                        flex items-center justify-center mr-6 overflow-hidden
-                                        bg-blue-600 bg-opacity-5 text-blue-600 dark:text-amber-500 rounded
-                                    "
-                                >
+                                <div className="max-w-[60px] sm:max-w-[70px] w-full h-[60px] sm:h-[70px] flex items-center justify-center mr-6 overflow-hidden bg-blue-600 bg-opacity-5 text-amber-600 dark:text-amber-500 rounded">
                                     <svg width="24" height="26" viewBox="0 0 24 26" className="fill-current">
                                         <path d="M22.6149 15.1386C22.5307 14.1704 21.7308 13.4968 20.7626 13.4968H2.82869C1.86042 13.4968 1.10265 14.2125 0.97636 15.1386L0.092295 23.9793C0.0501967 24.4845 0.21859 25.0317 0.555377 25.4106C0.892163 25.7895 1.39734 26 1.94462 26H21.6887C22.1939 26 22.6991 25.7895 23.078 25.4106C23.4148 25.0317 23.5832 24.5266 23.5411 23.9793L22.6149 15.1386ZM21.9413 24.4424C21.8992 24.4845 21.815 24.5687 21.6466 24.5687H1.94462C1.81833 24.5687 1.69203 24.4845 1.64993 24.4424C1.60783 24.4003 1.52364 24.3161 1.56574 24.1477L2.4498 15.2649C2.4498 15.0544 2.61819 14.9281 2.82869 14.9281H20.8047C21.0152 14.9281 21.1415 15.0544 21.1835 15.2649L22.0676 24.1477C22.0255 24.274 21.9834 24.4003 21.9413 24.4424Z"/>
                                         <path d="M11.7965 16.7805C10.1547 16.7805 8.84961 18.0855 8.84961 19.7273C8.84961 21.3692 10.1547 22.6742 11.7965 22.6742C13.4383 22.6742 14.7434 21.3692 14.7434 19.7273C14.7434 18.0855 13.4383 16.7805 11.7965 16.7805ZM11.7965 21.2008C10.9966 21.2008 10.3231 20.5272 10.3231 19.7273C10.3231 18.9275 10.9966 18.2539 11.7965 18.2539C12.5964 18.2539 13.2699 18.9275 13.2699 19.7273C13.2699 20.5272 12.5964 21.2008 11.7965 21.2008Z"/>
@@ -83,16 +75,16 @@ export default function ContactForm({ isDarkMode }) {
                                     </svg>
                                 </div>
                                 <div className="w-full">
-                                    <h4 className={`mb-1 text-xl font-bold ${isDarkMode ? 'text-gray-100' : 'text-gray-900'}`}>
+                                    <h4 className="mb-1 text-xl font-bold text-gray-900 dark:text-gray-100">
                                         Email
                                     </h4>
-                                    <p className={`text-base ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>ly@octopus-philosophie.fr</p>
+                                    <p className="text-base text-gray-600 dark:text-gray-300">ly@octopus-philosophie.fr</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
-                        <div className={`relative p-8 rounded-lg shadow-lg sm:p-12 ${isDarkMode ? 'bg-stone-800' : 'bg-white'}`}>
+                        <div className="relative p-8 rounded-lg shadow-lg sm:p-12 bg-white dark:bg-stone-800">
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 {successMessage && (
                                     <div className="px-6 py-4 mb-4 text-gray-100 bg-green-600 rounded-md">
@@ -101,7 +93,7 @@ export default function ContactForm({ isDarkMode }) {
                                 )}
                                 
                                 <div className="mb-6">
-                                    <Label htmlFor="name" className={`block text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Votre nom</Label>
+                                    <Label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-200">Votre nom</Label>
                                     <Input
                                         type="text"
                                         id="name"
@@ -115,7 +107,7 @@ export default function ContactForm({ isDarkMode }) {
                                 </div>
                                 
                                 <div className="mb-6">
-                                    <Label htmlFor="email" className={`block text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Votre Email</Label>
+                                    <Label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200">Votre Email</Label>
                                     <Input
                                         type="email"
                                         id="email"
@@ -129,7 +121,7 @@ export default function ContactForm({ isDarkMode }) {
                                 </div>
                                 
                                 <div className="mb-6">
-                                    <Label htmlFor="message" className={`block text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>Votre Message</Label>
+                                    <Label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-200">Votre Message</Label>
                                     <Textarea
                                         id="message"
                                         name="message"
@@ -143,7 +135,7 @@ export default function ContactForm({ isDarkMode }) {
                                 </div>
                                 
                                 <div>
-                                    <Button type="submit" className="w-full bg-blue-600 text-white hover:bg-blue-700">
+                                    <Button type="submit" className="w-full bg-amber-600 text-white hover:bg-amber-700">
                                         Envoi
                                     </Button>
                                 </div>
@@ -155,7 +147,6 @@ export default function ContactForm({ isDarkMode }) {
                                         <path fillRule="evenodd" clipRule="evenodd" d="M0 100C0 44.7715 0 0 0 0C55.2285 0 100 44.7715 100 100C100 100 100 100 0 100Z" fill="#CAC6D3"/>
                                     </svg>
                                 </span>
-                                {/* Assuming x-contact-dots-top and x-contact-dots-bottom are simple SVG/HTML or can be omitted for now */}
                             </div>
                         </div>
                     </div>

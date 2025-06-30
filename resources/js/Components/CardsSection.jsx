@@ -8,7 +8,7 @@ import { Button } from '@/Components/ui/button'; // Assurez-vous que le composan
 export default function CardsSection({ videoTutorials }) {
     return (
         // La section principale avec les classes Tailwind
-        <section id="tutos" className="pt-16 pb-16 bg-stone-100 dark:bg-stone-800 text-stone-900">
+        <section id="tutos" className="pt-16 pb-16 bg-gray-300 dark:bg-stone-800">
             <div className="container">
                 <div className="flex flex-wrap -mx-4">
                     <div className="w-full px-4">
@@ -16,8 +16,8 @@ export default function CardsSection({ videoTutorials }) {
                             <h2 className="mb-4 text-3xl font-bold text-stone-900 dark:text-gray-300">
                                 Les médias à tentacules
                             </h2>
-                            <p className="text-base text-body-color">
-                                Il faut savoir s'arrêter
+                            <p className="text-gray-400 dark:text-stone-500 text-body-color">
+                                Il est nécessaire de s'arrêter! "Aristote"
                             </p>
                         </div>
                     </div>

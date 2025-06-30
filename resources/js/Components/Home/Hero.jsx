@@ -47,7 +47,7 @@ export default function Hero() {
                                 </li>
                             </ul>
                             <div className="pt-16 clients">
-                                <h6 className="flex items-center mb-4 text-xs font-normal text-body-color dark:text-gray-300">
+                                <h6 className="flex items-center mb-4 text-xs font-normal text-body-color text-secondary dark:text-gray-400">
                                     Suivez-le sur les réseaux
                                     <span className="w-8 h-[1px] bg-body-color inline-block ml-2"></span>
                                 </h6>
@@ -59,7 +59,7 @@ export default function Hero() {
                     <div className="w-full px-4 lg:w-6/12">
                         <div className="lg:text-right lg:ml-auto">
                             <div className="relative z-10 inline-block pt-11 lg:pt-0">
-                                <img src="/img/octo/ly2.gif" alt="hero" className="max-w-full lg:ml-auto dark-mode-image" />
+                                <img src="/img/octo/Emilie.gif" alt="hero" className="max-w-full lg:ml-auto" />
                                 <span className="absolute -left-8 -bottom-8 z-[-1] text-amber-600">
                                     <svg width="93" height="93" viewBox="0 0 93 93" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">

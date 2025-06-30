@@ -17,32 +17,6 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
         setIsNavbarOpen(prevState => !prevState);
     };
 
-    // Fonction pour gérer les clics sur les ancres HTML
-    const handleAnchorClick = (e, href) => {
-        if (href.startsWith('#')) {
-            e.preventDefault();
-            const id = href.substring(1);
-            const element = document.getElementById(id);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-                window.history.pushState(null, '', href);
-                setIsNavbarOpen(false); // Ferme le menu mobile après le clic
-            }
-        }
-    };
-    
-    // Un composant de lien pour les ancres avec un style de NavLink responsive
-    const ResponsiveAnchorLink = ({ href, children, ...props }) => (
-        <a
-            href={href}
-            onClick={(e) => handleAnchorClick(e, href)}
-            className="block w-full ps-3 pe-4 py-2 border-l-4 border-transparent text-start text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"
-            {...props}
-        >
-            {children}
-        </a>
-    );
-
     return (
         <nav className={`fixed top-0 left-0 z-50 w-full backdrop-blur-md transition-all duration-300 ${isDarkMode ? 'bg-secondary/70' : 'bg-white/70'}`}>
             <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
@@ -64,29 +38,23 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                         {/* Main Navigation Links */}
                         <div className="flex space-x-8">
                             {navigationItems && navigationItems.map((item) => (
-                                // Utilise la logique de route pour les liens desktop
-                                <NavLink key={item.label} href={item.href} active={route().current(item.route_name)}>
+                                <NavLink
+                                    key={item.label}
+                                    href={item.href}
+                                    is_anchor={item.is_anchor || false} // Assurez-vous que is_anchor est toujours défini
+                                    active={item.is_anchor ? false : route().current(item.route_name)}
+                                    onClick={item.is_anchor ? () => setIsNavbarOpen(false) : undefined}
+                                >
                                     {item.label}
                                 </NavLink>
                             ))}
-                            {/* Liens pour l'utilisateur connecté */}
-                            {/* {user && (
-                                <>
-                                    {user.is_admin && (
-                                        <NavLink href={route('admin.videos')} active={route().current('admin.videos')}>
-                                            Admin Videos
-                                        </NavLink>
-                                    )}
-                                </>
-                            )} */}
                         </div>
                         
                         {/* Theme Toggle & Auth Links/Dropdown */}
                         <div className="flex items-center space-x-4 ml-6">
                             {/* Dark/Light Mode Toggle (Desktop) */}
                             <Button
-                                 // Use 'unstyled' for a transparent background
-                                variant="ghost"  // 'secondary' variant for a subtle background, et ghost ppour plus discret
+                                variant="ghost"
                                 size="icon"
                                 onClick={toggleDarkMode}
                                 className="rounded-full"
@@ -143,7 +111,7 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                     <div className="flex items-center md:hidden">
                         {/* Dark/Light Mode Toggle (Mobile) - TOUJOURS VISIBLE */}
                         <Button
-                            variant="ghost" // Use 'ghost' for a transparent background
+                            variant="ghost"
                             size="icon"
                             onClick={toggleDarkMode}
                             className="rounded-full me-2 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100"
@@ -166,29 +134,18 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
             {/* Responsive Mobile Navigation */}
             <div className={(isNavbarOpen ? 'block' : 'hidden') + ' md:hidden'}>
                 <div className="pt-2 pb-3 space-y-1">
-                    {/* Liens de navigation */}
+                    {/* Liens de navigation mobile */}
                     {navigationItems && navigationItems.map((item) => (
-                        item.is_anchor ? (
-                            <ResponsiveAnchorLink key={item.label} href={item.href}>
-                                {item.label}
-                            </ResponsiveAnchorLink>
-                        ) : (
-                            <ResponsiveNavLink key={item.label} href={item.href} active={route().current(item.route_name)}>
-                                {item.label}
-                            </ResponsiveNavLink>
-                        )
+                        <ResponsiveNavLink
+                            key={item.label}
+                            href={item.href}
+                            is_anchor={item.is_anchor || false} // Assurez-vous que is_anchor est toujours défini
+                            active={item.is_anchor ? false : route().current(item.route_name)}
+                            onClick={item.is_anchor ? () => setIsNavbarOpen(false) : () => setIsNavbarOpen(false)} // Ferme le menu mobile pour tous les liens
+                        >
+                            {item.label}
+                        </ResponsiveNavLink>
                     ))}
-                    
-                    {/* Liens pour l'utilisateur connecté sur mobile */}
-                    {/* {user && (
-                        <>
-                            {user.is_admin && (
-                                <ResponsiveNavLink href={route('admin.videos')} active={route().current('admin.videos')}>
-                                    Admin Videos
-                                </ResponsiveNavLink>
-                            )}
-                        </>
-                    )} */}
                 </div>
 
                 {/* Menu de profil mobile */}
@@ -199,11 +156,11 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                             <div className="font-medium text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
                         </div>
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
+                            <ResponsiveNavLink href={route('profile.edit')} onClick={() => setIsNavbarOpen(false)}>Profile</ResponsiveNavLink>
                             {user.is_admin && (
-                            <ResponsiveNavLink href={route('admin.videos')}>Admin</ResponsiveNavLink>
+                                <ResponsiveNavLink href={route('admin.videos')} onClick={() => setIsNavbarOpen(false)}>Admin</ResponsiveNavLink>
                             )}
-                            <ResponsiveNavLink method="post" href={route('logout')} as="button">
+                            <ResponsiveNavLink method="post" href={route('logout')} as="button" onClick={() => setIsNavbarOpen(false)}>
                                 Log Out
                             </ResponsiveNavLink>
                         </div>
@@ -211,10 +168,10 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                 ) : (
                     <div className="pt-4 pb-1 border-t border-gray-200">
                         {canLogin && (
-                            <ResponsiveNavLink href={route('login')}>Log in</ResponsiveNavLink>
+                            <ResponsiveNavLink href={route('login')} onClick={() => setIsNavbarOpen(false)}>Log in</ResponsiveNavLink>
                         )}
                         {canRegister && (
-                            <ResponsiveNavLink href={route('register')}>Register</ResponsiveNavLink>
+                            <ResponsiveNavLink href={route('register')} onClick={() => setIsNavbarOpen(false)}>Register</ResponsiveNavLink>
                         )}
                     </div>
                 )}

@@ -6,8 +6,8 @@ export default function Dashboard({ auth, canLogin, canRegister }) {
     const navigationItems = [
         // Mettez à jour le nom de la route pour correspondre à celui de Laravel
         { label: 'Accueil', href: route('home'), route_name: 'home' },
-        { label: 'Portfolio', href: '#', route_name: '' },
-        { label: 'Contact', href: '#', route_name: '' },
+        // { label: 'Portfolio', href: '#', route_name: '' },
+        // { label: 'Contact', href: '#', route_name: '' },
     ];
 
     return (

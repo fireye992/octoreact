@@ -9,4 +9,4 @@ export default function VideoTutorials() {
             <p className="mt-4 text-lg">Ceci est un placeholder pour la section expérience.</p>
         </div>
     );
-}
+} 
