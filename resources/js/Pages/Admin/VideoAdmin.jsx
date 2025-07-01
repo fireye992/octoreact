@@ -21,21 +21,27 @@ const VideoAdmin = ({ auth, videos: initialVideos, canLogin, canRegister }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (editingVideo) {
-            put(route('videos.update', editingVideo.id), { // <-- CORRIGÉ : 'videos.update'
+            put(route('admin.videos.update', editingVideo.id), { // <-- CORRECTION ICI : 'admin.videos.update'
                 onSuccess: () => {
                     Swal.fire('Succès !', 'Vidéo mise à jour avec succès.', 'success');
                     setEditingVideo(null);
                     reset();
                 },
-                onError: () => Swal.fire('Erreur !', 'Veuillez corriger les erreurs de validation.', 'error')
+                onError: (validationErrors) => { // Capture les erreurs de validation
+                    console.error("Erreurs de validation:", validationErrors);
+                    Swal.fire('Erreur !', 'Veuillez corriger les erreurs de validation.', 'error');
+                }
             });
         } else {
-            post(route('videos.store'), { // <-- CORRIGÉ : 'videos.store'
+            post(route('admin.videos.store'), { // <-- CORRECTION ICI : 'admin.videos.store'
                 onSuccess: () => {
                     Swal.fire('Succès !', 'Vidéo ajoutée avec succès.', 'success');
                     reset();
                 },
-                onError: () => Swal.fire('Erreur !', 'Veuillez corriger les erreurs de validation.', 'error')
+                onError: (validationErrors) => { // Capture les erreurs de validation
+                    console.error("Erreurs de validation:", validationErrors);
+                    Swal.fire('Erreur !', 'Veuillez corriger les erreurs de validation.', 'error');
+                }
             });
         }
     };
@@ -61,7 +67,7 @@ const VideoAdmin = ({ auth, videos: initialVideos, canLogin, canRegister }) => {
             cancelButtonText: 'Annuler'
         }).then((result) => {
             if (result.isConfirmed) {
-                destroy(route('videos.destroy', videoId), { // <-- CORRIGÉ : 'videos.destroy'
+                destroy(route('admin.videos.destroy', videoId), { // <-- CORRECTION ICI : 'admin.videos.destroy'
                     onSuccess: () => Swal.fire('Supprimé !', 'La vidéo a été supprimée.', 'success'),
                     onError: () => Swal.fire('Erreur !', 'Impossible de supprimer la vidéo.', 'error')
                 });
@@ -73,7 +79,7 @@ const VideoAdmin = ({ auth, videos: initialVideos, canLogin, canRegister }) => {
     const navigationItems = [
         { label: 'Accueil', href: route('home'), route_name: 'home' },
         { label: 'Dashboard', href: route('dashboard'), route_name: 'dashboard' },
-        // { label: 'Admin Videos', href: route('admin.videos'), route_name: 'admin.videos' }, // <-- CORRIGÉ : 'videos.admin'
+        // { label: 'Admin Videos', href: route('admin.videos'), route_name: 'admin.videos' }, // <-- Correction pour le lien de navigation aussi
     ];
 
     return (
@@ -85,7 +91,7 @@ const VideoAdmin = ({ auth, videos: initialVideos, canLogin, canRegister }) => {
             title="Admin Vidéos"
         >
             <Head title="Admin Vidéos" />
-            
+
             {/* Header de la page d'administration */}
             <header className="shadow bg-white dark:bg-stone-800">
                 <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -94,7 +100,7 @@ const VideoAdmin = ({ auth, videos: initialVideos, canLogin, canRegister }) => {
                     </h2>
                 </div>
             </header>
-            
+
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
                     {/* Formulaire d'ajout/édition */}

@@ -6,7 +6,7 @@ import { Button } from '@/Components/ui/button'; // Importez le bouton Shadcn
 export default function CallToAction({ title, button1Href, button1Text, button2Href, button2Text }) {
     return (
         <section>
-            <div className="bg-stone-300 dark:bg-stone-700 relative rounded overflow-hidden py-12 px-8 md:p-[70px] z-10">
+            <div className="bg-gray-200 dark:bg-stone-700 relative rounded overflow-hidden py-12 px-8 md:p-[70px] z-10">
                 <div className="container mx-auto">
                     <div className="flex flex-wrap items-center -mx-4">
                         <div className="w-full lg:w-1/2 px-4">

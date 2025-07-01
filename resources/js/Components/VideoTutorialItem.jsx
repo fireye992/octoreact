@@ -19,7 +19,7 @@ export default function VideoTutorialItem({ videoId, title, description }) {
 
     return (
         <div className="w-full px-4 md:w-1/2 xl:w-1/3">
-            <div className="mb-10 rounded-lg bg-stone-200">
+            <div className="mb-10 rounded-lg bg-stone-100">
                 {/* ====== Video Section Start ====== */}
                 <section>
                     <div className="relative z-20 w-full aspect-video">
@@ -31,7 +31,7 @@ export default function VideoTutorialItem({ videoId, title, description }) {
                                 className="object-cover object-center w-full h-full rounded-lg"
                             />
                         </div>
-                        <div className="absolute top-0 left-0 z-10 flex items-center justify-center w-full h-full bg-opacity-0 bg-primary">
+                        <div className="absolute top-0 left-0 z-10 flex items-center justify-center w-full h-full bg-opacity-0 bg-secondary/25">
                             {/* Bouton de lecture */}
                             <a
                                 href="#"

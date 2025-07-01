@@ -34,7 +34,7 @@ export default function ContactForm() {
 
     return (
         // Utilisez simplement les classes dark: pour le fond et le texte
-        <section id="contact" className="py-20 lg:py-[120px] overflow-hidden relative z-10 bg-gray-100 text-gray-900 dark:bg-stone-700 dark:text-gray-200">
+        <section id="contact" className="py-20 lg:py-[120px] overflow-hidden relative z-10 bg-neutral-200 text-gray-900 dark:bg-stone-900 dark:text-stone-100">
             <div className="container mx-auto px-4">
                 <div className="flex flex-wrap -mx-4 lg:justify-between">
                     <div className="w-full px-4 lg:w-1/2 xl:w-6/12">

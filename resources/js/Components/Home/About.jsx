@@ -6,7 +6,7 @@ import ButtonLink from '@/Components/ButtonLink'; // Supposons que vous ayez un 
 
 export default function About() {
     return (
-        <section id="about" className="dark:bg-secondary pt-4 lg:pt-[120px] pb-12 lg:pb-[90px] overflow-hidden">
+        <section id="about" className="pt-4 lg:pt-[120px] pb-12 lg:pb-[90px] overflow-hidden">
             <div className="container mx-auto">
                 <div className="flex flex-wrap items-center justify-between -mx-4">
                     {/* Colonne de gauche avec les images */}

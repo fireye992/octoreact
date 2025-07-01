@@ -59,7 +59,7 @@ export default function Hero() {
                     <div className="w-full px-4 lg:w-6/12">
                         <div className="lg:text-right lg:ml-auto">
                             <div className="relative z-10 inline-block pt-11 lg:pt-0">
-                                <img src="/img/octo/Emilie.gif" alt="hero" className="max-w-full lg:ml-auto" />
+                                <img src="/img/octo/Emilie.gif" alt="Emilie" className="opacity-75 max-w-full lg:ml-auto" />
                                 <span className="absolute -left-8 -bottom-8 z-[-1] text-amber-600">
                                     <svg width="93" height="93" viewBox="0 0 93 93" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">

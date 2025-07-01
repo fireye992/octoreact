@@ -18,6 +18,7 @@ class VideoController extends Controller
 
         return Inertia::render('Admin/VideoAdmin', [
             'videos' => $videos->toArray(), // Passe les vidéos comme props au composant React
+            'robots' => 'noindex, nofollow',
         ]);
     }
 
@@ -116,4 +117,6 @@ class VideoController extends Controller
         return redirect()->route('admin.videos')
                          ->with('success', 'Vidéo supprimée avec succès !');
     }
+    
+    
 }
