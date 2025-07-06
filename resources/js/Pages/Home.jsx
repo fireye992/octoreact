@@ -6,9 +6,8 @@ import MainLayout from '@/Layouts/MainLayout';
 import Hero from '@/Components/Home/Hero';
 import Experience from '@/Components/Home/Experience';
 import About from '@/Components/Home/About';
-// import VideoTutorials from '@/Components/Home/VideoTutorials'; // Ce composant semble être remplacé par CardsSection, on peut le commenter ou le supprimer
 import ContactForm from '@/Components/ContactForm';
-import CallToAction from '@/Components/CallToAction'; // Chemin corrigé ici
+import CallToAction from '@/Components/CallToAction';
 import CardsSection from '@/Components/CardsSection';
 
 export default function Home({
@@ -16,13 +15,12 @@ export default function Home({
     navigationItems,
     canLogin,
     canRegister,
-    videoTutorials, // <-- On garde cette prop car votre code original la gère
+    videoTutorials,
     callToActionTitle,
     button1Href,
     button1Text,
     button2Href,
     button2Text,
-    // latestVideos, // <-- Cette prop n'est plus nécessaire si le contrôleur envoie 'videoTutorials'
     // Props SEO passées par le contrôleur
     title,
     description,
@@ -33,6 +31,10 @@ export default function Home({
     og_type,
     og_image_width,
     og_image_height,
+    // NOUVELLES PROPS POUR LES MESSAGES DE FORMULAIRE
+    successMessage, // Ajout de la prop successMessage
+    errorMessage,   // Ajout de la prop errorMessage
+    errors,         // Ajout de la prop errors (pour les erreurs de validation par champ)
 }) {
     const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -56,7 +58,7 @@ export default function Home({
             canRegister={canRegister}
             isDarkMode={isDarkMode}
             toggleDarkMode={toggleDarkMode}
-            title={title} // Passe le titre dynamique au MainLayout
+            title={title}
         >
             {/* Balises <Head> pour le SEO */}
             <Head>
@@ -95,13 +97,13 @@ export default function Home({
                                 },
                                 "query-input": "required name=search_term_string"
                             },
-                            "video": videoTutorials.map(video => ({ // Utilise videoTutorials ici
+                            "video": videoTutorials.map(video => ({
                                 "@type": "VideoObject",
                                 "name": video.title,
                                 "description": video.description,
                                 "uploadDate": new Date(video.created_at).toISOString().split('T')[0],
-                                "thumbnailUrl": `https://img.youtube.com/vi/$${video.video_id}/maxresdefault.jpg`,
-                                "embedUrl": `https://img.youtube.com/vi/$${video.video_id}`,
+                                "thumbnailUrl": `https://img.youtube.com/vi/$$${video.video_id}/maxresdefault.jpg`,
+                                "embedUrl": `https://img.youtube.com/vi/$$${video.video_id}`,
                                 "interactionStatistic": {
                                     "@type": "InteractionCounter",
                                     "interactionType": "https://schema.org/WatchAction",
@@ -135,8 +137,13 @@ export default function Home({
             {/* Utilise le composant CardsSection avec la prop videoTutorials */}
             <CardsSection videoTutorials={videoTutorials} />
 
-            {/* Utilisation du composant ContactForm avec la prop isDarkMode */}
-            <ContactForm isDarkMode={isDarkMode} />
+            {/* Utilisation du composant ContactForm avec les nouvelles props pour les messages */}
+            <ContactForm
+                isDarkMode={isDarkMode}
+                initialSuccessMessage={successMessage} // Passe la prop de succès
+                initialErrorMessage={errorMessage}     // Passe la prop d'erreur générale
+                initialErrors={errors}                 // Passe la prop d'erreurs de validation par champ
+            />
 
         </MainLayout>
     );

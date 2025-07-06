@@ -12,23 +12,29 @@ export default function MainLayout({ user, header, children, navigationItems, ca
         // Vérifier si une préférence est sauvegardée
         const savedMode = localStorage.getItem('darkMode');
         if (savedMode !== null) {
+            // Si une préférence est trouvée, l'utiliser
             setIsDarkMode(JSON.parse(savedMode));
         } else {
-            // Utiliser la préférence système si aucune préférence n'est sauvegardée
-            setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
+            // --- MODIFICATION ICI : DÉFINIR LE MODE CLAIR PAR DÉFAUT SI AUCUNE PRÉFÉRENCE N'EST SAUVEGARDÉE ---
+            // Au lieu de window.matchMedia, nous forçons à false (mode clair)
+            setIsDarkMode(false); 
+            // C'est une bonne pratique de sauvegarder ce "faux" par défaut immédiatement,
+            // pour que la prochaine visite sans préférence système soit également claire.
+            localStorage.setItem('darkMode', JSON.stringify(false));
+            // --- FIN DE LA MODIFICATION ---
         }
-    }, []);
+    }, []); // Le tableau vide assure que cet effet ne s'exécute qu'une seule fois au montage
 
-    // Appliquer le dark mode au DOM
+    // Appliquer le dark mode au DOM et sauvegarder la préférence à chaque changement
     useEffect(() => {
         if (isDarkMode) {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
         }
-        // Sauvegarder la préférence
+        // Sauvegarder la préférence actuelle à chaque fois qu'elle change
         localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
-    }, [isDarkMode]);
+    }, [isDarkMode]); // Cet effet s'exécute à chaque fois que isDarkMode change
 
     const toggleDarkMode = () => {
         setIsDarkMode(prevMode => !prevMode);

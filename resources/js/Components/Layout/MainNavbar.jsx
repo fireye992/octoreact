@@ -153,12 +153,12 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                     <div className="pt-4 pb-1 border-t border-gray-200">
                         <div className="px-4">
                             <div className="font-medium text-base text-gray-800 dark:text-gray-200">{user.name}</div>
-                            <div className="font-medium text-sm text-gray-500 dark:text-gray-400">{user.email}</div>
+                            <div className="font-medium text-sm text-gray-500 dark:text-slate-400">{user.email}</div>
                         </div>
                         <div className="mt-3 space-y-1">
                             <ResponsiveNavLink href={route('profile.edit')} onClick={() => setIsNavbarOpen(false)}>Profile</ResponsiveNavLink>
                             {user.is_admin && (
-                                <ResponsiveNavLink href={route('admin.videos')} onClick={() => setIsNavbarOpen(false)}>Admin</ResponsiveNavLink>
+                                <ResponsiveNavLink href={route('admin.videos')} onClick={() => setIsNavbarOpen(false)}>Admin-Videos</ResponsiveNavLink>
                             )}
                             <ResponsiveNavLink method="post" href={route('logout')} as="button" onClick={() => setIsNavbarOpen(false)}>
                                 Log Out
