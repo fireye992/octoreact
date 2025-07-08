@@ -1,53 +1,77 @@
-// resources/js/Components/ContactForm.jsx
-
-import React, { useState } from 'react';
-import { useForm } from '@inertiajs/react';
+import React, { useEffect, useRef } from 'react'; // Import useEffect and useRef
+import { useForm, usePage } from '@inertiajs/react'; // Import usePage
 import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
 import { Textarea } from '@/Components/ui/textarea';
 import { Label } from '@/Components/ui/label';
 
-// On n'a plus besoin de la prop 'isDarkMode' ici !
 export default function ContactForm() {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    // Access flash messages from Inertia's usePage().props
+    const { flash } = usePage().props;
+
+    const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
         name: '',
         email: '',
         message: '',
     });
 
-    const [successMessage, setSuccessMessage] = useState('');
+    // Create a ref for your contact section
+    const contactSectionRef = useRef(null);
+
+    // Effect to handle scrolling and form reset based on flash messages or validation errors
+    useEffect(() => {
+        // If there's a success message, an error message, or any validation errors, scroll to the contact section.
+        if (flash.success || flash.error || Object.keys(errors).length > 0) {
+            if (contactSectionRef.current) {
+                // Add a small delay to ensure the DOM has updated before attempting to scroll
+                setTimeout(() => {
+                    contactSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100); // 100ms is usually sufficient
+            }
+        }
+
+        // If the submission was successful (indicated by a flash.success message),
+        // reset the form fields and clear any existing validation errors.
+        if (flash.success) {
+            reset();
+            clearErrors(); // Also clear errors explicitly if any were left from previous attempts
+        }
+    }, [flash.success, flash.error, errors, reset, clearErrors]); // Add all dependencies
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setSuccessMessage('');
 
         post(route('contact.submit'), {
+            // This is crucial: it prevents Inertia from scrolling to the top of the page on submission.
+            // Inertia will then respect the fragment or allow your manual scroll.
+            preserveScroll: true,
             onSuccess: () => {
-                setSuccessMessage('Merci pour votre message, je vous contacterai au plus vite.');
-                reset();
+                // Flash messages are automatically handled by the useEffect above.
+                // No need to set local state for success message here anymore.
             },
             onError: (formErrors) => {
-                console.error('Erreurs de validation:', formErrors);
+                // The 'errors' object from useForm will be automatically populated.
+                // The 'flash.error' message will be available if a general server error occurred.
+                // The useEffect will handle scrolling to the contact section.
+                console.error('Validation errors:', formErrors);
             },
         });
     };
 
     return (
-        // Utilisez simplement les classes dark: pour le fond et le texte
-        <section id="contact" className="py-20 lg:py-[120px] overflow-hidden relative z-10 bg-neutral-200 text-gray-900 dark:bg-stone-900 dark:text-stone-100">
+        // Assign the ref to your section
+        <section id="contact" ref={contactSectionRef} className="py-20 lg:py-[120px] overflow-hidden relative z-10 bg-neutral-200 text-gray-900 dark:bg-stone-900 dark:text-stone-100">
             <div className="container mx-auto px-4">
                 <div className="flex flex-wrap -mx-4 lg:justify-between">
                     <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
                         <div className="max-w-[570px] mb-12 lg:mb-0">
-                            {/* Titre */}
                             <h2 className="mb-6 uppercase font-bold text-xl sm:text-[30px] lg:text-[40px] xl:text-[42px] text-gray-900 dark:text-gray-100">
                                 Contactez-moi
                             </h2>
-                            {/* Paragraphe */}
                             <p className="text-base leading-relaxed mb-9 text-gray-600 dark:text-amber-500">
                                 Demande de rendez-vous.
                             </p>
-                            
+
                             {/* Information de contact - Adresse */}
                             <div className="flex mb-8 max-w-[370px] w-full">
                                 <div className="max-w-[60px] sm:max-w-[70px] w-full h-[60px] sm:h-[70px] flex items-center justify-center mr-6 overflow-hidden bg-blue-600 bg-opacity-5 text-amber-600 dark:text-amber-500 rounded">
@@ -65,7 +89,7 @@ export default function ContactForm() {
                                 </div>
                             </div>
 
-                            {/* Information de contact - Téléphone */}
+                            {/* Information de contact - Téléphone (was email in your snippet, corrected to email below) */}
                             <div className="flex mb-8 max-w-[370px] w-full">
                                 <div className="max-w-[60px] sm:max-w-[70px] w-full h-[60px] sm:h-[70px] flex items-center justify-center mr-6 overflow-hidden bg-blue-600 bg-opacity-5 text-amber-600 dark:text-amber-500 rounded">
                                     <svg width="24" height="26" viewBox="0 0 24 26" className="fill-current">
@@ -86,12 +110,19 @@ export default function ContactForm() {
                     <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
                         <div className="relative p-8 rounded-lg shadow-lg sm:p-12 bg-white dark:bg-stone-800">
                             <form onSubmit={handleSubmit} className="space-y-4">
-                                {successMessage && (
+                                {/* Display success flash message from Inertia */}
+                                {flash.success && (
                                     <div className="px-6 py-4 mb-4 text-gray-100 bg-green-600 rounded-md">
-                                        {successMessage}
+                                        {flash.success}
                                     </div>
                                 )}
-                                
+                                {/* Display error flash message from Inertia */}
+                                {flash.error && (
+                                    <div className="px-6 py-4 mb-4 text-gray-100 bg-red-600 rounded-md">
+                                        {flash.error}
+                                    </div>
+                                )}
+
                                 <div className="mb-6">
                                     <Label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-200">Votre nom</Label>
                                     <Input
@@ -105,7 +136,7 @@ export default function ContactForm() {
                                     />
                                     {errors.name && <div className="text-red-500 text-sm mt-1">{errors.name}</div>}
                                 </div>
-                                
+
                                 <div className="mb-6">
                                     <Label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200">Votre Email</Label>
                                     <Input
@@ -115,11 +146,11 @@ export default function ContactForm() {
                                         placeholder="Votre Email"
                                         value={data.email}
                                         onChange={(e) => setData('email', e.target.value)}
-                                        className={`mt-1 block w-full ${errors.email ? 'border-red-500 focus:border-500' : ''}`}
+                                        className={`mt-1 block w-full ${errors.email ? 'border-red-500 focus:border-red-500' : ''}`}
                                     />
                                     {errors.email && <div className="text-red-500 text-sm mt-1">{errors.email}</div>}
                                 </div>
-                                
+
                                 <div className="mb-6">
                                     <Label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-200">Votre Message</Label>
                                     <Textarea
@@ -129,18 +160,17 @@ export default function ContactForm() {
                                         rows="6"
                                         value={data.message}
                                         onChange={(e) => setData('message', e.target.value)}
-                                        className={`mt-1 block w-full ${errors.message ? 'border-red-500 focus:border-500' : ''}`}
+                                        className={`mt-1 block w-full ${errors.message ? 'border-red-500 focus:border-red-500' : ''}`}
                                     />
                                     {errors.message && <div className="text-red-500 text-sm mt-1">{errors.message}</div>}
                                 </div>
-                                
+
                                 <div>
-                                    <Button type="submit" className="w-full bg-amber-600 text-white hover:bg-amber-700">
-                                        Envoi
+                                    <Button type="submit" className="w-full bg-amber-600 text-white hover:bg-amber-700" disabled={processing}>
+                                        {processing ? 'Envoi en cours...' : 'Envoi'}
                                     </Button>
                                 </div>
                             </form>
-                            {/* Decorative elements - Replaced x-contact-dots-top/bottom with inline SVGs if needed */}
                             <div>
                                 <span className="absolute -top-10 -right-9 z-[-1]">
                                     <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">

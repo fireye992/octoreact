@@ -40,8 +40,8 @@ export default function Hero() {
                                 <li>
                                     {/* Using Shadcn's Button as a link, just like we did with ButtonLink */}
                                     <Button asChild variant="default" className="rounded-lg">
-                                        <a href="https://form.jotform.com/221463184068355" target="_blank" rel="noopener noreferrer">
-                                            Programmez un coaching
+                                        <a href="https://form.jotform.com/fireye/octopus" target="_blank" rel="noopener noreferrer">
+                                            Prévoyez un rendez-vous
                                         </a>
                                     </Button>
                                 </li>

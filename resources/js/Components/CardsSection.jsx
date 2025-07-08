@@ -68,11 +68,11 @@ export default function CardsSection({ videoTutorials }) {
                 </div>
 
                 <div className="flex justify-center mt-8">
-                    <Button asChild className="rounded-lg">
-                        <Link href="https://www.youtube.com/channel/UCCF2FQG9YT4vBkgsFZdnMZw" target="_blank">
-                            Voir toutes les vidéos
-                        </Link>
-                    </Button>
+                  <Button asChild className="rounded-lg">
+                      <a href="https://www.youtube.com/channel/UCCF2FQG9YT4vBkgsFZdnMZw" target="_blank" rel="noopener noreferrer">  
+                          Voir toutes les vidéos
+                      </a>
+                  </Button>
                 </div>
             </div>
         </section>
