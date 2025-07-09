@@ -1,5 +1,4 @@
 // resources/js/Components/Layout/MainNavbar.jsx
-
 import React, { useState } from 'react';
 import { Link } from '@inertiajs/react';
 import Dropdown from '@/Components/Dropdown';
@@ -10,7 +9,7 @@ import { Button } from '@/Components/ui/button';
 import logoLight from '/img/octo/logo-8phyL.gif';
 import logoDark from '/img/octo/logo-8phy.gif';
 
-export default function MainNavbar({ user, navigationItems, canLogin, canRegister, isDarkMode, toggleDarkMode }) {
+export default function MainNavbar({ user, navigationItems, userMenuItems = [], canLogin, canRegister, isDarkMode, toggleDarkMode }) {
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
     const toggleNavbar = () => {
@@ -41,7 +40,7 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                                 <NavLink
                                     key={item.label}
                                     href={item.href}
-                                    is_anchor={item.is_anchor || false} // Assurez-vous que is_anchor est toujours défini
+                                    is_anchor={item.is_anchor || false}
                                     active={item.is_anchor ? false : route().current(item.route_name)}
                                     onClick={item.is_anchor ? () => setIsNavbarOpen(false) : undefined}
                                 >
@@ -49,7 +48,7 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                                 </NavLink>
                             ))}
                         </div>
-                        
+
                         {/* Theme Toggle & Auth Links/Dropdown */}
                         <div className="flex items-center space-x-4 ml-6">
                             {/* Dark/Light Mode Toggle (Desktop) */}
@@ -80,13 +79,18 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                                             </span>
                                         </Dropdown.Trigger>
                                         <Dropdown.Content>
-                                            <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                            {user.is_admin && (
-                                                <Dropdown.Link href={route('admin.videos')}>Admin-videos</Dropdown.Link>
-                                            )}
-                                            <Dropdown.Link href={route('logout')} method="post" as="button">
-                                                Log Out
-                                            </Dropdown.Link>
+                                            {/* MAP SUR userMenuItems ICI */}
+                                            {userMenuItems.map((item) => (
+                                                <Dropdown.Link
+                                                    key={item.label}
+                                                    href={item.href}
+                                                    method={item.method || undefined}
+                                                    as={item.as || undefined}
+                                                >
+                                                    {item.label}
+                                                </Dropdown.Link>
+                                            ))}
+                                            {/* Suppression du lien Log Out codé en dur */}
                                         </Dropdown.Content>
                                     </Dropdown>
                                 </div>
@@ -98,7 +102,7 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                                         </Link>
                                     )}
                                     {canRegister && (
-                                        <Link href={route('register')} className="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                                        <Link href={route('register')} className="ms-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
                                             Register
                                         </Link>
                                     )}
@@ -134,21 +138,21 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
             {/* Responsive Mobile Navigation */}
             <div className={(isNavbarOpen ? 'block' : 'hidden') + ' md:hidden'}>
                 <div className="pt-2 pb-3 space-y-1">
-                    {/* Liens de navigation mobile */}
+                    {/* Liens de navigation mobile (navigationItems) */}
                     {navigationItems && navigationItems.map((item) => (
                         <ResponsiveNavLink
                             key={item.label}
                             href={item.href}
-                            is_anchor={item.is_anchor || false} // Assurez-vous que is_anchor est toujours défini
+                            is_anchor={item.is_anchor || false}
                             active={item.is_anchor ? false : route().current(item.route_name)}
-                            onClick={item.is_anchor ? () => setIsNavbarOpen(false) : () => setIsNavbarOpen(false)} // Ferme le menu mobile pour tous les liens
+                            onClick={item.is_anchor ? () => setIsNavbarOpen(false) : () => setIsNavbarOpen(false)}
                         >
                             {item.label}
                         </ResponsiveNavLink>
                     ))}
                 </div>
 
-                {/* Menu de profil mobile */}
+                {/* Menu de profil mobile (userMenuItems) */}
                 {user ? (
                     <div className="pt-4 pb-1 border-t border-gray-200">
                         <div className="px-4">
@@ -156,13 +160,19 @@ export default function MainNavbar({ user, navigationItems, canLogin, canRegiste
                             <div className="font-medium text-sm text-gray-500 dark:text-slate-400">{user.email}</div>
                         </div>
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')} onClick={() => setIsNavbarOpen(false)}>Profile</ResponsiveNavLink>
-                            {user.is_admin && (
-                                <ResponsiveNavLink href={route('admin.videos')} onClick={() => setIsNavbarOpen(false)}>Admin-Videos</ResponsiveNavLink>
-                            )}
-                            <ResponsiveNavLink method="post" href={route('logout')} as="button" onClick={() => setIsNavbarOpen(false)}>
-                                Log Out
-                            </ResponsiveNavLink>
+                            {/* MAP SUR userMenuItems ICI POUR LE MOBILE */}
+                            {userMenuItems.map((item) => (
+                                <ResponsiveNavLink
+                                    key={item.label}
+                                    href={item.href}
+                                    method={item.method || undefined}
+                                    as={item.as || undefined}
+                                    onClick={() => setIsNavbarOpen(false)}
+                                >
+                                    {item.label}
+                                </ResponsiveNavLink>
+                            ))}
+                            {/* Suppression du lien Log Out mobile codé en dur */}
                         </div>
                     </div>
                 ) : (

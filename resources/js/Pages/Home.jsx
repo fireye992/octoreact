@@ -1,6 +1,6 @@
 // resources/js/Pages/Home.jsx
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Head } from '@inertiajs/react';
 import MainLayout from '@/Layouts/MainLayout';
 import Hero from '@/Components/Home/Hero';
@@ -9,10 +9,10 @@ import About from '@/Components/Home/About';
 import ContactForm from '@/Components/ContactForm';
 import CallToAction from '@/Components/CallToAction';
 import CardsSection from '@/Components/CardsSection';
+import { mainNavigationItems, getUserMenuItems } from '@/Config/navigation'
 
 export default function Home({
     auth,
-    navigationItems,
     canLogin,
     canRegister,
     videoTutorials,
@@ -31,33 +31,21 @@ export default function Home({
     og_type,
     og_image_width,
     og_image_height,
-    // NOUVELLES PROPS POUR LES MESSAGES DE FORMULAIRE
-    successMessage, // Ajout de la prop successMessage
-    errorMessage,   // Ajout de la prop errorMessage
-    errors,         // Ajout de la prop errors (pour les erreurs de validation par champ)
+    // Props pour les messages de formulaire
+    successMessage,
+    errorMessage,
+    errors,
 }) {
-    const [isDarkMode, setIsDarkMode] = useState(false);
-
-    useEffect(() => {
-        if (isDarkMode) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    }, [isDarkMode]);
-
-    const toggleDarkMode = () => {
-        setIsDarkMode(prevMode => !prevMode);
-    };
+    const pageNavigationItems = mainNavigationItems;
+    const pageUserMenuItems = getUserMenuItems(auth, window.location.href);
 
     return (
         <MainLayout
             user={auth.user}
-            navigationItems={navigationItems}
+            navigationItems={pageNavigationItems}
+            userMenuItems={pageUserMenuItems}
             canLogin={canLogin}
             canRegister={canRegister}
-            isDarkMode={isDarkMode}
-            toggleDarkMode={toggleDarkMode}
             title={title}
         >
             {/* Balises <Head> pour le SEO */}
@@ -76,8 +64,8 @@ export default function Home({
                 <meta property="og:image:height" content={og_image_height} />
                 <meta name="twitter:card" content="summary_large_image" />
 
-                {/* JSON-LD pour les vidéos - Utilise 'videoTutorials' */}
-                {videoTutorials && (
+                {/* JSON-LD pour les vidéos */}
+                {videoTutorials && videoTutorials.length > 0 && (
                     <script type="application/ld+json">
                         {JSON.stringify({
                             "@context": "https://schema.org",
@@ -102,8 +90,9 @@ export default function Home({
                                 "name": video.title,
                                 "description": video.description,
                                 "uploadDate": new Date(video.created_at).toISOString().split('T')[0],
-                                "thumbnailUrl": `https://img.youtube.com/vi/$$${video.video_id}/maxresdefault.jpg`,
-                                "embedUrl": `https://img.youtube.com/vi/$$${video.video_id}`,
+                                // URLs CORRIGÉES ICI
+                                "thumbnailUrl": `https://img.youtube.com/vi/${video.video_id}/maxresdefault.jpg`,
+                                "embedUrl": `https://www.youtube.com/embed/${video.video_id}`,
                                 "interactionStatistic": {
                                     "@type": "InteractionCounter",
                                     "interactionType": "https://schema.org/WatchAction",
@@ -123,8 +112,8 @@ export default function Home({
                 )}
             </Head>
 
-            <Hero />
-            {/* <Experience /> */}
+            {/* Composants de la page d'accueil avec leurs IDs pour les liens ancre */}
+            <Hero id="services" />
             <CallToAction
                 title={callToActionTitle}
                 button1Href={button1Href}
@@ -132,17 +121,13 @@ export default function Home({
                 button2Href={button2Href}
                 button2Text={button2Text}
             />
-            <About />
-
-            {/* Utilise le composant CardsSection avec la prop videoTutorials */}
-            <CardsSection videoTutorials={videoTutorials} />
-
-            {/* Utilisation du composant ContactForm avec les nouvelles props pour les messages */}
+            <About id="about" />
+            <CardsSection id="tutos" videoTutorials={videoTutorials} />
             <ContactForm
-                isDarkMode={isDarkMode}
-                initialSuccessMessage={successMessage} // Passe la prop de succès
-                initialErrorMessage={errorMessage}     // Passe la prop d'erreur générale
-                initialErrors={errors}                 // Passe la prop d'erreurs de validation par champ
+                id="contact"
+                initialSuccessMessage={successMessage}
+                initialErrorMessage={errorMessage}
+                initialErrors={errors}
             />
 
         </MainLayout>

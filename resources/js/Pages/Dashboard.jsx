@@ -1,33 +1,32 @@
+// resources/js/Pages/Dashboard.jsx
+
 import MainLayout from '@/Layouts/MainLayout';
 import { Head } from '@inertiajs/react';
 
-// Ajoutez les props canLogin et canRegister ici
+// Importez les définitions de navigation
+import { mainNavigationItems, getUserMenuItems } from '@/Config/navigation';
+
 export default function Dashboard({ auth, canLogin, canRegister }) {
-    const navigationItems = [
-        // Mettez à jour le nom de la route pour correspondre à celui de Laravel
-        { label: 'Accueil', href: route('home'), route_name: 'home' },
-        // { label: 'Portfolio', href: '#', route_name: '' },
-        // { label: 'Contact', href: '#', route_name: '' },
-    ];
+    // Utilisez les définitions importées
+    const pageNavigationItems = mainNavigationItems; // Les mêmes liens principaux que Home
+    const pageUserMenuItems = getUserMenuItems(auth, window.location.href); // La même logique de menu utilisateur que Home
 
     return (
         <MainLayout
             user={auth.user}
-            navigationItems={navigationItems}
+            navigationItems={pageNavigationItems} // Passe les liens de navigation principale définis ci-dessus
+            userMenuItems={pageUserMenuItems}     // Passe les liens du menu utilisateur définis ci-dessus
             title="Dashboard"
-            canLogin={canLogin} // <-- Passez la prop au layout
-            canRegister={canRegister} // <-- Passez la prop au layout
+            canLogin={canLogin}
+            canRegister={canRegister}
+            // Suggestion pour l'en-tête (voir explication précédente)
+            header={
+                <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    Dashboard
+                </h2>
+            }
         >
             <Head title="Dashboard" />
-
-            {/* Le contenu de l'en-tête */}
-            <header className="shadow bg-gray-100 dark:bg-stone-700">
-                <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Dashboard
-                    </h2>
-                </div>
-            </header>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">

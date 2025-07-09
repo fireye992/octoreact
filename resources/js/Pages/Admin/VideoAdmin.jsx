@@ -4,6 +4,9 @@ import { Head, useForm } from '@inertiajs/react';
 import Swal from 'sweetalert2';
 import { Button } from '@/Components/ui/button';
 
+// Importez les définitions de navigation centralisées
+import { mainNavigationItems, getUserMenuItems } from '@/Config/navigation';
+
 const VideoAdmin = ({ auth, videos: initialVideos, canLogin, canRegister }) => {
     const [videos, setVideos] = useState(initialVideos);
     const [editingVideo, setEditingVideo] = useState(null);
@@ -14,6 +17,7 @@ const VideoAdmin = ({ auth, videos: initialVideos, canLogin, canRegister }) => {
         video_id: '',
     });
 
+    // Mettre à jour l'état local 'videos' lorsque la prop 'initialVideos' change
     useEffect(() => {
         setVideos(initialVideos);
     }, [initialVideos]);
@@ -21,24 +25,24 @@ const VideoAdmin = ({ auth, videos: initialVideos, canLogin, canRegister }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (editingVideo) {
-            put(route('admin.videos.update', editingVideo.id), { // <-- CORRECTION ICI : 'admin.videos.update'
+            put(route('admin.videos.update', editingVideo.id), {
                 onSuccess: () => {
                     Swal.fire('Succès !', 'Vidéo mise à jour avec succès.', 'success');
                     setEditingVideo(null);
                     reset();
                 },
-                onError: (validationErrors) => { // Capture les erreurs de validation
+                onError: (validationErrors) => {
                     console.error("Erreurs de validation:", validationErrors);
                     Swal.fire('Erreur !', 'Veuillez corriger les erreurs de validation.', 'error');
                 }
             });
         } else {
-            post(route('admin.videos.store'), { // <-- CORRECTION ICI : 'admin.videos.store'
+            post(route('admin.videos.store'), {
                 onSuccess: () => {
                     Swal.fire('Succès !', 'Vidéo ajoutée avec succès.', 'success');
                     reset();
                 },
-                onError: (validationErrors) => { // Capture les erreurs de validation
+                onError: (validationErrors) => {
                     console.error("Erreurs de validation:", validationErrors);
                     Swal.fire('Erreur !', 'Veuillez corriger les erreurs de validation.', 'error');
                 }
@@ -67,7 +71,7 @@ const VideoAdmin = ({ auth, videos: initialVideos, canLogin, canRegister }) => {
             cancelButtonText: 'Annuler'
         }).then((result) => {
             if (result.isConfirmed) {
-                destroy(route('admin.videos.destroy', videoId), { // <-- CORRECTION ICI : 'admin.videos.destroy'
+                destroy(route('admin.videos.destroy', videoId), {
                     onSuccess: () => Swal.fire('Supprimé !', 'La vidéo a été supprimée.', 'success'),
                     onError: () => Swal.fire('Erreur !', 'Impossible de supprimer la vidéo.', 'error')
                 });
@@ -75,31 +79,26 @@ const VideoAdmin = ({ auth, videos: initialVideos, canLogin, canRegister }) => {
         });
     };
 
-    // Définissez les éléments de navigation ici
-    const navigationItems = [
-        { label: 'Accueil', href: route('home'), route_name: 'home' },
-        { label: 'Dashboard', href: route('dashboard'), route_name: 'dashboard' },
-        // { label: 'Admin Videos', href: route('admin.videos'), route_name: 'admin.videos' }, // <-- Correction pour le lien de navigation aussi
-    ];
+    // Utilisez les définitions de navigation et de menu utilisateur importées
+    const pageNavigationItems = mainNavigationItems;
+    const pageUserMenuItems = getUserMenuItems(auth);
 
     return (
         <MainLayout
             user={auth.user}
-            navigationItems={navigationItems}
+            navigationItems={pageNavigationItems} // Utilisez les liens de navigation principaux du fichier config
+            userMenuItems={pageUserMenuItems}     // Utilisez la logique des liens utilisateur du fichier config
             canLogin={canLogin}
             canRegister={canRegister}
             title="Admin Vidéos"
+            // Le header est passé en tant que prop enfant pour MainLayout
+            header={
+                <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    Administration des vidéos
+                </h2>
+            }
         >
             <Head title="Admin Vidéos" />
-
-            {/* Header de la page d'administration */}
-            <header className="shadow bg-white dark:bg-stone-800">
-                <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Administration des vidéos
-                    </h2>
-                </div>
-            </header>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">

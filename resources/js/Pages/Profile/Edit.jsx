@@ -1,28 +1,24 @@
+// resources/js/Pages/Profile/Edit.jsx
+
 import MainLayout from '@/Layouts/MainLayout';
 import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm';
 import { Head } from '@inertiajs/react';
 
+// Importez les définitions de navigation
+import { mainNavigationItems, getUserMenuItems } from '@/Config/navigation';
+
 export default function Edit({ auth, mustVerifyEmail, status }) {
-    // Les props isDarkMode et toggleDarkMode ne sont PAS nécessaires ici
-    // car MainLayout gère la classe 'dark' sur <html>.
-    // Les composants enfants n'ont qu'à utiliser les classes Tailwind CSS 'dark:'.
-        const navigationItems = [
-        { label: 'Accueil', href: route('home'), route_name: 'home' },
-        { label: 'Dashboard', href: route('dashboard'), route_name: 'dashboard' },
-        { label: 'Admin Videos', href: route('admin.videos'), route_name: 'admin.videos' }, // <-- Correction pour le lien de navigation aussi
-    ];
+    const pageNavigationItems = mainNavigationItems;
+    const pageUserMenuItems = getUserMenuItems(auth, window.location.href);
 
     return (
         <MainLayout
             user={auth.user}
-            navigationItems={navigationItems}
-
+            navigationItems={pageNavigationItems}
+            userMenuItems={pageUserMenuItems}
             header={<h2 className="font-semibold text-xl text-stone-800 dark:text-gray-200 leading-tight">Profile</h2>}
-            // Tu n'as pas besoin de passer isDarkMode ou toggleDarkMode à MainLayout ici
-            // car MainLayout gère son propre état interne pour le thème.
-            // Si le header a besoin de changer de couleur de texte, il doit aussi utiliser dark:
         >
             <Head title="Profile" />
 
@@ -45,7 +41,7 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                     {/* Ajoute les classes dark: pour le fond et le texte */}
                     <div className="p-4 sm:p-8 bg-white dark:bg-stone-800 shadow sm:rounded-lg">
                         <DeleteUserForm className="max-w-xl" />
-                    </div>
+                    </div> {/* <-- LA LIGNE CORRIGÉE EST ICI */}
                 </div>
             </div>
         </MainLayout>
