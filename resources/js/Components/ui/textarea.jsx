@@ -15,7 +15,7 @@ const Textarea = React.forwardRef(({ className, ...props }, ref) => {
         // ou des utilitaires directs si tu n'utilises pas les CSS variables de Shadcn/UI pour ces alias.
 
         // Styles pour le mode sombre (AJUSTÉS POUR TA PALETTE STONE)
-        "dark:bg-stone-200 dark:border-stone-700 dark:text-stone-100 dark:placeholder:text-stone-500",
+        "dark:bg-stone-200 dark:border-stone-700 dark:text-amber-700 dark:placeholder:text-stone-500",
         "dark:focus-visible:ring-stone-500 dark:focus-visible:ring-offset-stone-900", // Ajouté pour le focus ring offset
         className
       )}

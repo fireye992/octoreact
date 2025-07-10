@@ -8,8 +8,7 @@ import heroBg from "/img/octo/oct.jpg";
 export default function Hero() {
     // We can use props later if needed, for now we keep the text hardcoded
     return (
-     <section id='hero'
-            className="relative pt-[140px] lg:pt-[160px] pb-[110px] hero-bg  "
+     <section id='hero' className="relative pt-[140px] lg:pt-[160px] pb-[110px] hero-bg  "
             style={{
                 backgroundImage: `url(${heroBg})`,
                 backgroundSize: 'cover',

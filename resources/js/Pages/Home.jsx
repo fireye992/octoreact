@@ -113,7 +113,7 @@ export default function Home({
             </Head>
 
             {/* Composants de la page d'accueil avec leurs IDs pour les liens ancre */}
-            <Hero id="services" />
+            <Hero id="hero" />
             <CallToAction
                 title={callToActionTitle}
                 button1Href={button1Href}

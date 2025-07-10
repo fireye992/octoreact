@@ -3,10 +3,10 @@
 // Définition des liens de navigation principale (inchangée)
 export const mainNavigationItems = [
     // { label: 'Accueil', href: route('home'), route_name: 'home' },
-    // { label: 'Services', href: '#hero', is_anchor: true },
-    { label: 'À Propos', href: '#about', is_anchor: true },
-    { label: 'Médias', href: '#tutos', is_anchor: true },
-    { label: 'Contact', href: '#contact', is_anchor: true },
+    { label: 'Accueil', href: route ('home') + '#hero', is_anchor: true, target_anchor: '#hero' },
+    { label: 'À Propos', href: route('home') + '#about', is_anchor: true, target_anchor: '#about' },
+    { label: 'Médias', href: route('home') + '#tutos', is_anchor: true, target_anchor: '#tutos' },
+    { label: 'Contact', href: route('home') + '#contact', is_anchor: true, target_anchor: '#contact' },
 ];
 
 // Définition de la logique pour les liens du menu utilisateur
