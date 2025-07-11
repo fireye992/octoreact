@@ -1,12 +1,11 @@
-import React, { useEffect, useRef } from 'react'; // Import useEffect and useRef
-import { useForm, usePage } from '@inertiajs/react'; // Import usePage
+import React, { useState, useEffect, useRef } from 'react';
+import { useForm, usePage } from '@inertiajs/react';
 import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
 import { Textarea } from '@/Components/ui/textarea';
 import { Label } from '@/Components/ui/label';
 
 export default function ContactForm() {
-    // Access flash messages from Inertia's usePage().props
     const { flash } = usePage().props;
 
     const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
@@ -15,51 +14,105 @@ export default function ContactForm() {
         message: '',
     });
 
-    // Create a ref for your contact section
+    const [displayedSuccessMessage, setDisplayedSuccessMessage] = useState(null);
+    const [displayedErrorMessage, setDisplayedErrorMessage] = useState(null);
+
+    const successTimerRef = useRef(null);
+    const errorTimerRef = useRef(null);
+
     const contactSectionRef = useRef(null);
 
-    // Effect to handle scrolling and form reset based on flash messages or validation errors
+    // Initialisé à false, mais son changement est très contrôlé.
+    // Il devient true après un scroll initial lié au formulaire.
+    const [scrolledByForm, setScrolledByForm] = useState(false);
+
+    // Effet pour gérer le message de succès (apparition et disparition)
     useEffect(() => {
-        // If there's a success message, an error message, or any validation errors, scroll to the contact section.
-        if (flash.success || flash.error || Object.keys(errors).length > 0) {
+        if (successTimerRef.current) {
+            clearTimeout(successTimerRef.current);
+            successTimerRef.current = null;
+        }
+
+        if (flash.success) {
+            setDisplayedSuccessMessage(flash.success);
+            successTimerRef.current = setTimeout(() => {
+                setDisplayedSuccessMessage(null);
+                // Suppression de setScrolledByForm(false); ici
+            }, 5000);
+        } else {
+            setDisplayedSuccessMessage(null);
+        }
+
+        return () => {
+            if (successTimerRef.current) {
+                clearTimeout(successTimerRef.current);
+            }
+        };
+    }, [flash.success]);
+
+    // Effet pour gérer le message d'erreur (apparition et disparition)
+    useEffect(() => {
+        if (errorTimerRef.current) {
+            clearTimeout(errorTimerRef.current);
+            errorTimerRef.current = null;
+        }
+
+        if (flash.error) {
+            setDisplayedErrorMessage(flash.error);
+            errorTimerRef.current = setTimeout(() => {
+                setDisplayedErrorMessage(null);
+                // Suppression de setScrolledByForm(false); ici
+            }, 5000);
+        } else {
+            setDisplayedErrorMessage(null);
+        }
+
+        return () => {
+            if (errorTimerRef.current) {
+                clearTimeout(errorTimerRef.current);
+            }
+        };
+    }, [flash.error]);
+
+    // Effet pour le défilement
+    useEffect(() => {
+        // Scrolle uniquement si un message flash (succès/erreur) OU des erreurs de validation sont présents
+        // ET que le défilement lié au formulaire n'a PAS encore été effectué pour cette soumission.
+        if ((flash.success || flash.error || Object.keys(errors).length > 0) && !scrolledByForm) {
             if (contactSectionRef.current) {
-                // Add a small delay to ensure the DOM has updated before attempting to scroll
                 setTimeout(() => {
                     contactSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100); // 100ms is usually sufficient
+                    setScrolledByForm(true); // Indique qu'un scroll a été effectué par le formulaire
+                }, 100);
             }
         }
 
-        // If the submission was successful (indicated by a flash.success message),
-        // reset the form fields and clear any existing validation errors.
+        // Réinitialise le formulaire en cas de succès
         if (flash.success) {
             reset();
-            clearErrors(); // Also clear errors explicitly if any were left from previous attempts
+            clearErrors();
+            // Important : Ne pas réinitialiser scrolledByForm ici non plus
         }
-    }, [flash.success, flash.error, errors, reset, clearErrors]); // Add all dependencies
+    }, [flash.success, flash.error, errors, reset, clearErrors, scrolledByForm]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        // IMPORTANT : Réinitialiser scrolledByForm UNIQUEMENT au moment de la soumission.
+        // Cela permet un nouveau scroll si l'utilisateur soumet à nouveau.
+        setScrolledByForm(false);
         post(route('contact.submit'), {
-            // This is crucial: it prevents Inertia from scrolling to the top of the page on submission.
-            // Inertia will then respect the fragment or allow your manual scroll.
             preserveScroll: true,
             onSuccess: () => {
-                // Flash messages are automatically handled by the useEffect above.
-                // No need to set local state for success message here anymore.
+                // Géré par les useEffects
             },
             onError: (formErrors) => {
-                // The 'errors' object from useForm will be automatically populated.
-                // The 'flash.error' message will be available if a general server error occurred.
-                // The useEffect will handle scrolling to the contact section.
+                // Géré par les useEffects
                 console.error('Validation errors:', formErrors);
             },
         });
     };
 
     return (
-        // Assign the ref to your section
         <section id="contact" ref={contactSectionRef} className="py-20 lg:py-[120px] overflow-hidden relative z-10 bg-neutral-200 text-gray-900 dark:bg-stone-900 dark:text-stone-100">
             <div className="container mx-auto px-4">
                 <div className="flex flex-wrap -mx-4 lg:justify-between">
@@ -89,7 +142,7 @@ export default function ContactForm() {
                                 </div>
                             </div>
 
-                            {/* Information de contact - Téléphone (was email in your snippet, corrected to email below) */}
+                            {/* Information de contact - Email */}
                             <div className="flex mb-8 max-w-[370px] w-full">
                                 <div className="max-w-[60px] sm:max-w-[70px] w-full h-[60px] sm:h-[70px] flex items-center justify-center mr-6 overflow-hidden bg-blue-600 bg-opacity-5 text-amber-600 dark:text-amber-500 rounded">
                                     <svg width="24" height="26" viewBox="0 0 24 26" className="fill-current">
@@ -111,15 +164,15 @@ export default function ContactForm() {
                         <div className="relative p-8 rounded-lg shadow-lg sm:p-12 bg-white dark:bg-stone-800">
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 {/* Display success flash message from Inertia */}
-                                {flash.success && (
+                                {displayedSuccessMessage && (
                                     <div className="px-6 py-4 mb-4 text-gray-100 bg-green-600 rounded-md">
-                                        {flash.success}
+                                        {displayedSuccessMessage}
                                     </div>
                                 )}
                                 {/* Display error flash message from Inertia */}
-                                {flash.error && (
+                                {displayedErrorMessage && (
                                     <div className="px-6 py-4 mb-4 text-gray-100 bg-red-600 rounded-md">
-                                        {flash.error}
+                                        {displayedErrorMessage}
                                     </div>
                                 )}
 

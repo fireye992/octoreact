@@ -43,7 +43,7 @@
     @stack('head_meta')
     {{-- @vite(['resources/css/app.css', 'resources/js/app.jsx']) --}}
     {{-- Important pour les assets classiques --}}
-    <script src="https://apis.google.com/js/platform.js"></script>   {{-- indispensable pour youtube --}}
+<script src="https://apis.google.com/js/platform.js?v=20250710"></script>
 </head>
 <body class="antialiased text-primary dark:text-secondary ">
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K8X7JRD7" height="0" width="0"

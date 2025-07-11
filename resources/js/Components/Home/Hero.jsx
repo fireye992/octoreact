@@ -1,43 +1,84 @@
 // resources/js/Components/Home/Hero.jsx
 
-import React from 'react';
-import ButtonLink from '@/Components/ButtonLink'; // Assuming you have a ButtonLink
-import SocialIcons from '@/Components/SocialIcons'; // Assuming you have a SocialIcons component
-import { Button } from '@/Components/ui/button'; // The Shadcn Button component
+import React, { useEffect } from 'react';
+import ButtonLink from '@/Components/ButtonLink';
+import SocialIcons from '@/Components/SocialIcons';
+import { Button } from '@/Components/ui/button';
 import heroBg from "/img/octo/oct.jpg";
+
 export default function Hero() {
-    // We can use props later if needed, for now we keep the text hardcoded
+    useEffect(() => {
+        console.log("Composant Hero monté.");
+
+        const initializeYouTubeButton = () => {
+            console.log("Tentative d'initialisation du bouton YouTube...");
+            if (window.gapi) {
+                window.gapi.load('client:ytsubscribe', () => {
+                    console.log("Module ytsubscribe chargé, tentant de rendre le bouton.");
+                    const buttonContainer = document.querySelector('.g-ytsubscribe');
+                    if (buttonContainer) {
+                        console.log("Conteneur .g-ytsubscribe trouvé. Rendu du bouton YouTube...");
+                        window.gapi.ytsubscribe.render(buttonContainer, {
+                            'channelid': 'UCCF2FQG9YT4vBkgsFZdnMZw',
+                            'layout': 'default',
+                            'count': 'default'
+                        });
+                        console.log("Bouton YouTube rendu avec succès.");
+                    } else {
+                        console.error("Erreur: L'élément .g-ytsubscribe n'a pas été trouvé dans le DOM.");
+                    }
+                });
+            } else {
+                console.warn("Avertissement: window.gapi n'est pas encore défini. Le script platform.js n'est peut-être pas encore chargé.");
+            }
+        };
+
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            initializeYouTubeButton();
+        } else {
+            window.addEventListener('load', initializeYouTubeButton);
+            return () => window.removeEventListener('load', initializeYouTubeButton);
+        }
+
+    }, []);
+
     return (
-     <section id='hero' className="relative pt-[140px] lg:pt-[160px] pb-[110px] hero-bg  "
+        <section
+            id='hero'
+            className="relative pt-[140px] lg:pt-[160px] pb-[110px] hero-bg"
             style={{
                 backgroundImage: `url(${heroBg})`,
                 backgroundSize: 'cover',
-                // --- MISE À JOUR ICI ---
-                backgroundPosition: 'center 21%', // Le centrage horizontal et le positionnement vertical
-                minHeight: '25vh',                // La hauteur minimale de la section
+                backgroundPosition: 'center 21%',
+                minHeight: '25vh',
             }}
-            >
-                 <div className="absolute inset-0 z-[1] transition-colors duration-500 bg-white/10 dark:bg-black/40 "></div>
+        >
+            <div className="absolute inset-0 z-[1] transition-colors duration-500 bg-white/10 dark:bg-black/40"></div>
+            {/* Le bouton YouTube est positionné ici, en dehors du flux principal du texte */}
+            <div className="absolute top-20 right-8 z-20">
+                <div
+                    className="g-ytsubscribe"
+                    data-channelid="UCCF2FQG9YT4vBkgsFZdnMZw"
+                    data-layout="default"
+                    data-count="default"
+                ></div>
+            </div>
             <div className="overlay"></div>
             <div className="container relative z-10 mx-auto">
                 <div className="flex flex-wrap -mx-4">
-                    <div className="w-full px-4 lg:w-5/12">
+                    {/* C'est ICI que nous allons ajuster le padding */}
+                    <div className="w-full px-4 p-3 lg:w-5/12 lg:p-12"> {/* AJOUT de lg:p-12 ici */}
                         <div className="hero-content">
-                            <h1
-                                className="text-stone-50 dark:text-stone-200 font-bold text-4xl sm:text-[42px] lg:text-[40px] xl:text-[42px] leading-snug mb-6">
-                                <a className="rounded-md text-amber-600" href="https://www.instagram.com/octopus_le_philosophe/"
-                                    target="_blank">OcToPuS</a>
-                                <br />
+                            <h1 className="text-stone-50 dark:text-stone-200 font-bold text-4xl sm:text-[42px] lg:text-[40px] xl:text-[42px] leading-snug mb-6">
                                 Le philosophe à tentacules.
                             </h1>
-                            <p className="text-base mb-8 max-w-[520px] text-white"> {/* Added text-white for visibility */}
+                            <p className="text-base mb-8 max-w-[520px] text-white">
                                 (Re)créer nos vies grâce à la philosophie
                                 <br />
                                 Explorer le monde pour le (ré)habiter 🎳
                             </p>
                             <ul className="flex flex-wrap items-center">
                                 <li>
-                                    {/* Using Shadcn's Button as a link, just like we did with ButtonLink */}
                                     <Button asChild variant="default" className="rounded-lg">
                                         <a href="https://form.jotform.com/fireye/octopus" target="_blank" rel="noopener noreferrer">
                                             Prévoyez un rendez-vous
@@ -50,7 +91,7 @@ export default function Hero() {
                                     Suivez-le sur les réseaux
                                     <span className="w-8 h-[1px] bg-body-color inline-block ml-2"></span>
                                 </h6>
-                                <SocialIcons /> {/* Assuming SocialIcons is a React component */}
+                                <SocialIcons />
                             </div>
                         </div>
                     </div>
@@ -60,34 +101,33 @@ export default function Hero() {
                             <div className="relative z-10 inline-block pt-11 lg:pt-0">
                                 <img src="/img/octo/Emilie.gif" alt="Emilie" className="opacity-75 max-w-full lg:ml-auto" />
                                 <span className="absolute -left-8 -bottom-8 z-[-1] text-amber-600">
-                                    <svg width="93" height="93" viewBox="0 0 93 93" fill="none"
+                                    <svg width="93" height="93" viewBox="0 0 93 93" fill="currentColor"
                                         xmlns="http://www.w3.org/2000/svg">
-                                        {/* Your SVG here - I'll assume you'll replace fill="none" with fill="currentColor" */}
-                                        <circle cx="2.5" cy="2.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="2.5" cy="24.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="2.5" cy="46.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="2.5" cy="68.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="2.5" cy="90.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="24.5" cy="2.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="24.5" cy="24.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="24.5" cy="46.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="24.5" cy="68.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="24.5" cy="90.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="46.5" cy="2.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="46.5" cy="24.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="46.5" cy="46.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="46.5" cy="68.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="46.5" cy="90.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="68.5" cy="2.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="68.5" cy="24.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="68.5" cy="46.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="68.5" cy="68.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="68.5" cy="90.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="90.5" cy="2.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="90.5" cy="24.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="90.5" cy="46.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="90.5" cy="68.5" r="2.5" fill="currentColor"/>
-                                        <circle cx="90.5" cy="90.5" r="2.5" fill="currentColor"/>
+                                        <circle cx="2.5" cy="2.5" r="2.5" />
+                                        <circle cx="2.5" cy="24.5" r="2.5" />
+                                        <circle cx="2.5" cy="46.5" r="2.5" />
+                                        <circle cx="2.5" cy="68.5" r="2.5" />
+                                        <circle cx="2.5" cy="90.5" r="2.5" />
+                                        <circle cx="24.5" cy="2.5" r="2.5" />
+                                        <circle cx="24.5" cy="24.5" r="2.5" />
+                                        <circle cx="24.5" cy="46.5" r="2.5" />
+                                        <circle cx="24.5" cy="68.5" r="2.5" />
+                                        <circle cx="24.5" cy="90.5" r="2.5" />
+                                        <circle cx="46.5" cy="2.5" r="2.5" />
+                                        <circle cx="46.5" cy="24.5" r="2.5" />
+                                        <circle cx="46.5" cy="46.5" r="2.5" />
+                                        <circle cx="46.5" cy="68.5" r="2.5" />
+                                        <circle cx="46.5" cy="90.5" r="2.5" />
+                                        <circle cx="68.5" cy="2.5" r="2.5" />
+                                        <circle cx="68.5" cy="24.5" r="2.5" />
+                                        <circle cx="68.5" cy="46.5" r="2.5" />
+                                        <circle cx="68.5" cy="68.5" r="2.5" />
+                                        <circle cx="68.5" cy="90.5" r="2.5" />
+                                        <circle cx="90.5" cy="2.5" r="2.5" />
+                                        <circle cx="90.5" cy="24.5" r="2.5" />
+                                        <circle cx="90.5" cy="46.5" r="2.5" />
+                                        <circle cx="90.5" cy="68.5" r="2.5" />
+                                        <circle cx="90.5" cy="90.5" r="2.5" />
                                     </svg>
                                 </span>
                             </div>
