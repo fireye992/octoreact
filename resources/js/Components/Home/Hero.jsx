@@ -97,10 +97,10 @@ export default function Hero() {
                     </div>
                     <div className="hidden px-4 lg:block lg:w-1/12"></div>
                     <div className="w-full px-4 lg:w-6/12">
-                        <div className="lg:text-right lg:ml-auto">
-                            <div className="relative z-10 inline-block pt-11 lg:pt-0">
-                                <img src="/img/octo/Emilie.gif" alt="Emilie" className="opacity-75 max-w-full lg:ml-auto" />
-                                <span className="absolute -left-8 -bottom-8 z-[-1] text-amber-600">
+                        <div className="lg:text-right lg:ml-auto sm:flex justify-end me-12">
+                            <div className="relative z-10 inline-block pt-11">
+                                <img src="/img/octo2/ly-yo.gif" alt="Emilie" className="opacity-60 dark:opacity-40 max-w-full lg:ml-auto" />
+                                <span className="absolute -left-4 -bottom-2 z-[-1] text-amber-600">
                                     <svg width="93" height="93" viewBox="0 0 93 93" fill="currentColor"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="2.5" cy="2.5" r="2.5" />

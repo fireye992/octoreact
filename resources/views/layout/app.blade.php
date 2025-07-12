@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,7 +35,7 @@
     <meta property="og:description" content="@yield('og:description', 'Le Philosophe à Tentacules - Dialoguez et explorez la réalité pour une vie plus belle. Séances de philosophie en solo ou en groupe à Strasbourg ou en visio.')" />
     <meta property="og:type" content="@yield('og:type', 'website')" />
     <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:image" content="@yield('og:image', asset('/img/share-default.jpg'))" />
+    <meta property="og:image" content="@yield('og:image', asset('/img/octo/logo-8phy.png'))" />
     <meta property="og:image:width" content="@yield('og:image:width', '1200')" />
     <meta property="og:image:height" content="@yield('og:image:height', '630')" />
 

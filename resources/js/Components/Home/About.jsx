@@ -15,15 +15,15 @@ export default function About() {
                             <div className="w-full px-3 xl:w-1/2 sm:px-4">
                                 <div className="py-3 sm:py-4">
                                     {/* Remplacez {{ url(...) }} par un chemin d'image statique ou un import */}
-                                    <img src="/img/octo/dissi.jpg" alt="Image 1" className="w-full rounded-2xl" />
+                                    <img src="img/octo2/WhatsApp-Image-1.webp" alt="Image 1" className="w-full rounded-2xl" />
                                 </div>
                                 <div className="py-3 sm:py-4">
-                                    <img src="/img/octo/kant.jpg" alt="Image 2" className="w-full rounded-2xl" />
+                                    <img src="/img/octo2/WhatsApp-Image-2.webp" alt="Image 2" className="w-full rounded-2xl" />
                                 </div>
                             </div>
                             <div className="w-full px-3 xl:w-1/2 sm:px-4">
                                 <div className="relative z-10 my-4">
-                                    <img src="/img/octo/thales.jpg" alt="Image 3" className="w-full rounded-2xl" />
+                                    <img src="/img/octo2/WhatsApp-Image-3.webp" alt="Image 3" className="w-full rounded-2xl" />
                                     {/* Remplacer le composant Blade par son équivalent React */}
                                     <AboutDots />
                                 </div>
