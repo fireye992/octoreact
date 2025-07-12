@@ -4,7 +4,7 @@ import React from 'react';
 import { Head } from '@inertiajs/react';
 import MainLayout from '@/Layouts/MainLayout';
 import Hero from '@/Components/Home/Hero';
-import Experience from '@/Components/Home/Experience';
+// import Experience from '@/Components/Home/Experience';
 import About from '@/Components/Home/About';
 import ContactForm from '@/Components/ContactForm';
 import CallToAction from '@/Components/CallToAction';

@@ -4,32 +4,25 @@ import React, { useEffect } from 'react';
 import ButtonLink from '@/Components/ButtonLink';
 import SocialIcons from '@/Components/SocialIcons';
 import { Button } from '@/Components/ui/button';
-import heroBg from "/img/octo/oct.jpg";
+import heroBg from "/img/octo2/oct.webp";
 
 export default function Hero() {
     useEffect(() => {
-        console.log("Composant Hero monté.");
 
         const initializeYouTubeButton = () => {
-            console.log("Tentative d'initialisation du bouton YouTube...");
             if (window.gapi) {
                 window.gapi.load('client:ytsubscribe', () => {
-                    console.log("Module ytsubscribe chargé, tentant de rendre le bouton.");
                     const buttonContainer = document.querySelector('.g-ytsubscribe');
                     if (buttonContainer) {
-                        console.log("Conteneur .g-ytsubscribe trouvé. Rendu du bouton YouTube...");
                         window.gapi.ytsubscribe.render(buttonContainer, {
                             'channelid': 'UCCF2FQG9YT4vBkgsFZdnMZw',
                             'layout': 'default',
                             'count': 'default'
                         });
-                        console.log("Bouton YouTube rendu avec succès.");
                     } else {
-                        console.error("Erreur: L'élément .g-ytsubscribe n'a pas été trouvé dans le DOM.");
                     }
                 });
             } else {
-                console.warn("Avertissement: window.gapi n'est pas encore défini. Le script platform.js n'est peut-être pas encore chargé.");
             }
         };
 
@@ -99,7 +92,7 @@ export default function Hero() {
                     <div className="w-full px-4 lg:w-6/12">
                         <div className="lg:text-right lg:ml-auto sm:flex justify-end me-12">
                             <div className="relative z-10 inline-block pt-11">
-                                <img src="/img/octo2/ly-yo.gif" alt="Emilie" className="opacity-60 dark:opacity-40 max-w-full lg:ml-auto" />
+                                <img src="/img/octo2/ly-yo2.webp" alt="Emilie" className="opacity-60 dark:opacity-40 max-w-full lg:ml-auto" />
                                 <span className="absolute -left-4 -bottom-2 z-[-1] text-amber-600">
                                     <svg width="93" height="93" viewBox="0 0 93 93" fill="currentColor"
                                         xmlns="http://www.w3.org/2000/svg">

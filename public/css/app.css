@@ -80,14 +80,14 @@ body {
 }
   
 .hero-bg {
-    background-image: url('../img/octo/oct.jpg'); /* Chemin vers votre image de fond */
+    background-image: url('../img/octo/oct.webp'); /* Chemin vers votre image de fond */
     background-size: cover; /* Couvre toute la section */
     background-position: center 21%; /* Centre l'image horizontalement et la positionne à 30% du haut */
     min-height: 25vh; /* Hauteur de 25% de la fenêtre */
 }
 
 .dark .hero-bg {
-    background-image: url('../img/octo/oct.jpg'); /* Chemin vers votre image de fond */
+    background-image: url('../img/octo/oct.webp'); /* Chemin vers votre image de fond */
     background-size: cover; /* Couvre toute la section */
     background-position: center 21%; /* Centre l'image horizontalement et la positionne à 30% du haut */
     min-height: 25vh; /* Hauteur de 25% de la fenêtre */

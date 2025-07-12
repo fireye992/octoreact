@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /storage/
+Disallow: /vendor/
+Disallow: /app/
+Disallow: /ressources/js/Pages/Admin/
+Disallow: /ressources/js/Pages/Auth/
+Disallow: /ressources/js/Pages/API/
+Disallow: /database/
+Disallow: /bootstrap/
+
+Sitemap: https://www.octopus-philosophie.fr/sitemap.xml
