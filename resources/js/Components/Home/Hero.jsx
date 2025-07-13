@@ -1,39 +1,72 @@
-// resources/js/Components/Home/Hero.jsx
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import ButtonLink from '@/Components/ButtonLink';
 import SocialIcons from '@/Components/SocialIcons';
 import { Button } from '@/Components/ui/button';
 import heroBg from "/img/octo2/oct.webp";
 
 export default function Hero() {
-    useEffect(() => {
+    // useRef pour stocker l'ID de l'intervalle et le rendre persistant entre les rendus,
+    // permettant de le nettoyer correctement.
+    const checkGapiIntervalRef = useRef(null);
 
-        const initializeYouTubeButton = () => {
-            if (window.gapi) {
-                window.gapi.load('client:ytsubscribe', () => {
-                    const buttonContainer = document.querySelector('.g-ytsubscribe');
-                    if (buttonContainer) {
-                        window.gapi.ytsubscribe.render(buttonContainer, {
-                            'channelid': 'UCCF2FQG9YT4vBkgsFZdnMZw',
-                            'layout': 'default',
-                            'count': 'default'
-                        });
-                    } else {
-                    }
-                });
-            } else {
+    // Le useEffect s'exécute une fois au montage du composant.
+    useEffect(() => {
+        const loadAndRenderYouTubeButton = () => {
+            // Si window.gapi n'est pas encore défini ou ne contient pas la méthode .load,
+            // cela signifie que platform.js n'a pas encore fini de charger.
+            if (typeof window.gapi === 'undefined' || typeof window.gapi.load !== 'function') {
+                // Si l'intervalle n'est pas déjà en cours, on le démarre pour vérifier régulièrement.
+                if (checkGapiIntervalRef.current === null) {
+                    // console.warn("gapi not found, setting up interval to check..."); // Pour le debug si besoin
+                    checkGapiIntervalRef.current = setInterval(() => {
+                        loadAndRenderYouTubeButton(); // Tente à nouveau de charger/rendre le bouton
+                    }, 200); // Vérifie toutes les 200ms
+                }
+                return; // Sort de la fonction si gapi n'est pas prêt, l'intervalle rappellera la fonction.
             }
+
+            // Si gapi est maintenant disponible, on nettoie l'intervalle s'il était actif.
+            if (checkGapiIntervalRef.current !== null) {
+                clearInterval(checkGapiIntervalRef.current);
+                checkGapiIntervalRef.current = null;
+            }
+
+            // Charge le module spécifique 'client:ytsubscribe' de l'API Google.
+            window.gapi.load('client:ytsubscribe', () => {
+                const buttonContainer = document.querySelector('.g-ytsubscribe');
+
+                // Si le conteneur du bouton est trouvé, on le rend.
+                if (buttonContainer) {
+                    window.gapi.ytsubscribe.render(buttonContainer, {
+                        'channelid': 'UCCF2FQG9YT4vBkgsFZdnMZw',
+                        'layout': 'default',
+                        'count': 'default'
+                    });
+                }
+                // Pas besoin de 'else' ici, si le conteneur n'existe pas, on ne fait rien.
+            });
         };
 
+        // Détermine le moment initial pour tenter de charger et rendre le bouton.
+        // Utilise 'interactive' ou 'complete' pour s'assurer que le DOM est suffisamment prêt.
         if (document.readyState === 'complete' || document.readyState === 'interactive') {
-            initializeYouTubeButton();
+            loadAndRenderYouTubeButton();
         } else {
-            window.addEventListener('load', initializeYouTubeButton);
-            return () => window.removeEventListener('load', initializeYouTubeButton);
+            // Si le DOM n'est pas encore prêt, on ajoute un écouteur pour l'événement 'load'.
+            window.addEventListener('load', loadAndRenderYouTubeButton);
         }
 
-    }, []);
+        // Fonction de nettoyage pour useEffect, exécutée au démontage du composant.
+        return () => {
+            // Supprime l'écouteur d'événements pour éviter les fuites de mémoire.
+            window.removeEventListener('load', loadAndRenderYouTubeButton);
+            // Nettoie l'intervalle si jamais il était encore actif.
+            if (checkGapiIntervalRef.current !== null) {
+                clearInterval(checkGapiIntervalRef.current);
+                checkGapiIntervalRef.current = null;
+            }
+        };
+    }, []); // Le tableau de dépendances vide assure que l'effet ne s'exécute qu'une fois au montage.
 
     return (
         <section

@@ -24,13 +24,13 @@
     <meta property="og:image:height" content="@yield('og:image:height', $page['props']['og_image_height'] ?? '630')" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X1F2QJB6E2"></script>
-    <script>
+    {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-X1F2QJB6E2"></script> --}}
+    {{-- <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-X1F2QJB6E2');
-    </script>
+    </script> --}}
     <script>
         (function(w, d, s, l, i) {
             w[l] = w[l] || [];
@@ -51,12 +51,10 @@
     @routes
     @viteReactRefresh
     @vite(['resources/js/app.jsx', 'resources/css/app.css'])
-<script>
-    console.log('Blade $page props:', @json($page['props']));
-</script>
+
     @inertiaHead
 
-    <script async src="https://apis.google.com/js/platform.js"></script>
+    {{-- <script async src="https://apis.google.com/js/platform.js"></script> --}}
 
     @stack('head_scripts')
     @stack('head_meta')

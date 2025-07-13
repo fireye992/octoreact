@@ -115,25 +115,35 @@ export default function ContactForm() {
     return (
         <section id="contact" ref={contactSectionRef} className="py-20 lg:py-[120px] overflow-hidden relative z-10 bg-neutral-200 text-gray-900 dark:bg-stone-900 dark:text-stone-100">
             <div className="container mx-auto px-4">
-                <div className="flex flex-wrap -mx-4 lg:justify-between">
+                <div className="flex flex-wrap mx-12 lg:justify-between">
                     <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
-                        <div className="max-w-[570px] mb-12 lg:mb-0">
-                            <h2 className="mb-6 uppercase font-bold text-xl sm:text-[30px] lg:text-[40px] xl:text-[42px] text-gray-900 dark:text-gray-100">
-                                Contactez-moi
+                        <div className="max-w-[570px] mb-4 lg:mb-0">
+                            <h2 className="mb-14 uppercase font-bold text-xl sm:text-[30px] lg:text-[40px] xl:text-[42px] text-gray-900 dark:text-gray-100">
+                                Où et comment ?
                             </h2>
                             <p className="text-base leading-relaxed mb-9 text-gray-600 dark:text-amber-500">
-                                Demande de rendez-vous.
+                                -Me trouvez sur google Maps.
                             </p>
 
                             {/* Information de contact - Adresse */}
                             <div className="flex mb-8 max-w-[370px] w-full">
-                                <div className="max-w-[60px] sm:max-w-[70px] w-full h-[60px] sm:h-[70px] flex items-center justify-center mr-6 overflow-hidden bg-blue-600 bg-opacity-5 text-amber-600 dark:text-amber-500 rounded">
-                                    <a href="https://www.google.com/maps/@48.6014125,7.7453507,3a,82.2y,342.96h,79.07t/data=!3m6!1e1!3m4!1s-jtllAfUBQk3a9J9SjiMFw!2e0!7i16384!8i8192" target="_blank" rel="noopener noreferrer">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" className="fill-current">
-                                            <path d="M21.8182 24H16.5584C15.3896 24 14.4156 23.0256 14.4156 21.8563V17.5688C14.4156 17.1401 14.0649 16.7893 13.6364 16.7893H10.4026C9.97403 16.7893 9.62338 17.1401 9.62338 17.5688V21.8173C9.62338 22.9866 8.64935 23.961 7.48052 23.961H2.14286C0.974026 23.961 0 22.9866 0 21.8173V8.21437C0 7.62972 0.311688 7.08404 0.818182 6.77223L11.1039 0.263094C11.6494 -0.0876979 12.3896 -0.0876979 12.9351 0.263094L23.2208 6.77223C23.7273 7.08404 24 7.62972 24 8.21437V21.7783C24 23.0256 23.026 24 21.8182 24ZM10.3636 15.4251H13.5974C14.7662 15.4251 15.7403 16.3995 15.7403 17.5688V21.8173C15.7403 22.246 16.0909 22.5968 16.5195 22.5968H21.8182C22.2468 22.5968 22.5974 22.246 22.5974 21.8173V8.25335C22.5974 8.13642 22.5195 8.01949 22.4416 7.94153L12.1948 1.4324C12.0779 1.35445 11.9221 1.35445 11.8442 1.4324L1.55844 7.94153C1.44156 8.01949 1.4026 8.13642 1.4026 8.25335V21.8563C1.4026 22.285 1.75325 22.6358 2.18182 22.6358H7.48052C7.90909 22.6358 8.25974 22.285 8.25974 21.8563V17.5688C8.22078 16.3995 9.19481 15.4251 10.3636 15.4251Z"/>
+                                <a
+                                    href="https://maps.app.goo.gl/5nha1LwhHTZHc8rYA"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="
+                                        max-w-[60px] sm:max-w-[70px] w-full h-[60px] sm:h-[70px]
+                                        flex items-center justify-center mr-6 overflow-hidden
+                                        bg-blue-600 bg-opacity-5 text-amber-600 dark:text-amber-500 rounded
+                                        transition-all duration-300 ease-in-out // Ajoute une transition douce
+                                        hover:bg-opacity-15 // Le fond devient plus opaque au survol
+                                        hover:text-amber-700 dark:hover:text-amber-300 // La couleur du texte (icône) change pour briller
+                                    "
+                                >
+                                    <svg width="24" height="24" viewBox="0 0 24 24" className="fill-current">
+                                        <path d="M21.8182 24H16.5584C15.3896 24 14.4156 23.0256 14.4156 21.8563V17.5688C14.4156 17.1401 14.0649 16.7893 13.6364 16.7893H10.4026C9.97403 16.7893 9.62338 17.1401 9.62338 17.5688V21.8173C9.62338 22.9866 8.64935 23.961 7.48052 23.961H2.14286C0.974026 23.961 0 22.9866 0 21.8173V8.21437C0 7.62972 0.311688 7.08404 0.818182 6.77223L11.1039 0.263094C11.6494 -0.0876979 12.3896 -0.0876979 12.9351 0.263094L23.2208 6.77223C23.7273 7.08404 24 7.62972 24 8.21437V21.7783C24 23.0256 23.026 24 21.8182 24ZM10.3636 15.4251H13.5974C14.7662 15.4251 15.7403 16.3995 15.7403 17.5688V21.8173C15.7403 22.246 16.0909 22.5968 16.5195 22.5968H21.8182C22.2468 22.5968 22.5974 22.246 22.5974 21.8173V8.25335C22.5974 8.13642 22.5195 8.01949 22.4416 7.94153L12.1948 1.4324C12.0779 1.35445 11.9221 1.35445 11.8442 1.4324L1.55844 7.94153C1.44156 8.01949 1.4026 8.13642 1.4026 8.25335V21.8563C1.4026 22.285 1.75325 22.6358 2.18182 22.6358H7.48052C7.90909 22.6358 8.25974 22.285 8.25974 21.8563V17.5688C8.22078 16.3995 9.19481 15.4251 10.3636 15.4251Z"/>
                                         </svg>
-                                    </a>
-                                </div>
+                                </a>
                                 <div className="w-full">
                                     <h4 className="mb-1 text-xl font-bold text-gray-900 dark:text-gray-100">Octopus</h4>
                                     <p className="text-base text-gray-600 dark:text-gray-300">
@@ -141,7 +151,9 @@ export default function ContactForm() {
                                     </p>
                                 </div>
                             </div>
-
+                            <p className="text-base leading-relaxed mb-9 text-gray-600 dark:text-amber-500">
+                                -Me contactez pour une séance.
+                            </p>
                             {/* Information de contact - Email */}
                             <div className="flex mb-8 max-w-[370px] w-full">
                                 <div className="max-w-[60px] sm:max-w-[70px] w-full h-[60px] sm:h-[70px] flex items-center justify-center mr-6 overflow-hidden bg-blue-600 bg-opacity-5 text-amber-600 dark:text-amber-500 rounded">

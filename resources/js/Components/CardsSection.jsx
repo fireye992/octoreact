@@ -25,7 +25,7 @@ export default function CardsSection({ videoTutorials, allVideoTutorials }) {
                                 <h2 className="mb-4 text-3xl font-bold text-stone-900 dark:text-gray-300">
                                     Les médias à tentacules
                                 </h2>
-                                <p className="text-gray-400 dark:text-stone-500 text-body-color">
+                                <p className="text-gray-500 dark:text-stone-500 text-body-color">
                                     Il est nécessaire de s'arrêter! "Aristote"
                                 </p>
                             </div>
@@ -58,7 +58,7 @@ export default function CardsSection({ videoTutorials, allVideoTutorials }) {
                             <h2 className="mb-4 text-3xl font-bold text-stone-900 dark:text-gray-300">
                                 Les médias à tentacules
                             </h2>
-                            <p className="text-gray-400 dark:text-stone-500 text-body-color">
+                            <p className="text-gray-500 dark:text-stone-500 text-body-color">
                                 Il est nécessaire de s'arrêter! "Aristote"
                             </p>
                         </div>

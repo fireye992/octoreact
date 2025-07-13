@@ -29,7 +29,7 @@
                  rounded
                  "
                  >
-                  <a href="https://www.google.com/maps/@48.6014125,7.7453507,3a,82.2y,342.96h,79.07t/data=!3m6!1e1!3m4!1s-jtllAfUBQk3a9J9SjiMFw!2e0!7i16384!8i8192" target="_blank">
+                  <a href="https://maps.app.goo.gl/5nha1LwhHTZHc8rYA" target="_blank">
                  <svg
                     width="24"
                     height="24"
