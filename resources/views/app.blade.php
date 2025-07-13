@@ -51,7 +51,9 @@
     @routes
     @viteReactRefresh
     @vite(['resources/js/app.jsx', 'resources/css/app.css'])
-
+<script>
+    console.log('Blade $page props:', @json($page['props']));
+</script>
     @inertiaHead
 
     <script async src="https://apis.google.com/js/platform.js"></script>

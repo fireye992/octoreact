@@ -31,40 +31,34 @@ function getAuthProps()
 
 // --- Route de la Page d'Accueil ---
 // Nous nommons la route 'home'.
-Route::get('/', function () {
-    $navigationItems = [
-        ['label' => 'A propos', 'href' => '#about', 'is_anchor' => true],
-        ['label' => 'Médias', 'href' => '#tutos', 'is_anchor' => true],
-        ['label' => 'Contact', 'href' => '#contact', 'is_anchor' => true],
-    ];
+// ... (le reste de vos 'use' et de votre fonction getAuthProps())
 
-    $callToActionProps = [
-        'callToActionTitle' => 'RÉVÉLATEUR D’IDÉES, CHARMEUR DE PENSÉES, CATALYSEUR D’ESPRITS LIBRES',
-        'button1Href' => 'https://www.superprof.fr/cours-individuels-professionnels-ring-vraie-salle-boxe-sacs-frappes.html',
-        'button1Text' => 'Super Prof',
-        'button2Href' => 'https://www.youtube.com/watch?v=6LI-JQuyiZU&t=9s',
-        'button2Text' => 'interview sur YouTube',
-    ];
+// --- Ancienne route de la Page d'Accueil (à SUPPRIMER ou COMMENTER) ---
+// Route::get('/', function () {
+//     $navigationItems = [
+//         ['label' => 'Accueil', 'href' => '#hero', 'is_anchor' => true],
+//         ['label' => 'A propos', 'href' => '#about', 'is_anchor' => true],
+//         ['label' => 'Médias', 'href' => '#tutos', 'is_anchor' => true],
+//         ['label' => 'Contact', 'href' => '#contact', 'is_anchor' => true],
+//     ];
+//     $callToActionProps = [ /* ... */ ];
+//     $videos = Video::all();
+//     $authProps = auth()->check() ? ['auth' => ['user' => auth()->user()]] : [];
+//     return Inertia::render('Home', array_merge(
+//         getAuthProps(),
+//         $authProps,
+//         [
+//             'navigationItems' => $navigationItems,
+//             'laravelVersion' => Application::VERSION,
+//             'phpVersion' => PHP_VERSION,
+//             'videoTutorials' => $videos->toArray(),
+//         ],
+//         $callToActionProps
+//     ));
+// })->name('home');
 
-    // Récupérez les vidéos pour les passer à votre composant
-    $videos = Video::all();
-
-    // Nous passons l'utilisateur authentifié (s'il existe) à la vue.
-    // Cela garantit que MainNavbar a toujours les informations user, canLogin, canRegister.
-    $authProps = auth()->check() ? ['auth' => ['user' => auth()->user()]] : [];
-
-    return Inertia::render('Home', array_merge(
-        getAuthProps(),
-        $authProps,
-        [
-            'navigationItems' => $navigationItems,
-            'laravelVersion' => Application::VERSION,
-            'phpVersion' => PHP_VERSION,
-            'videoTutorials' => $videos->toArray(),
-        ],
-        $callToActionProps
-    ));
-})->name('home');
+// --- Nouvelle route de la Page d'Accueil (à AJOUTER) ---
+Route::get('/', HomeController::class)->name('home');
 
 // --- Routes pour les utilisateurs authentifiés ---
 // Ces routes sont protégées par le middleware 'auth'.

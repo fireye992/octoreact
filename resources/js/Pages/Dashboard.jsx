@@ -32,6 +32,7 @@ export default function Dashboard({ auth, canLogin, canRegister }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-stone-500 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-stone-100">Bienvenue dans la grotte du poulpe ! </div>
+                        <div className="px-6 py-3 text-gray-900 dark:text-stone-100">Replongez y, elle se remplira prochainement d'une farandole de citations</div>
                     </div>
                 </div>
             </div>

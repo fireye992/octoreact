@@ -4,7 +4,6 @@ import React from 'react';
 import { Head } from '@inertiajs/react';
 import MainLayout from '@/Layouts/MainLayout';
 import Hero from '@/Components/Home/Hero';
-// import Experience from '@/Components/Home/Experience';
 import About from '@/Components/Home/About';
 import ContactForm from '@/Components/ContactForm';
 import CallToAction from '@/Components/CallToAction';
@@ -16,6 +15,7 @@ export default function Home({
     canLogin,
     canRegister,
     videoTutorials,
+    allVideoTutorials, // <--- AJOUTÉ ICI pour recevoir toutes les vidéos
     callToActionTitle,
     button1Href,
     button1Text,
@@ -50,9 +50,9 @@ export default function Home({
         >
             {/* Balises <Head> pour le SEO */}
             <Head>
-                <title>{title}</title>
-                <meta name="description" content={description} />
-                <meta name="keywords" content={keywords} />
+                {/* <title>{title}</title> */}
+                {/* <meta name="description" content={description} />
+                <meta name="keywords" content={keywords} /> */}
 
                 {/* Open Graph Meta Tags */}
                 <meta property="og:title" content={og_title} />
@@ -122,7 +122,11 @@ export default function Home({
                 button2Text={button2Text}
             />
             <About id="about" />
-            <CardsSection id="tutos" videoTutorials={videoTutorials} />
+            <CardsSection
+                id="tutos"
+                videoTutorials={videoTutorials}
+                allVideoTutorials={allVideoTutorials} // <--- AJOUTÉ ICI pour passer toutes les vidéos
+            />
             <ContactForm
                 id="contact"
                 initialSuccessMessage={successMessage}
