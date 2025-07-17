@@ -49,7 +49,7 @@ export default function Dashboard({ auth, canLogin, canRegister, quotes: paginat
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     {/* Message Flash de succès/erreur */}
-                    {flash.success && (
+                    {/* {flash.success && (
                         <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
                             <span className="block sm:inline">{flash.success}</span>
                         </div>
@@ -58,10 +58,66 @@ export default function Dashboard({ auth, canLogin, canRegister, quotes: paginat
                         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
                             <span className="block sm:inline">{flash.error}</span>
                         </div>
-                    )}
+                    )} */}
 
                    
-
+                     <div className="bg-white dark:bg-stone-500 overflow-hidden shadow-sm sm:rounded-lg p-6 mb-8">
+                        <h3 className="font-semibold text-lg text-gray-900 dark:text-stone-100 mb-4">
+                            Proposer une nouvelle citation 🖊️
+                        </h3>
+                        <form onSubmit={submitQuote} className="space-y-4">
+                            <div>
+                                <label htmlFor="text" className="block text-sm font-medium text-gray-700 dark:text-stone-200">
+                                    Citation <span className="text-red-500">*</span>
+                                </label>
+                                <textarea
+                                    id="text"
+                                    name="text"
+                                    rows="3"
+                                    value={data.text}
+                                    onChange={(e) => setData('text', e.target.value)}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-stone-700 dark:border-stone-600 dark:text-stone-100"
+                                    required
+                                ></textarea>
+                                {errors.text && <div className="text-red-500 text-sm mt-1">{errors.text}</div>}
+                            </div>
+                            <div>
+                                <label htmlFor="author" className="block text-sm font-medium text-gray-700 dark:text-stone-200">
+                                    Auteur
+                                </label>
+                                <input
+                                    type="text"
+                                    id="author"
+                                    name="author"
+                                    value={data.author}
+                                    onChange={(e) => setData('author', e.target.value)}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-stone-700 dark:border-stone-600 dark:text-stone-100"
+                                />
+                                {errors.author && <div className="text-red-500 text-sm mt-1">{errors.author}</div>}
+                            </div>
+                            <div>
+                                <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-stone-200">
+                                    Titre de l'œuvre (optionnel)
+                                </label>
+                                <input
+                                    type="text"
+                                    id="title"
+                                    name="title"
+                                    value={data.title}
+                                    onChange={(e) => setData('title', e.target.value)}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-stone-700 dark:border-stone-600 dark:text-stone-100"
+                                />
+                                {errors.title && <div className="text-red-500 text-sm mt-1">{errors.title}</div>}
+                            </div>
+                            <button
+                                type="submit"
+                                disabled={processing}
+                                className="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-500 dark:hover:bg-indigo-600 dark:focus:bg-indigo-600 dark:active:bg-indigo-700 dark:focus:ring-offset-stone-800 transition ease-in-out duration-150"
+                            >
+                                {processing ? 'Envoi...' : 'Proposer la citation'}
+                            </button>
+                        </form>
+                    </div>
                     <div className="bg-white dark:bg-stone-500 overflow-hidden shadow-sm sm:rounded-lg p-6">
                         <h3 className="font-semibold text-lg text-gray-900 dark:text-stone-100 mb-4">
                             {isAdmin ? "Toutes les citations :" : "Quelques citations validées pour vous :"}
@@ -137,63 +193,7 @@ export default function Dashboard({ auth, canLogin, canRegister, quotes: paginat
                             </div>
                         )}
                     </div>
-                     <div className="bg-white dark:bg-stone-500 overflow-hidden shadow-sm sm:rounded-lg p-6 mt-8">
-                        <h3 className="font-semibold text-lg text-gray-900 dark:text-stone-100 mb-4">
-                            Proposer une nouvelle citation 🖊️
-                        </h3>
-                        <form onSubmit={submitQuote} className="space-y-4">
-                            <div>
-                                <label htmlFor="text" className="block text-sm font-medium text-gray-700 dark:text-stone-200">
-                                    Citation <span className="text-red-500">*</span>
-                                </label>
-                                <textarea
-                                    id="text"
-                                    name="text"
-                                    rows="3"
-                                    value={data.text}
-                                    onChange={(e) => setData('text', e.target.value)}
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-stone-700 dark:border-stone-600 dark:text-stone-100"
-                                    required
-                                ></textarea>
-                                {errors.text && <div className="text-red-500 text-sm mt-1">{errors.text}</div>}
-                            </div>
-                            <div>
-                                <label htmlFor="author" className="block text-sm font-medium text-gray-700 dark:text-stone-200">
-                                    Auteur
-                                </label>
-                                <input
-                                    type="text"
-                                    id="author"
-                                    name="author"
-                                    value={data.author}
-                                    onChange={(e) => setData('author', e.target.value)}
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-stone-700 dark:border-stone-600 dark:text-stone-100"
-                                />
-                                {errors.author && <div className="text-red-500 text-sm mt-1">{errors.author}</div>}
-                            </div>
-                            <div>
-                                <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-stone-200">
-                                    Titre de l'œuvre (optionnel)
-                                </label>
-                                <input
-                                    type="text"
-                                    id="title"
-                                    name="title"
-                                    value={data.title}
-                                    onChange={(e) => setData('title', e.target.value)}
-                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-stone-700 dark:border-stone-600 dark:text-stone-100"
-                                />
-                                {errors.title && <div className="text-red-500 text-sm mt-1">{errors.title}</div>}
-                            </div>
-                            <button
-                                type="submit"
-                                disabled={processing}
-                                className="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-500 dark:hover:bg-indigo-600 dark:focus:bg-indigo-600 dark:active:bg-indigo-700 dark:focus:ring-offset-stone-800 transition ease-in-out duration-150"
-                            >
-                                {processing ? 'Envoi...' : 'Proposer la citation'}
-                            </button>
-                        </form>
-                    </div>
+
                 </div>
             </div>
         </MainLayout>

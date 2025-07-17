@@ -29,7 +29,7 @@ export default function Register() {
     return (
         <AuthenticatedLayout>
             <Head title="Register" />
-            <div className='p-12'>
+            <div className='p-4'>
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
