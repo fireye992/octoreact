@@ -3,7 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VideoController;
-use App\Models\User; // Importez le modèle User
+use App\Http\Controllers\QuoteController; // Assurez-vous que QuoteController est importé
+use App\Models\User; // Assurez-vous que User model est importé
 
 /*
 |--------------------------------------------------------------------------
@@ -21,21 +22,43 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Routes publiques pour récupérer les vidéos (si tu veux les afficher sans authentification)
-// Cette route est bien pour ton `fetchVideos` dans le frontend
+// --- Routes Publiques API ---
+// Ces routes sont accessibles à n'importe qui, authentifié ou non.
+
+// Public route for Quotes: Anyone can get quotes.
+// The QuoteController's index method handles filtering for validated quotes for non-admins.
+Route::get('/quotes', [QuoteController::class, 'index'])->name('quotes.index');
+
+// Public routes for Videos: Anyone can view videos.
 Route::get('/videos', [VideoController::class, 'index'])->name('videos.index');
-Route::get('/videos/{video}', [VideoController::class, 'show']);
+Route::get('/videos/{video}', [VideoController::class, 'show'])->name('videos.show');
 
-// Routes d'administration pour les vidéos (protégées par middleware 'auth:sanctum' et 'admin')
-// Ces routes sont appelées par Inertia pour les opérations CRUD (post, put, delete)
-Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('/videos', [VideoController::class, 'store']);
-    Route::put('/videos/{video}', [VideoController::class, 'update']);
-    Route::delete('/videos/{video}', [VideoController::class, 'destroy']);
-});
-
-// Ajout de la route pour récupérer la liste des utilisateurs
+// Public route for Users list: Be cautious with this!
+// Currently, this returns ALL user data publicly. If this is not intended
+// (e.g., if only admins should see all users), move it into the admin-protected group below.
 Route::get('/users', function () {
-    // La méthode 'all()' du modèle User récupère tous les utilisateurs de la base de données
     return User::all();
+})->name('users.index');
+
+
+// --- Routes API Protégées (Admin-Only) ---
+// Ces routes nécessitent à la fois l'authentification Sanctum ET le middleware 'admin'.
+// Le middleware 'admin' doit vérifier si l'utilisateur authentifié a les privilèges d'administrateur.
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+
+    // Admin routes for Quotes: Only admins can manage quotes (create, update, delete, toggle validation).
+    Route::post('/quotes', [QuoteController::class, 'store'])->name('quotes.store');
+    Route::put('/quotes/{quote}', [QuoteController::class, 'update'])->name('quotes.update');
+    Route::delete('/quotes/{quote}', [QuoteController::class, 'destroy'])->name('quotes.destroy');
+    Route::patch('/quotes/{quote}/toggle-validation', [QuoteController::class, 'toggleValidation'])->name('quotes.toggleValidation');
+
+    // Admin routes for Videos: Only admins can manage videos (create, update, delete).
+    Route::post('/videos', [VideoController::class, 'store'])->name('videos.store');
+    Route::put('/videos/{video}', [VideoController::class, 'update'])->name('videos.update');
+    Route::delete('/videos/{video}', [VideoController::class, 'destroy'])->name('videos.destroy');
+
+    // Si vous voulez restreindre la liste '/users' aux admins uniquement, déplacez-la ici :
+    // Route::get('/users', function () {
+    //     return User::all();
+    // })->name('users.index.admin');
 });

@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VideoController;
-use App\Models\Video;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\ContactController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +22,6 @@ use App\Http\Controllers\ContactController;
 */
 
 // --- Fonction utilitaire pour récupérer les props de login/register ---
-// Cela nous permet de ne pas répéter le code.
 function getAuthProps()
 {
     return [
@@ -30,74 +31,46 @@ function getAuthProps()
 }
 
 // --- Route de la Page d'Accueil ---
-// Nous nommons la route 'home'.
-// ... (le reste de vos 'use' et de votre fonction getAuthProps())
-
-// --- Ancienne route de la Page d'Accueil (à SUPPRIMER ou COMMENTER) ---
-// Route::get('/', function () {
-//     $navigationItems = [
-//         ['label' => 'Accueil', 'href' => '#hero', 'is_anchor' => true],
-//         ['label' => 'A propos', 'href' => '#about', 'is_anchor' => true],
-//         ['label' => 'Médias', 'href' => '#tutos', 'is_anchor' => true],
-//         ['label' => 'Contact', 'href' => '#contact', 'is_anchor' => true],
-//     ];
-//     $callToActionProps = [ /* ... */ ];
-//     $videos = Video::all();
-//     $authProps = auth()->check() ? ['auth' => ['user' => auth()->user()]] : [];
-//     return Inertia::render('Home', array_merge(
-//         getAuthProps(),
-//         $authProps,
-//         [
-//             'navigationItems' => $navigationItems,
-//             'laravelVersion' => Application::VERSION,
-//             'phpVersion' => PHP_VERSION,
-//             'videoTutorials' => $videos->toArray(),
-//         ],
-//         $callToActionProps
-//     ));
-// })->name('home');
-
-// --- Nouvelle route de la Page d'Accueil (à AJOUTER) ---
 Route::get('/', HomeController::class)->name('home');
 
 // --- Routes pour les utilisateurs authentifiés ---
-// Ces routes sont protégées par le middleware 'auth'.
 Route::middleware('auth')->group(function () {
-    // --- Route du Dashboard ---
-    // Elle est protégée par 'auth' et 'verified'.
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard', array_merge(
-            getAuthProps(), // Passez les props ici aussi
-            [
-                'auth' => [
-                    'user' => auth()->user(),
-                ],
-            ]
-        ));
-    })->middleware('verified')->name('dashboard');
+
+    // --- Route du Dashboard (Maintenant gérée par DashboardController) ---
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->middleware('verified')
+        ->name('dashboard');
 
     // --- Routes du Profil ---
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // --- Routes d'Administration des Vidéos ---
-    // Nous utilisons un préfixe d'URL 'admin' et un préfixe de nom 'admin.'
-    // pour obtenir le nom de route 'admin.videos'.
-    Route::prefix('admin')->name('admin.')->group(function () {
-        // La route pour la page d'administration des vidéos
-        Route::get('/videos', [VideoController::class, 'indexAdmin'])->name('videos'); // Nom de la route : 'admin.videos'
+    // --- NOUVEAU: Route pour la soumission d'une nouvelle citation par un utilisateur ---
+    // Accessible par tous les utilisateurs authentifiés
+    Route::post('/quotes/propose', [QuoteController::class, 'propose'])->name('quotes.propose');
 
-        // Routes pour la gestion des vidéos (store, update, destroy)
-        // Les noms seront 'admin.videos.store', 'admin.videos.update', etc.
+
+    // --- Routes d'Administration des Vidéos ---
+    Route::prefix('admin')->name('admin.')->middleware('can:isAdmin')->group(function () {
+        Route::get('/videos', [VideoController::class, 'indexAdmin'])->name('videos');
         Route::post('/videos', [VideoController::class, 'store'])->name('videos.store');
         Route::put('/videos/{video}', [VideoController::class, 'update'])->name('videos.update');
         Route::delete('/videos/{video}', [VideoController::class, 'destroy'])->name('videos.destroy');
+
+        // --- Routes d'Administration des Citations (pour Inertia, retournent des redirections) ---
+        Route::get('/quotes', [QuoteController::class, 'indexAdminPage'])->name('quotes.index');
+        Route::post('/quotes', [QuoteController::class, 'store'])->name('quotes.store');
+        Route::put('/quotes/{quote}', [QuoteController::class, 'update'])->name('quotes.update');
+        Route::delete('/quotes/{quote}', [QuoteController::class, 'destroy'])->name('quotes.destroy');
+        Route::patch('/quotes/{quote}/toggle-validation', [QuoteController::class, 'toggleValidation'])->name('quotes.toggleValidation');
     });
 });
 
-// --- Route pour l'API publique (si utilisée pour des appels AJAX) ---
+
+// --- Routes API Publiques (qui peuvent être appelées par des requêtes AJAX) ---
 Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
 Route::get('/api/videos', [VideoController::class, 'index'])->name('api.videos.index');
 
+// Ce fichier contient toutes les routes d'authentification (login, register, logout, password reset, email verification)
 require __DIR__ . '/auth.php';

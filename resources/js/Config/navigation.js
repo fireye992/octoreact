@@ -6,6 +6,7 @@ export const mainNavigationItems = [
     { label: 'Accueil', href: route ('home') + '#hero', is_anchor: true, target_anchor: '#hero' },
     { label: 'À Propos', href: route('home') + '#about', is_anchor: true, target_anchor: '#about' },
     { label: 'Médias', href: route('home') + '#tutos', is_anchor: true, target_anchor: '#tutos' },
+    { label: 'Citations', href: route('home') + '#quotes', is_anchor: true, target_anchor: '#quotes' },
     { label: 'Contact', href: route('home') + '#contact', is_anchor: true, target_anchor: '#contact' },
 ];
 

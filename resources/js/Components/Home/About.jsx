@@ -4,9 +4,12 @@ import React from 'react';
 import AboutDots from '@/Components/AboutDots'; // On va créer ce composant après
 import ButtonLink from '@/Components/ButtonLink'; // Supposons que vous ayez un composant ButtonLink
 
-export default function About() {
+export default function About({id}) {
     return (
-        <section id="about" className="pt-4 lg:pt-[120px] pb-12 lg:pb-[90px] overflow-hidden">
+        <section id={id} className="py-16 bg-gradient-to-br from-gray-100 to-zinc-400
+                                     dark:bg-gradient-to-br dark:from-stone-700 dark:to-stone-900
+                                     dark:text-gray-100 
+                                     transition-colors duration-500">
             <div className="container mx-auto">
                 <div className="flex flex-wrap items-center justify-between -mx-4">
                     {/* Colonne de gauche avec les images */}

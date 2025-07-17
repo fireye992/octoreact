@@ -8,6 +8,7 @@ import About from '@/Components/Home/About';
 import ContactForm from '@/Components/ContactForm';
 import CallToAction from '@/Components/CallToAction';
 import CardsSection from '@/Components/CardsSection';
+import QuotesSection from '@/Components/Home/QuotesSection'; // <-- AJOUTÉ : Import du composant QuotesSection
 import { mainNavigationItems, getUserMenuItems } from '@/Config/navigation'
 
 export default function Home({
@@ -15,7 +16,7 @@ export default function Home({
     canLogin,
     canRegister,
     videoTutorials,
-    allVideoTutorials, // <--- AJOUTÉ ICI pour recevoir toutes les vidéos
+    allVideoTutorials,
     callToActionTitle,
     button1Href,
     button1Text,
@@ -35,6 +36,7 @@ export default function Home({
     successMessage,
     errorMessage,
     errors,
+    quotes,
 }) {
     const pageNavigationItems = mainNavigationItems;
     const pageUserMenuItems = getUserMenuItems(auth, window.location.href);
@@ -50,11 +52,6 @@ export default function Home({
         >
             {/* Balises <Head> pour le SEO */}
             <Head>
-                {/* <title>{title}</title> */}
-                {/* <meta name="description" content={description} />
-                <meta name="keywords" content={keywords} /> */}
-
-                {/* Open Graph Meta Tags */}
                 <meta property="og:title" content={og_title} />
                 <meta property="og:description" content={og_description} />
                 <meta property="og:type" content={og_type} />
@@ -90,9 +87,9 @@ export default function Home({
                                 "name": video.title,
                                 "description": video.description,
                                 "uploadDate": new Date(video.created_at).toISOString().split('T')[0],
-                                // URLs CORRIGÉES ICI
-                                "thumbnailUrl": `https://img.youtube.com/vi/${video.video_id}/maxresdefault.jpg`,
-                                "embedUrl": `https://www.youtube.com/embed/${video.video_id}`,
+                                // URLs CORRIGÉES ICI pour les miniatures et les embeds YouTube
+                                "thumbnailUrl": `https://img.youtube.com/vi/${video.video_id}/maxresdefault.jpg`, // <-- CORRECTION ICI
+                                "embedUrl": `https://www.youtube.com/embed/${video.video_id}`, // <-- CORRECTION ICI
                                 "interactionStatistic": {
                                     "@type": "InteractionCounter",
                                     "interactionType": "https://schema.org/WatchAction",
@@ -125,8 +122,9 @@ export default function Home({
             <CardsSection
                 id="tutos"
                 videoTutorials={videoTutorials}
-                allVideoTutorials={allVideoTutorials} // <--- AJOUTÉ ICI pour passer toutes les vidéos
+                allVideoTutorials={allVideoTutorials}
             />
+            <QuotesSection id="quotes" quotes={quotes} />
             <ContactForm
                 id="contact"
                 initialSuccessMessage={successMessage}

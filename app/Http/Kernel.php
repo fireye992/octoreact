@@ -45,6 +45,7 @@ class Kernel extends HttpKernel
             // DÉCOMMENTEZ LA LIGNE CI-DESSOUS si vous utilisez Laravel Sanctum pour l'authentification de votre SPA !
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+            'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];

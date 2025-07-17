@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\User;
+// Assurez-vous que les modèles User et Hash sont COMMENTÉS ou SUPPRIMÉS
+// si vous ne les utilisez PAS directement dans ce fichier
+// use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,19 +15,32 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Créer un utilisateur standard
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => Hash::make('passworduser'), // Mot de passe par défaut
-        ]);
+        // COMMENTEZ OU SUPPRIMEZ les lignes qui créent des utilisateurs :
+        // User::firstOrCreate(
+        //     ['email' => 'test@example.com'],
+        //     [
+        //         'name' => 'Test User',
+        //         'password' => Hash::make('passworduser'),
+        //     ]
+        // );
 
-        // Créer un utilisateur ADMINISTRATEUR
-        User::factory()->create([
-            'name' => 'Emilie',
-            'email' => 'ly@octopus.fr',
-            'password' => Hash::make('octOpute'), // Mot de passe pour l'admin
-            'is_admin' => 1, // Assurez-vous que le champ is_admin est défini dans votre modèle User
+        // User::firstOrCreate(
+        //     ['email' => 'ly@octopus.fr'],
+        //     [
+        //         'name' => 'Emilie',
+        //         'password' => Hash::make('octOpute'),
+        //         'is_admin' => 1,
+        //     ]
+        // );
+
+        // COMMENTEZ OU SUPPRIMEZ tout appel à un seeder de vidéos si vous en avez un :
+        // $this->call([
+        //     VideoSeeder::class, // Exemple si vous aviez un seeder de vidéos
+        // ]);
+
+        // Gardez UNIQUEMENT cette ligne pour appeler votre QuoteSeeder :
+        $this->call([
+            QuoteSeeder::class,
         ]);
     }
 }

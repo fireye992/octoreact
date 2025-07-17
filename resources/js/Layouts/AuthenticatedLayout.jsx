@@ -49,7 +49,7 @@ export default function AuthenticatedLayout({ user, header, children, canLogin, 
 
     return (
         // AJOUTE LA CLASSE `pt-16` (padding-top de 64px) À CE DIV PRINCIPAL
-        <div className="min-h-screen bg-gray-100 dark:bg-stone-900 pt-16"> 
+        <div className="min-h-screen bg-gray-100 dark:bg-stone-900 pt-16 p-4"> 
             <Head title={title || 'Octopus'} />
 
             {/* TA BARRE DE NAVIGATION FIXE */}
@@ -253,7 +253,7 @@ export default function AuthenticatedLayout({ user, header, children, canLogin, 
                 </header>
             )}
 
-            <main>{children}</main>
+            <main className="p-12">{children}</main>
             <Footer isDarkMode={isDarkMode} />
         </div>
     );

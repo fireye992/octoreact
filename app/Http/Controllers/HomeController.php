@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
+use App\Models\Quote; // <-- Import the Quote model
 use Inertia\Inertia;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,7 @@ class HomeController extends Controller
         $navigationItems = [
             ['label' => 'Accueil', 'href' => '#hero', 'is_anchor' => true],
             ['label' => 'A propos', 'href' => '#about', 'is_anchor' => true],
+            ['label' => 'Citations', 'href' => '#quotes', 'is_anchor' => true], // <-- Add a navigation item for quotes
             ['label' => 'Médias', 'href' => '#tutos', 'is_anchor' => true],
             ['label' => 'Contact', 'href' => '#contact', 'is_anchor' => true],
         ];
@@ -35,8 +37,14 @@ class HomeController extends Controller
 
         // Charger TOUTES les vidéos dans une prop séparée
         $allVideos = Video::all()->toArray(); // Toutes les vidéos
-        // Charger les vidéos pour l'affichage initial (limitées à 6)
+        // Charger les vidéos pour l'affichage initial (limitées à 3)
         $initialVideos = Video::orderBy('created_at', 'desc')->take(3)->get()->toArray();
+
+        // Retrieve validated quotes, e.g., the 10 most recent ones
+          $allQuotes = Quote::where('is_validated', true)
+                          ->latest()
+                          ->get()
+                          ->toArray();
 
         $authProps = auth()->check() ? ['auth' => ['user' => auth()->user()]] : [];
 
@@ -47,9 +55,11 @@ class HomeController extends Controller
                 'navigationItems' => $navigationItems,
                 'laravelVersion' => Application::VERSION,
                 'phpVersion' => PHP_VERSION,
-                'videoTutorials' => $initialVideos, // Initialement, on envoie les 6 vidéos
+                'videoTutorials' => $initialVideos, // Initialement, on envoie les 3 vidéos
                 'allVideoTutorials' => $allVideos, // Toutes les vidéos pour l'expansion
-                // --- AJOUTS ICI POUR LE SEO/OPEN GRAPH ---
+                'quotes' => $allQuotes, // <-- Pass the quotes data to the Home component
+
+                // --- SEO/OPEN GRAPH PROPS ---
                 'title' => 'OcToPuS',
                 'description' => 'Le Philosophe à Tentacules - Dialoguez et explorez la réalité pour une vie plus belle. Séances de philosophie en solo ou en groupe à Strasbourg ou en visio.',
                 'keywords' => 'Philosophie, séance de philosophie, Thérapie, Psychologie, Philo, Psycho, Strasbourg, développement personnel, réflexion, accueil',

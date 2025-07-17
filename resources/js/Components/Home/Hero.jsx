@@ -4,7 +4,7 @@ import SocialIcons from '@/Components/SocialIcons';
 import { Button } from '@/Components/ui/button';
 import heroBg from "/img/octo2/oct.webp";
 
-export default function Hero() {
+export default function Hero({id}) {
     // useRef pour stocker l'ID de l'intervalle et le rendre persistant entre les rendus,
     // permettant de le nettoyer correctement.
     const checkGapiIntervalRef = useRef(null);
@@ -70,7 +70,7 @@ export default function Hero() {
 
     return (
         <section
-            id='hero'
+            id={id}
             className="relative pt-[140px] lg:pt-[160px] pb-[110px] hero-bg"
             style={{
                 backgroundImage: `url(${heroBg})`,
@@ -105,7 +105,7 @@ export default function Hero() {
                             </p>
                             <ul className="flex flex-wrap items-center">
                                 <li>
-                                    <Button asChild variant="default" className="rounded-lg">
+                                    <Button asChild variant="default" className="rounded-md">
                                         <a href="https://form.jotform.com/fireye/octopus" target="_blank" rel="noopener noreferrer">
                                             Prévoyez un rendez-vous
                                         </a>

@@ -22,6 +22,7 @@
     "dependencies": {
         "@inertiajs/server": "^0.1.0",
         "@material-tailwind/html": "^3.0.0-beta.7",
+        "@radix-ui/react-dialog": "^1.1.14",
         "@radix-ui/react-label": "^2.1.7",
         "@radix-ui/react-slot": "^1.2.3",
         "@tailwindcss/postcss": "^4.1.8",
