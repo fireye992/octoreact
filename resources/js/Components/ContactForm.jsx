@@ -115,14 +115,14 @@ export default function ContactForm() {
     return (
         <section id="contact" ref={contactSectionRef} className="py-20 lg:py-[120px] overflow-hidden relative z-10 bg-neutral-200 text-gray-900 dark:bg-stone-900 dark:text-stone-100">
             <div className="container mx-auto px-4">
-                <div className="flex flex-wrap mx-12 lg:justify-between">
+                <div className="flex flex-wrap mx-4 lg:justify-between">
                     <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
                         <div className="max-w-[570px] mb-4 lg:mb-0">
                             <h2 className="mb-14 uppercase font-bold text-xl sm:text-[30px] lg:text-[40px] xl:text-[42px] text-gray-900 dark:text-gray-100">
                                 Où et comment ?
                             </h2>
                             <p className="text-base leading-relaxed mb-9 text-gray-600 dark:text-amber-500">
-                                -Me trouvez sur google Maps.
+                                -Me trouver sur google Maps.
                             </p>
 
                             {/* Information de contact - Adresse */}
@@ -152,7 +152,7 @@ export default function ContactForm() {
                                 </div>
                             </div>
                             <p className="text-base leading-relaxed mb-9 text-gray-600 dark:text-amber-500">
-                                -Me contactez pour une séance.
+                                -Me contacter pour une séance.
                             </p>
                             {/* Information de contact - Email */}
                             <div className="flex mb-8 max-w-[370px] w-full">
