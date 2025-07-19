@@ -26,7 +26,7 @@ Pour commencer à utiliser Octopus, suivez ces étapes :
 
 Prérequis
 
-    [Liste de tes prérequis, par exemple : Node.js vX.X, Python vY.Y, Docker, etc.]
+    [Docker, PNPM, Telescope, Breeze, NodeJS, REact, Laravel, Inertia]
 
 Installation
 
