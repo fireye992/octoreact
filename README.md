@@ -9,13 +9,12 @@ Que vous soyez un développeur indépendant, une startup agile ou une équipe pl
 
 -----
 
-## ✨ Fonctionnalités Clés (à compléter avec les tiennes \!)
+## ✨ Fonctionnalités.
 
-  * **Tableaux de bord intuitifs** : Suivez l'avancement de vos projets en un coup d'œil.
-  * **Gestion des tâches personnalisable** : Créez, attribuez et priorisez vos tâches avec flexibilité.
+  * **Tableaux de bord intuitifs** : SProposition de citations.
+  * **Gestion Administration** : Controle des utilisateurs, gestions des videos et des ciations.
   * **Collaboration en temps réel** : Facilitez la communication et le travail d'équipe.
   * **Suivi des performances** : Analysez les métriques clés pour optimiser vos processus.
-  * **Intégrations (à venir/à lister)** : Connectez Octopus avec vos outils préférés (par exemple, Git, CI/CD, etc.).
 
 -----
 
@@ -38,7 +37,7 @@ Pour commencer à utiliser Octopus, suivez ces étapes :
 
 ```bash
 # Clonez le dépôt
-git clone https://https://github.com/fenrir992/octopus.git
+git clone https://https://github.com/fenrir992/octopusreact.git
 
 # Accédez au répertoire du projet
 cd octopus
