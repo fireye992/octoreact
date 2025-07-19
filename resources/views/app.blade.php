@@ -11,12 +11,12 @@
 
     <link rel="canonical" href="{{ url()->current() }}" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
-    <link rel="manifest" href="img/site.webmanifest">
-
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('img/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('img/site.webmanifest') }}"> 
     <link rel="shortcut icon" href="{{ asset('/img/octo/logo-8phy.png') }}" type="image/x-icon">
+
     <link rel="preconnect" href="https://fonts.bunny.net">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -25,7 +25,7 @@
     <meta property="og:description" content="@yield('og:description', $page['props']['og_description'] ?? 'Le Philosophe à Tentacules - Dialoguez et explorez la réalité pour une vie plus belle. Séances de philosophie en solo ou en groupe à Strasbourg ou en visio.')" />
     <meta property="og:type" content="@yield('og:type', $page['props']['og_type'] ?? 'website')" />
     <meta property="og:url" content="{{ url()->current() }}" />
-    <meta property="og:image" content="@yield('og:image', $page['props']['og_image'] ?? asset('/img/share-default.jpg'))" />
+    <meta property="og:image" content="@yield('og:image', $page['props']['og_image'] ?? asset('/img/oct2/octo.webp'))" />
     <meta property="og:image:width" content="@yield('og:image:width', $page['props']['og_image_width'] ?? '1200')" />
     <meta property="og:image:height" content="@yield('og:image:height', $page['props']['og_image_height'] ?? '630')" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -52,9 +52,9 @@
             f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-K8X7JRD7');
     </script>
-
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=oswald:200,300,400,500,600,700" rel="stylesheet" />
+    {{-- <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap"
         rel="stylesheet">

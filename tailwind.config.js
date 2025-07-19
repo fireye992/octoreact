@@ -20,7 +20,7 @@ export default {
         },
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Oswald', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 border: 'hsl(var(--border))',

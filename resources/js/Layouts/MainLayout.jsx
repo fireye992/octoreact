@@ -7,7 +7,7 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Button } from '@/Components/ui/button';
 
-import logoLight from '/img/octo/logo-8phyL.gif';
+import logoLight from '/img/octo/logo-8phy.gif';
 import logoDark from '/img/octo/logo-8phy.gif';
 import Footer from '@/Components/Layout/Footer';
 
@@ -92,7 +92,7 @@ export default function MainLayout({ user, header, children, canLogin, canRegist
                                     alt="logo"
                                     className="h-9 w-auto"
                                 />
-                                <span className="ml-3 text-2xl font-bold text-stone-500 dark:text-stone-400">OCTOPUS</span>
+                                <span className="ml-3 text-3xl font-semibold text-stone-500 dark:text-stone-400">OCTOPUS</span>
                             </Link>
                         </div>
 
