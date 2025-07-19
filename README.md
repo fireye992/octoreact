@@ -54,9 +54,9 @@ Octopus est un projet open-source et nous serions ravis de votre aide ! Que ce s
 
 Avant de contribuer, veuillez consulter nos :
 
-    Directives de Contribution (N'oubliez pas de créer ce fichier !)
+    Directives de Contribution En cours)
 
-    Code de Conduite (N'oubliez pas de créer ce fichier !)
+    Code de Conduite (En cours)
 
 📄 Licence
 
