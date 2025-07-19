@@ -17,7 +17,7 @@ export const getUserMenuItems = (auth, currentUrl) => {
 
     if (auth.user) {
         // Dashboard
-        const dashboardItem = { label: 'Dashboard', href: route('dashboard'), route_name: 'dashboard' };
+        const dashboardItem = { label: 'L\'épave', href: route('dashboard'), route_name: 'dashboard' };
         if (currentUrl !== route('dashboard')) {
             userMenuItems.push(dashboardItem);
         }

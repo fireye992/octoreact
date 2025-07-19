@@ -1,0 +1,2 @@
+Les dossier et fichier necessaire à hostinger devrot etre sortie de ce dossier pour etre à la racine, et les ../ des route de index devront etres supprimés, ex: "require __DIR__.'/vendor/autoload.php';"
+seul /build doit rester apres avoir npm run build et de dossier doit etre copier tel quel à la racine de hostinger le public_html

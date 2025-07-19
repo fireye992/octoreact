@@ -161,7 +161,7 @@ class QuoteController extends Controller
         $quote->save();
 
         // Redirige explicitement vers la page d'index de l'administration des citations.
-        return redirect()->route('admin.quotes.index')->with('success', 'Statut de validation mis à jour.');
+        return redirect()->route('admin.quotes.index')->with('success', 'Validation mis à jour.');
     }
         public function propose(Request $request): \Illuminate\Http\RedirectResponse
     {

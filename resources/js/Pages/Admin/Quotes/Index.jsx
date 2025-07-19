@@ -1,13 +1,17 @@
 // resources/js/Pages/Admin/Quotes/Index.jsx
 
 import MainLayout from '@/Layouts/MainLayout';
-import { Head, usePage, Link } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react'; // Retirez 'Link' car il est maintenant dans le composant de pagination
 import { mainNavigationItems, getUserMenuItems } from '@/Config/navigation';
 import { useState, useEffect } from 'react';
-import { Inertia } from '@inertiajs/inertia'; // Assurez-vous d'importer Inertia
+import { Inertia } from '@inertiajs/inertia';
+import Swal from 'sweetalert2';
 
-// --- Composant EditableCell (inchangé, gardez votre version si déjà complète) ---
-// (Votre code EditableCell ici)
+// Importez votre nouveau composant de pagination
+import InertiaPagination from '@/Components/ui/Pagination'; // <-- Assurez-vous que le chemin est correct !
+
+
+// --- Composant EditableCell (inchangé) ---
 const EditableCell = ({ value, onSave, isEditing, onToggleEdit, type = 'text', className = '' }) => {
     const [inputValue, setInputValue] = useState(value);
 
@@ -52,26 +56,56 @@ const EditableCell = ({ value, onSave, isEditing, onToggleEdit, type = 'text', c
 
 
 // --- Composant principal AdminQuotesIndex ---
-export default function AdminQuotesIndex({ auth, quotes: initialPaginatedQuotes }) { // Renommez la prop pour utiliser un état local
-    const { user } = usePage().props.auth;
+export default function AdminQuotesIndex({ auth, quotes: initialPaginatedQuotes }) {
+    const { user, flash } = usePage().props;
     const isAdmin = user && user.is_admin;
 
     const [editingQuoteId, setEditingQuoteId] = useState(null);
     const [editingField, setEditingField] = useState(null);
 
-    // Nouvel état local pour les citations, initialisé avec les props
     const [quotesData, setQuotesData] = useState(initialPaginatedQuotes.data);
     const [paginationLinks, setPaginationLinks] = useState(initialPaginatedQuotes.links);
     const [currentPage, setCurrentPage] = useState(initialPaginatedQuotes.current_page);
 
-
-    // Met à jour l'état local si les props changent (par exemple, lors du changement de page ou si le serveur renvoie de nouvelles données)
     useEffect(() => {
         setQuotesData(initialPaginatedQuotes.data);
         setPaginationLinks(initialPaginatedQuotes.links);
         setCurrentPage(initialPaginatedQuotes.current_page);
     }, [initialPaginatedQuotes]);
 
+    // --- useEffect pour les messages flash, maintenant en pop-ups centrées ---
+    useEffect(() => {
+        if (flash && flash.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Succès !',
+                text: flash.success,
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+            });
+        }
+        if (flash && flash.error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur !',
+                text: flash.error,
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+            });
+        }
+        if (flash && flash.warning) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Attention !',
+                text: flash.warning,
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+            });
+        }
+    }, [flash]);
 
     const toggleEdit = (quoteId, fieldName) => {
         if (editingQuoteId === quoteId && editingField === fieldName) {
@@ -84,33 +118,46 @@ export default function AdminQuotesIndex({ auth, quotes: initialPaginatedQuotes 
     };
 
     const handleDelete = (id) => {
-        if (confirm('Êtes-vous sûr de vouloir supprimer cette citation ?')) {
-            // Mise à jour optimiste: retire la citation de la liste immédiatement
-            setQuotesData(prevQuotes => prevQuotes.filter(quote => quote.id !== id));
+        Swal.fire({
+            title: 'Êtes-vous sûr ?',
+            text: 'Vous ne pourrez pas revenir en arrière !',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Oui, supprimer !',
+            cancelButtonText: 'Annuler'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                setQuotesData(prevQuotes => prevQuotes.filter(quote => quote.id !== id));
 
-            Inertia.delete(route('admin.quotes.destroy', id), {
-                onError: (errors) => {
-                    console.error('Erreur lors de la suppression :', errors);
-                    // Rollback si erreur: recharger la page pour restaurer l'état
-                    Inertia.reload({ only: ['quotes'], preserveScroll: true, preserveState: false }); // preserveState: false pour forcer le refresh complet de la prop 'quotes'
-                },
-                onSuccess: () => {
-                    // Si succès, Inertia devrait recharger les props 'quotes' et le useEffect les mettra à jour
-                    // Cependant, pour la suppression, si la liste est vide ou si un élément de la page précédente est supprimé
-                    // il est souvent préférable de laisser Inertia recharger la page complète ou au moins la prop quotes
-                    // Si onDelete vous souhaitez rester sur la même page mais avec un element de moins alors :
-                    // Inertia.reload({ only: ['quotes'], preserveScroll: true }); // Cela suffit
-                },
-                preserveScroll: true,
-                preserveState: true, // Permet à Inertia de gérer le reste de l'état
-            });
-        }
+                Inertia.delete(route('admin.quotes.destroy', id), {
+                    onError: (errors) => {
+                        console.error('Erreur lors de la suppression :', errors);
+                        Swal.fire(
+                            'Erreur!',
+                            errors.message || 'La suppression a échoué. Veuillez réessayer.',
+                            'error'
+                        );
+                        Inertia.reload({ only: ['quotes'], preserveScroll: true, preserveState: false });
+                    },
+                    onSuccess: () => {
+                        Swal.fire(
+                            'Supprimé !',
+                            'La citation a été supprimée.',
+                            'success'
+                        );
+                    },
+                    preserveScroll: true,
+                    preserveState: true,
+                });
+            }
+        });
     };
 
 
     const handleUpdate = (id, field, value) => {
-        // Optimistic update for text, author, title, proposed_by
-        const originalQuotesData = [...quotesData]; // Sauvegarde l'état original
+        const originalQuotesData = [...quotesData];
         setQuotesData(prevQuotes =>
             prevQuotes.map(quote =>
                 quote.id === id ? { ...quote, [field]: value } : quote
@@ -123,17 +170,27 @@ export default function AdminQuotesIndex({ auth, quotes: initialPaginatedQuotes 
         }, {
             onError: (errors) => {
                 console.error(`Erreur lors de la mise à jour du champ ${field}:`, errors);
-                alert(`Erreur de mise à jour: ${errors[field] || 'Erreur inconnue'}`);
-                setQuotesData(originalQuotesData); // Rollback en cas d'erreur
+                Swal.fire(
+                    'Erreur de mise à jour',
+                    `La mise à jour du champ "${field}" a échoué. Message: ${errors[field] || 'Erreur inconnue'}`,
+                    'error'
+                );
+                setQuotesData(originalQuotesData);
+            },
+            onSuccess: () => {
+                Swal.fire(
+                    'Mise à jour réussie !',
+                    'La citation a été mise à jour.',
+                    'success'
+                );
             },
             preserveScroll: true,
-            preserveState: true, // Nécessaire pour ne pas réinitialiser d'autres états (comme l'édition)
+            preserveState: true,
         });
     };
 
     const handleToggleValidation = (id) => {
-        // Optimistic update for is_validated
-        const originalQuotesData = [...quotesData]; // Sauvegarde l'état original
+        const originalQuotesData = [...quotesData];
         setQuotesData(prevQuotes =>
             prevQuotes.map(quote =>
                 quote.id === id ? { ...quote, is_validated: !quote.is_validated } : quote
@@ -143,14 +200,20 @@ export default function AdminQuotesIndex({ auth, quotes: initialPaginatedQuotes 
         Inertia.patch(route('admin.quotes.toggleValidation', id), {}, {
             onError: (errors) => {
                 console.error('Erreur lors de la mise à jour du statut de validation :', errors);
-                alert('Erreur lors de la mise à jour du statut.');
-                setQuotesData(originalQuotesData); // Rollback en cas d'erreur
+                Swal.fire(
+                    'Erreur de statut',
+                    errors.message || 'La mise à jour du statut de validation a échoué.',
+                    'error'
+                );
+                setQuotesData(originalQuotesData);
             },
-            // onSuccess n'est pas strictement nécessaire ici grâce à l'update optimiste,
-            // mais Inertia rafraîchira les props en arrière-plan, ce qui est bien pour la cohérence.
-            // Si le serveur change l'ordre des citations validées/non validées,
-            // un Inertia.reload({ only: ['quotes'] }) pourrait être envisagé ici,
-            // mais le `preserveState: true` devrait éviter un rafraîchissement visuel brutal.
+            onSuccess: () => {
+                Swal.fire(
+                    'Statut mis à jour !',
+                    'Le statut de validation de la citation a été modifié.',
+                    'success'
+                );
+            },
             preserveScroll: true,
             preserveState: true,
         });
@@ -159,7 +222,7 @@ export default function AdminQuotesIndex({ auth, quotes: initialPaginatedQuotes 
     const pageNavigationItems = mainNavigationItems;
     const pageUserMenuItems = getUserMenuItems(auth, window.location.href);
 
-    const hasQuotes = quotesData && quotesData.length > 0; // Utiliser quotesData pour vérifier
+    const hasQuotes = quotesData && quotesData.length > 0;
 
 
     return (
@@ -198,13 +261,13 @@ export default function AdminQuotesIndex({ auth, quotes: initialPaginatedQuotes 
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-stone-300 uppercase tracking-wider">Texte</th>
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-stone-300 uppercase tracking-wider">Auteur</th>
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-stone-300 uppercase tracking-wider">Titre</th>
-                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-stone-300 uppercase tracking-wider">Proposée par</th>
+                                            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-stone-300 uppercase tracking-wider">Proposée par</th>
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-stone-300 uppercase tracking-wider">Statut</th>
                                             <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-stone-300 uppercase tracking-wider">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {quotesData.map((quote) => ( // Utilisez quotesData ici
+                                        {quotesData.map((quote) => (
                                             <tr key={quote.id} className="odd:bg-white odd:dark:bg-stone-600 even:bg-gray-50 even:dark:bg-stone-700">
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-stone-100">
                                                     {quote.id}
@@ -256,17 +319,17 @@ export default function AdminQuotesIndex({ auth, quotes: initialPaginatedQuotes 
                                                     <button
                                                         onClick={() => handleToggleValidation(quote.id)}
                                                         className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs leading-4 font-medium rounded-md text-white dark:text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150
-                                                                   mr-2
-                                                                   bg-indigo-600 hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900
-                                                                   dark:bg-indigo-400 dark:hover:bg-indigo-500 dark:focus:bg-indigo-500 dark:active:bg-indigo-600 dark:text-white"
+                                                                    mr-2
+                                                                    bg-indigo-600 hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900
+                                                                    dark:bg-indigo-400 dark:hover:bg-indigo-500 dark:focus:bg-indigo-500 dark:active:bg-indigo-600 dark:text-white"
                                                     >
                                                         {quote.is_validated ? 'Invalider' : 'Valider'}
                                                     </button>
                                                     <button
                                                         onClick={() => handleDelete(quote.id)}
                                                         className="inline-flex items-center px-3 py-1.5 border border-transparent text-xs leading-4 font-medium rounded-md text-white dark:text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150
-                                                                   bg-red-600 hover:bg-red-700 focus:bg-red-700 active:bg-red-900
-                                                                   dark:bg-red-400 dark:hover:bg-red-500 dark:focus:bg-red-500 dark:active:bg-red-600 dark:text-white"
+                                                                    bg-red-600 hover:bg-red-700 focus:bg-red-700 active:bg-red-900
+                                                                    dark:bg-red-400 dark:hover:bg-red-500 dark:focus:bg-red-500 dark:active:bg-red-600 dark:text-white"
                                                     >
                                                         Supprimer
                                                     </button>
@@ -276,33 +339,9 @@ export default function AdminQuotesIndex({ auth, quotes: initialPaginatedQuotes 
                                     </tbody>
                                 </table>
 
-                                {/* Section de pagination, utilisant les liens de l'état local */}
-                                {paginationLinks && paginationLinks.length > 3 && (
-                                    <nav className="mt-4 flex justify-center flex-wrap gap-2">
-                                        {paginationLinks.map((link, key) => (
-                                            <div key={key}>
-                                                <Link
-                                                    href={link.url || '#'}
-                                                    className={`
-                                                        px-4 py-2 text-sm leading-4 border rounded-md shadow-sm
-                                                        ${link.active
-                                                            ? 'bg-indigo-600 text-white border-indigo-600'
-                                                            : 'text-gray-700 bg-white border-gray-300 hover:bg-gray-100 dark:bg-stone-700 dark:border-stone-600 dark:text-stone-100 dark:hover:bg-stone-600'}
-                                                        ${link.url === null
-                                                            ? 'opacity-50 cursor-not-allowed'
-                                                            : 'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'}
-                                                    `}
-                                                    dangerouslySetInnerHTML={{ __html: link.label }}
-                                                    preserveScroll
-                                                    // IMPORTANT: pour les liens de pagination, preserveState: true n'est pas toujours souhaitable
-                                                    // si le backend renvoie un nouvel ensemble de données (ce qui est le cas pour la pagination)
-                                                    // Laissez Inertia gérer le rechargement de la prop 'quotes' via la navigation.
-                                                    // Si vous avez des filtres qui doivent persister, là on utilise `preserveState`.
-                                                />
-                                            </div>
-                                        ))}
-                                    </nav>
-                                )}
+                                {/* Utilisation du composant de pagination réutilisable */}
+                                <InertiaPagination paginationLinks={paginationLinks} />
+
                             </div>
                         )}
                     </div>

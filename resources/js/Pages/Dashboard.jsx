@@ -41,11 +41,11 @@ export default function Dashboard({ auth, canLogin, canRegister, quotes: paginat
             canRegister={canRegister}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    {isAdmin ? "Dashboard Administrateur" : "Bienvenue sur votre Dashboard !"}
+                    {isAdmin ? "Administration de l'épave" : "Bienvenue l'épave !"}
                 </h2>
             }
         >
-            <Head title="Dashboard" />
+            <Head title="L'épave" />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     {/* Message Flash de succès/erreur */}
