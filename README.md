@@ -1,6 +1,5 @@
 # 🐙 Octopus
 
-http://googleusercontent.com/image_generation_content/0
 
 ## 🌊 Plongez dans l'écosystème de la gestion de projets avec Octopus
 
