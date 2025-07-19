@@ -69,7 +69,7 @@ Avant de contribuer, veuillez consulter nos :
 
 ## 📄 Licence
 
-Ce projet est sous licence [Nom de la Licence, par exemple MIT License]. Voir le fichier LICENCE.md pour plus de détails.
+Ce projet est sous licence Fenrir992. Voir le fichier LICENCE.md pour plus de détails.
 
 -----
 
