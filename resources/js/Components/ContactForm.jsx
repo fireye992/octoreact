@@ -122,7 +122,7 @@ export default function ContactForm() {
                                 Où et comment ?
                             </h2>
                             <p className="text-base leading-relaxed mb-9 text-gray-600 dark:text-amber-500">
-                                -Me trouver sur google Maps.
+                                - Me trouver sur google Maps.
                             </p>
 
                             {/* Information de contact - Adresse */}
@@ -152,7 +152,7 @@ export default function ContactForm() {
                                 </div>
                             </div>
                             <p className="text-base leading-relaxed mb-9 text-gray-600 dark:text-amber-500">
-                                -Me contacter pour une séance.
+                                - Me contacter pour une séance.
                             </p>
                             {/* Information de contact - Email */}
                             <div className="flex mb-8 max-w-[370px] w-full">
